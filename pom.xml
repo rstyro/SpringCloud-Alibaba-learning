@@ -24,9 +24,9 @@
 
     <modules>
         <module>springcloud-nacos-discovery-consumer</module>
-        <module>springcloud-nacos-discovery-provider</module>
-        <!--
-        <module>springcloud-nacos-discovery-config-client</module>
+        <module>springcloud-nacos-discovery-provider</module>    
+        <module>springcloud-nacos-config</module>
+		<!--
         <module>springcloud-nacos-discovery-config-server</module>
         -->
     </modules>
