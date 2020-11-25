@@ -1,12 +1,14 @@
 package top.lrshuai.nacos.controller.feign;
 
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import top.lrshuai.nacos.commons.entity.User;
 
-@FeignClient("nacos-provider")
+@FeignClient(name = "nacos-provider",fallbackFactory = MyNacosFallbackFactory.class)
+@Component
 public interface NacosProviderFeignClient {
 
     @GetMapping("/test/sayHi")
