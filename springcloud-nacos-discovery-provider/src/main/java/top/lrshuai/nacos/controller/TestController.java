@@ -1,8 +1,7 @@
 package top.lrshuai.nacos.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import top.lrshuai.nacos.commons.entity.User;
 
 @RequestMapping("/test")
 @RestController
@@ -14,5 +13,11 @@ public class TestController {
         result = result.concat(name);
         System.out.println(result);
         return result;
+    }
+
+    @PostMapping("/setUser")
+    public Object setUser(@RequestBody User user){
+        System.out.println(user.toString());
+        return user;
     }
 }

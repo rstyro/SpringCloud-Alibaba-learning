@@ -1,15 +1,14 @@
 package top.lrshuai.nacos.config;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Component;
 
 /**
  * @author rstyro
  */
-//@RefreshScope
-//@Component
+@RefreshScope
+@Component
 public class UserConfig {
     @Value("${user.name}")
     private String name;

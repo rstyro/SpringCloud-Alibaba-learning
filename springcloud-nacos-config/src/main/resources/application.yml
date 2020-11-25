@@ -1,8 +1,6 @@
 spring:
   profiles:
     active: dev
-  application:
-    name: nacos-provider
   cloud:
     nacos:
       discovery:

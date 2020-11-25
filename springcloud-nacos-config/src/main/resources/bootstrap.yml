@@ -1,12 +1,16 @@
 spring:
   application:
     name: nacos-config
+  profiles:
+    active: dev
   cloud:
     nacos:
 #      server-addr: 127.0.0.1:8848
 #      username: nacos
-#      password: nacos
+#      password: rstyro
       config:
         server-addr: 127.0.0.1:8848
         file-extension: yaml
-        group: dev
+        namespace: aa0e66cf-3907-4944-bed6-7b493ca1eafb
+        username: nacos
+        password: rstyro

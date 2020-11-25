@@ -1,9 +1,8 @@
 package top.lrshuai.nacos.controller.feign;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import top.lrshuai.nacos.commons.entity.User;
 
 /**
  * feign调用
@@ -19,5 +18,11 @@ public class FeignController {
     public String hello(String name){
         String result = nacosProviderFeignClient.sayHi(name);
         return "feign访问provider返回 : " + result;
+    }
+
+    @GetMapping("/setUser")
+    public String hello(@RequestBody User user){
+        User result = nacosProviderFeignClient.setUser(user);
+        return "feign访问provider返回 : " + result.toString();
     }
 }

@@ -26,11 +26,19 @@
         <module>springcloud-nacos-discovery-consumer</module>
         <module>springcloud-nacos-discovery-provider</module>    
         <module>springcloud-nacos-config</module>
+        <module>springcloud-nacos-commons</module>
 		<!--
         <module>springcloud-nacos-discovery-config-server</module>
         -->
     </modules>
 
+    <dependencies>
+        <dependency>
+            <groupId>top.lrshuai.nacos</groupId>
+            <artifactId>springcloud-nacos-commons</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+    </dependencies>
 
     <dependencyManagement>
         <dependencies>
@@ -41,6 +49,7 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+
         </dependencies>
     </dependencyManagement>
 
