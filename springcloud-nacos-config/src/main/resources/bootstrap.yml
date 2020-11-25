@@ -14,3 +14,13 @@ spring:
         namespace: aa0e66cf-3907-4944-bed6-7b493ca1eafb
         username: nacos
         password: rstyro
+        # 共享配置
+        shared-configs[0]:
+          data-id: share-config.yaml
+          group: DEFAULT_GROUP
+          refresh: true
+        # 自定义扩展配置
+        extension-configs[0]:
+          data-id: ext-config.yaml
+          group: DEFAULT_GROUP
+          refresh: true
