@@ -3,6 +3,7 @@ package top.lrshuai.nacos.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,10 +32,18 @@ public class TestController {
     @Autowired
     private ExtensionConfig extensionConfig;
 
+    @Autowired
+    private ConfigurableApplicationContext applicationContext;
+
 
     @GetMapping("/getName")
     public String getName() {
         return this.name;
+    }
+
+    @GetMapping("/getConfig")
+    public String getConfig() {
+        return applicationContext.getEnvironment().getProperty("user.name")+applicationContext.getEnvironment().getProperty("user.age",Integer.class);
     }
 
     @GetMapping("/getUserConfig")

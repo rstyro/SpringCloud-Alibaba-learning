@@ -9,6 +9,7 @@ spring:
         server-addr: 127.0.0.1:8848
         file-extension: yaml
         namespace: aa0e66cf-3907-4944-bed6-7b493ca1eafb
+        group: DEFAULT_GROUP
         username: nacos
         password: rstyro
         # 共享配置

@@ -27,6 +27,8 @@
         <module>springcloud-nacos-discovery-provider</module>    
         <module>springcloud-nacos-config</module>
         <module>springcloud-nacos-commons</module>
+        <module>springcloud-nacos-sentinel</module>
+        <module>springcloud-gateway</module>
 		<!--
         <module>springcloud-nacos-discovery-config-server</module>
         -->
@@ -46,6 +48,14 @@
                 <groupId>com.alibaba.cloud</groupId>
                 <artifactId>spring-cloud-alibaba-dependencies</artifactId>
                 <version>${springcloud-alibaba.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>Hoxton.SR8</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>

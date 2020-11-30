@@ -5,6 +5,7 @@ import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
+import top.lrshuai.nacos.commons.Result;
 import top.lrshuai.nacos.commons.entity.User;
 
 @RequestMapping("/rest")
@@ -16,19 +17,13 @@ public class RestTemplateController {
 
     @GetMapping("/hello")
     public String hello(String name){
-        String result = loadRestTemplate.getForObject("http://nacos-provider/test/sayHi?name="+name, String.class);
-        return "访问provider 返回 : " + result;
-    }
-
-    @GetMapping("/config")
-    public String config(){
-        String result = loadRestTemplate.getForObject("http://nacos-config/config/getUserConfig", String.class);
+        Result result = loadRestTemplate.getForObject("http://nacos-provider/test/sayHi?name="+name, Result.class);
         return "访问provider 返回 : " + result;
     }
 
     @PostMapping("/setUser")
     public String setUser(@RequestBody User user){
-        String result = loadRestTemplate.postForObject("http://nacos-provider/test/setUser", user, String.class);
+        Result result = loadRestTemplate.postForObject("http://nacos-provider/test/setUser", user, Result.class);
         return "访问provider 返回 : " + result;
     }
 
