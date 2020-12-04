@@ -12,4 +12,14 @@ spring:
 feign:
   sentinel:
     enabled: true
+  hystrix:
+    enabled: false
+  client:
+    config:
+      default:
+        #指的是建立连接所用的时间
+        connectTimeout: 2000
+        #指的是建立连接后从服务器读取到可用资源所用的时间
+        readTimeout: 6000
+#        loggerLevel: full
 

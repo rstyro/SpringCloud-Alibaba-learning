@@ -9,8 +9,9 @@ import top.lrshuai.nacos.commons.entity.User;
 public class TestController {
 
     @GetMapping("/sayHi")
-    public Result sayHi(String name){
+    public Result sayHi(String name) throws InterruptedException {
         String result = "hello ";
+//        Thread.sleep(5000l);
         result = result.concat(name);
         System.out.println(result);
         return Result.ok(result);
