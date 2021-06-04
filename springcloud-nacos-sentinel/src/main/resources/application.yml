@@ -1,0 +1,34 @@
+spring:
+  profiles:
+    active: dev
+  application:
+    name: nacos-sentinel
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+        username: nacos
+        password: rstyro
+    sentinel:
+      enabled: true
+      transport:
+        port: 18808
+        dashboard: localhost:8080
+      datasource:
+        ds1:
+          nacos:
+            server-addr: 127.0.0.1:8848
+            username: nacos
+            password: rstyro
+            data-id: my-sentinel
+            group-id: DEFAULT_GROUP
+            data-type: json
+            rule-type: flow
+
+
+
+
+feign:
+  sentinel:
+    enabled: true
+
