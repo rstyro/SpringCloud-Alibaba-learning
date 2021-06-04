@@ -65,7 +65,6 @@ public class MyRequestRateLimiterGatewayFilterFactory extends AbstractGatewayFil
                         if (response.isAllowed()) {
                             return chain.filter(exchange);
                         }
-
                         ServerHttpResponse httpResponse = exchange.getResponse();
                         httpResponse.setStatusCode(config.getStatusCode());
                         httpResponse.getHeaders().add("Content-Type", "application/json;charset=UTF-8");
