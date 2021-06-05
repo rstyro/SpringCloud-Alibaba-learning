@@ -13,6 +13,8 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
         <springcloud-alibaba.version>2.2.3.RELEASE</springcloud-alibaba.version>
+        <alibaba.seata.version>2.2.0.RELEASE</alibaba.seata.version>
+        <seata-spring-boot-starter.version>1.4.2</seata-spring-boot-starter.version>
     </properties>
 
     <parent>
@@ -24,12 +26,13 @@
 
     <modules>
         <module>springcloud-nacos-discovery-consumer</module>
-        <module>springcloud-nacos-discovery-provider</module>    
+        <module>springcloud-nacos-discovery-provider</module>
         <module>springcloud-nacos-config</module>
         <module>springcloud-nacos-commons</module>
         <module>springcloud-nacos-sentinel</module>
         <module>springcloud-gateway</module>
-		<!--
+        <module>springcloud-seata</module>
+        <!--
         <module>springcloud-nacos-discovery-config-server</module>
         -->
     </modules>
@@ -58,6 +61,27 @@
                 <version>Hoxton.SR8</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-seata</artifactId>
+                <version>${alibaba.seata.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>io.seata</groupId>
+                        <artifactId>seata-spring-boot-starter</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <artifactId>seata-all</artifactId>
+                        <groupId>io.seata</groupId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>io.seata</groupId>
+                <artifactId>seata-spring-boot-starter</artifactId>
+                <version>${seata-spring-boot-starter.version}</version>
             </dependency>
 
         </dependencies>
