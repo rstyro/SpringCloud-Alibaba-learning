@@ -18,7 +18,6 @@
 
     <modules>
         <module>springcloud-seata-order</module>
-        <module>springcloud-seata-account</module>
         <module>springcloud-seata-storage</module>
         <module>springcloud-seata-jdbc</module>
         <module>springcloud-seata-user</module>
