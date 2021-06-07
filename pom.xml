@@ -15,6 +15,7 @@
         <springcloud-alibaba.version>2.2.3.RELEASE</springcloud-alibaba.version>
         <alibaba.seata.version>2.2.0.RELEASE</alibaba.seata.version>
         <seata-spring-boot-starter.version>1.4.2</seata-spring-boot-starter.version>
+        <swagger.version>2.9.2</swagger.version>
     </properties>
 
     <parent>
@@ -82,6 +83,25 @@
                 <groupId>io.seata</groupId>
                 <artifactId>seata-spring-boot-starter</artifactId>
                 <version>${seata-spring-boot-starter.version}</version>
+            </dependency>
+
+
+            <!-- swagger2 -->
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger2</artifactId>
+                <version>${swagger.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>mapstruct</artifactId>
+                        <groupId>org.mapstruct</groupId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger-ui</artifactId>
+                <version>${swagger.version}</version>
             </dependency>
 
         </dependencies>

@@ -3,8 +3,10 @@ package top.lrshuai.seata.storage.commodity.feign;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import top.lrshuai.nacos.commons.RemoteResult;
 import top.lrshuai.nacos.commons.Result;
 import top.lrshuai.seata.storage.commons.dto.UpdateCommodityDto;
+import top.lrshuai.seata.storage.commons.entity.Commodity;
 import top.lrshuai.seata.storage.service.commodity.service.ICommodityService;
 
 /**
@@ -17,7 +19,7 @@ import top.lrshuai.seata.storage.service.commodity.service.ICommodityService;
  */
 @RestController
 @RequestMapping("/feign/commodity")
-public class CommodityFeignController {
+public class CommodityFeignController{
 
     private ICommodityService commodityService;
 
@@ -27,12 +29,12 @@ public class CommodityFeignController {
     }
 
     @GetMapping("/info/{code}")
-    public Result get(@PathVariable String code){
-        return Result.ok(commodityService.getCommodityByCode(code));
+    public RemoteResult<Commodity> get(@PathVariable String code){
+        return RemoteResult.data(commodityService.getCommodityByCode(code));
     }
 
     @PostMapping("/update")
-    public Result update(@RequestBody UpdateCommodityDto dto){
-        return Result.ok(commodityService.updateCommodityStock(dto));
+    public RemoteResult<Boolean> update(@RequestBody UpdateCommodityDto dto){
+        return RemoteResult.data(commodityService.updateCommodityStock(dto));
     }
 }

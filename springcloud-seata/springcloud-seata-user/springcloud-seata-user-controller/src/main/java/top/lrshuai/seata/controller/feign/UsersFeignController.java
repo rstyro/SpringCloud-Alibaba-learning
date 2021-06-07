@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import top.lrshuai.nacos.commons.Result;
+import top.lrshuai.nacos.commons.RemoteResult;
 import top.lrshuai.seata.service.user.service.IUsersService;
 
 /**
@@ -29,8 +29,8 @@ public class UsersFeignController {
     }
 
     @GetMapping("/getUserInfo/{userId}")
-    public Result getUserInfo(@PathVariable  Long userId){
-        return Result.ok(usersService.getUserInfo(userId));
+    public RemoteResult getUserInfo(@PathVariable  Long userId){
+        return RemoteResult.data(usersService.getUserInfo(userId));
     }
 
 }

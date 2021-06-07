@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import top.lrshuai.nacos.commons.Result;
 import top.lrshuai.seata.service.user.service.IUsersService;
+import top.lrshuai.seata.user.commons.entity.Users;
 
 /**
  * <p>
@@ -32,4 +33,10 @@ public class UsersController {
     public Result getUserInfo(@PathVariable Long userId){
         return Result.ok(usersService.getUserInfo(userId));
     }
+
+    @GetMapping("/update/{userId}")
+    public Result updateUser(@PathVariable Long userId, Users user){
+        return Result.ok(usersService.updateById(user.setId(userId)));
+    }
+
 }

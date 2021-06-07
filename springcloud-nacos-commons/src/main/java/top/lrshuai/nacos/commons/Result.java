@@ -7,13 +7,13 @@ import java.util.Map;
 public class Result extends HashMap<String, Object> {
 
 	private static final long serialVersionUID = 1L;
-	private static final String STATUS = "status";
-	private static final String MESSAGE = "message";
-	private static final String DATA = "DATA";
+	public static final String STATUS = "status";
+	public static final String MESSAGE = "message";
+	public static final String DATA = "DATA";
 
 	public Result() {
-		put("status", 200);
-		put("message", "ok");
+		put(STATUS, 200);
+		put(MESSAGE, "ok");
 	}
 
 	public static Result error() {
@@ -26,15 +26,15 @@ public class Result extends HashMap<String, Object> {
 
 	public static Result error(String status, String msg) {
 		Result r = new Result();
-		r.put("status", status);
-		r.put("message", msg);
+		r.put(STATUS, status);
+		r.put(MESSAGE, msg);
 		return r;
 	}
 
 	public static Result error(ApiResultEnum resultEnum) {
 		Result r = new Result();
-		r.put("status", resultEnum.getStatus());
-		r.put("message", resultEnum.getMessage());
+		r.put(STATUS, resultEnum.getStatus());
+		r.put(MESSAGE, resultEnum.getMessage());
 		return r;
 	}
 
@@ -45,7 +45,7 @@ public class Result extends HashMap<String, Object> {
 	}
 	public static Result ok(Object data) {
 		Result r = new Result();
-		r.put("data",data);
+		r.put(DATA,data);
 		return r;
 	}
 

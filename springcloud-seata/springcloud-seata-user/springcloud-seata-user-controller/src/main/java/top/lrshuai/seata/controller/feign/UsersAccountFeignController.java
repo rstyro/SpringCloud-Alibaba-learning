@@ -3,7 +3,7 @@ package top.lrshuai.seata.controller.feign;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import top.lrshuai.nacos.commons.Result;
+import top.lrshuai.nacos.commons.RemoteResult;
 import top.lrshuai.seata.service.user.service.IUserAccountService;
 import top.lrshuai.seata.user.commons.dto.UpdateAccountDto;
 
@@ -27,13 +27,13 @@ public class UsersAccountFeignController {
     }
 
     @PostMapping("/operateAccount")
-    public Result getUserInfo(@RequestBody UpdateAccountDto dto){
-        return Result.ok(userAccountService.operateAccount(dto));
+    public RemoteResult getUserInfo(@RequestBody UpdateAccountDto dto){
+        return RemoteResult.data(userAccountService.operateAccount(dto));
     }
 
     @GetMapping("/info/{userId}")
-    public Result getUserInfo(@PathVariable Long userId){
-        return Result.ok(userAccountService.getUserAccount(userId));
+    public RemoteResult getUserInfo(@PathVariable Long userId){
+        return RemoteResult.data(userAccountService.getUserAccount(userId));
     }
 
 }
