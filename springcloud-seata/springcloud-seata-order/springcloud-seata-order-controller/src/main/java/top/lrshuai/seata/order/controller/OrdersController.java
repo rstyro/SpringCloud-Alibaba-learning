@@ -1,6 +1,7 @@
 package top.lrshuai.seata.order.controller;
 
 
+import io.seata.core.exception.TransactionException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,9 +32,21 @@ public class OrdersController {
         this.ordersService = ordersService;
     }
 
-    @ApiOperation("下单")
-    @PostMapping("/pay")
-    public Result test(@RequestBody PayDto dto){
-        return Result.ok(ordersService.payOrder(dto));
+    @ApiOperation("下单1")
+    @PostMapping("/pay1")
+    public Result pay1(@RequestBody PayDto dto){
+        return ordersService.payOrder(dto);
+    }
+
+    @ApiOperation("下单2")
+    @PostMapping("/pay2")
+    public Result pay2(@RequestBody PayDto dto) throws TransactionException {
+        return ordersService.payOrder2(dto);
+    }
+
+    @ApiOperation("下单3")
+    @PostMapping("/pay3")
+    public Result pay3(@RequestBody PayDto dto){
+        return ordersService.payOrder3(dto);
     }
 }
