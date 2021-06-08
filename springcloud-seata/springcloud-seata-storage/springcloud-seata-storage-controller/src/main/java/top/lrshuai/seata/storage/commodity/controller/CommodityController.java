@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import top.lrshuai.nacos.commons.Result;
-import top.lrshuai.seata.storage.service.commodity.service.ICommodityService;
+import top.lrshuai.seata.service.storage.service.ICommodityService;
 
 /**
  * <p>

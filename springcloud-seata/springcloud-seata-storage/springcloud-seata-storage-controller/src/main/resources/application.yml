@@ -30,7 +30,7 @@ mybatis-plus:
   # 配置slq打印日志
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-  type-aliases-package: top.lrshuai.seata.*.entity
+  type-aliases-package: top.lrshuai.seata.commons.*.entity
   #配置逻辑删除
   global-config:
     db-config:

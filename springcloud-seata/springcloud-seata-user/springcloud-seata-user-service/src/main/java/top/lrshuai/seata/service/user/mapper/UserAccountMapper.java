@@ -2,7 +2,7 @@ package top.lrshuai.seata.service.user.mapper;
 
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import top.lrshuai.seata.user.commons.entity.UserAccount;
+import top.lrshuai.seata.commons.user.entity.UserAccount;
 
 /**
  * <p>

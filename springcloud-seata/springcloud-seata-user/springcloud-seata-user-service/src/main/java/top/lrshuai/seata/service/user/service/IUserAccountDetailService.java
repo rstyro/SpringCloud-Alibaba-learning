@@ -2,7 +2,7 @@ package top.lrshuai.seata.service.user.service;
 
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import top.lrshuai.seata.user.commons.entity.UserAccountDetail;
+import top.lrshuai.seata.commons.user.entity.UserAccountDetail;
 
 /**
  * <p>

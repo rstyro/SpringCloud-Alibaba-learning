@@ -6,13 +6,13 @@
 
     <groupId>top.lrshuai.nacos</groupId>
     <artifactId>springcloud-nacos-discovery-consumer</artifactId>
-    <version>1.0-SNAPSHOT</version>
+     <version>1.0.0</version>
     <name>springcloud-nacos-discovery-consumer</name>
 
     <parent>
         <groupId>top.lrshuai.cloud</groupId>
         <artifactId>SpringCloud-Alibaba-learning</artifactId>
-        <version>1.0-SNAPSHOT</version>
+         <version>1.0.0</version>
     </parent>
 
     <dependencies>

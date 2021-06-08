@@ -11,9 +11,9 @@ import top.lrshuai.nacos.commons.utils.ErrorUtils;
 import top.lrshuai.seata.service.user.mapper.UserAccountMapper;
 import top.lrshuai.seata.service.user.service.IUserAccountDetailService;
 import top.lrshuai.seata.service.user.service.IUserAccountService;
-import top.lrshuai.seata.user.commons.dto.UpdateAccountDto;
-import top.lrshuai.seata.user.commons.entity.UserAccount;
-import top.lrshuai.seata.user.commons.entity.UserAccountDetail;
+import top.lrshuai.seata.commons.user.dto.UpdateAccountDto;
+import top.lrshuai.seata.commons.user.entity.UserAccount;
+import top.lrshuai.seata.commons.user.entity.UserAccountDetail;
 
 import java.math.BigDecimal;
 
@@ -61,6 +61,7 @@ public class UserAccountServiceImpl extends ServiceImpl<UserAccountMapper, UserA
         if(this.updateById(userAccount)){
             // 成功更新余额，添加账户明细表
             userAccountDetail.setAfterBalance(userAccount.getBalance())
+                    .setUserId(dto.getUserId())
                     .setAmount(dto.getAmount())
                     .setIncome(dto.getIsIncome())
                     .setSource(dto.getSource());

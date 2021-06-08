@@ -11,7 +11,7 @@
     <parent>
         <groupId>top.lrshuai.cloud</groupId>
         <artifactId>SpringCloud-Alibaba-learning</artifactId>
-        <version>1.0-SNAPSHOT</version>
+         <version>1.0.0</version>
         <relativePath>../../../pom.xml</relativePath>
     </parent>
 
@@ -37,7 +37,7 @@
         <dependency>
             <groupId>top.lrshuai.seata</groupId>
             <artifactId>springcloud-seata-jdbc</artifactId>
-            <version>1.0-SNAPSHOT</version>
+             <version>1.0.0</version>
         </dependency>
 
         <dependency>
@@ -56,8 +56,13 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <encoding>UTF-8</encoding>
+                </configuration>
             </plugin>
         </plugins>
     </build>

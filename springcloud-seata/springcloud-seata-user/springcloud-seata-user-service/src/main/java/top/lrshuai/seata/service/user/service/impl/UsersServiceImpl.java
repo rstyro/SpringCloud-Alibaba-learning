@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 import top.lrshuai.seata.service.user.mapper.UsersMapper;
 import top.lrshuai.seata.service.user.service.IUsersService;
-import top.lrshuai.seata.user.commons.entity.Users;
+import top.lrshuai.seata.commons.user.entity.Users;
 
 /**
  * <p>

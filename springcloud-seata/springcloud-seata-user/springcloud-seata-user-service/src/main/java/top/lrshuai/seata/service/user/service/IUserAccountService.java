@@ -2,8 +2,8 @@ package top.lrshuai.seata.service.user.service;
 
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import top.lrshuai.seata.user.commons.dto.UpdateAccountDto;
-import top.lrshuai.seata.user.commons.entity.UserAccount;
+import top.lrshuai.seata.commons.user.dto.UpdateAccountDto;
+import top.lrshuai.seata.commons.user.entity.UserAccount;
 
 /**
  * <p>

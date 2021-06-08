@@ -4,10 +4,9 @@ package top.lrshuai.seata.storage.commodity.feign;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import top.lrshuai.nacos.commons.RemoteResult;
-import top.lrshuai.nacos.commons.Result;
-import top.lrshuai.seata.storage.commons.dto.UpdateCommodityDto;
-import top.lrshuai.seata.storage.commons.entity.Commodity;
-import top.lrshuai.seata.storage.service.commodity.service.ICommodityService;
+import top.lrshuai.seata.commons.storage.dto.UpdateCommodityDto;
+import top.lrshuai.seata.commons.storage.entity.Commodity;
+import top.lrshuai.seata.service.storage.service.ICommodityService;
 
 /**
  * <p>
