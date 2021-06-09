@@ -40,7 +40,7 @@ public class UserAccount implements Serializable {
      */
     private BigDecimal freezeAmount;
 
-    @Version
+//    @Version
     private Long version;
 
 //    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
