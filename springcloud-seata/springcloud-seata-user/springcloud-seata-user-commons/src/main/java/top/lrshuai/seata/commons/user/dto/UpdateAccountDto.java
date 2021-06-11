@@ -21,4 +21,6 @@ public class UpdateAccountDto implements Serializable {
     private Boolean isIncome;
     @NotEmpty(message = "source不能为空")
     private Integer source;
+
+    private String orderNumber;
 }

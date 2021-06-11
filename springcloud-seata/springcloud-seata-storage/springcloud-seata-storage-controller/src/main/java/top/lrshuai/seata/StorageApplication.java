@@ -7,7 +7,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.ComponentScans;
 
+@ComponentScans(value = {
+        @ComponentScan(value="top.lrshuai.cloud.commons.**")
+})
 @MapperScans(value = {
         @MapperScan(value = "top.lrshuai.seata.service.*.mapper*")
 })

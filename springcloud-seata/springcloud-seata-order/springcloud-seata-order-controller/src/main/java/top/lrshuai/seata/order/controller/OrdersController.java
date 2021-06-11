@@ -5,6 +5,7 @@ import io.seata.core.exception.TransactionException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 import top.lrshuai.nacos.commons.Result;
 import top.lrshuai.seata.commons.order.dto.PayDto;
 import top.lrshuai.seata.service.order.service.IOrdersService;
+
+import javax.validation.Valid;
 
 /**
  * <p>
@@ -24,6 +27,7 @@ import top.lrshuai.seata.service.order.service.IOrdersService;
 @Api(tags = "订单相关")
 @RestController
 @RequestMapping("/order/orders")
+@Validated
 public class OrdersController {
 
     private IOrdersService ordersService;
@@ -34,19 +38,19 @@ public class OrdersController {
 
     @ApiOperation("下单1")
     @PostMapping("/pay1")
-    public Result pay1(@RequestBody PayDto dto){
+    public Result pay1(@RequestBody @Valid PayDto dto){
         return ordersService.payOrder(dto);
     }
 
     @ApiOperation("下单2")
     @PostMapping("/pay2")
-    public Result pay2(@RequestBody PayDto dto) throws TransactionException {
+    public Result pay2(@RequestBody @Valid PayDto dto) throws TransactionException {
         return ordersService.payOrder2(dto);
     }
 
     @ApiOperation("下单3")
     @PostMapping("/pay3")
-    public Result pay3(@RequestBody PayDto dto){
+    public Result pay3(@RequestBody @Valid PayDto dto){
         return ordersService.payOrder3(dto);
     }
 }

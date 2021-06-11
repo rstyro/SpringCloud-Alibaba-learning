@@ -64,7 +64,8 @@ public class UserAccountServiceImpl extends ServiceImpl<UserAccountMapper, UserA
                     .setUserId(dto.getUserId())
                     .setAmount(dto.getAmount())
                     .setIncome(dto.getIsIncome())
-                    .setSource(dto.getSource());
+                    .setSource(dto.getSource())
+            .setOrderNumber(dto.getOrderNumber());
             return userAccountDetailService.save(userAccountDetail);
         }else{
             ErrorUtils.err(ApiResultEnum.ACCOUNT_UPDATE_ERROR);

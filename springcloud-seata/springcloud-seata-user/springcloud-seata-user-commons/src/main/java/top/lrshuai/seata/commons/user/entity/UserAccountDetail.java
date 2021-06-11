@@ -53,6 +53,8 @@ public class UserAccountDetail implements Serializable {
      */
     private Integer source;
 
+    private String orderNumber;
+
     /**
      * 是否是收入：1--是收入，0--支出
      */

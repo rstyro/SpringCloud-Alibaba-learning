@@ -10,10 +10,9 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ComponentScans;
 
-//@ComponentScans(value = {
-//        @ComponentScan(value="top.lrshuai.seata.service.*"),
-//        @ComponentScan(value="top.lrshuai.seata.order.controller.*")
-//})
+@ComponentScans(value = {
+        @ComponentScan(value="top.lrshuai.cloud.commons.**")
+})
 @MapperScans(value = {
         @MapperScan(value = "top.lrshuai.seata.service.*.mapper*")
 })

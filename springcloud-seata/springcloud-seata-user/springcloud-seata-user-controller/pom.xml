@@ -68,6 +68,12 @@
             <artifactId>springfox-swagger-ui</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>top.lrshuai.cloud</groupId>
+            <artifactId>springcloud-web-commons</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
     </dependencies>
 
 

@@ -36,6 +36,7 @@
         <module>springcloud-nacos-sentinel</module>
         <module>springcloud-gateway</module>
         <module>springcloud-seata</module>
+        <module>springcloud-web-commons</module>
         <!--
         <module>springcloud-nacos-discovery-config-server</module>
         -->

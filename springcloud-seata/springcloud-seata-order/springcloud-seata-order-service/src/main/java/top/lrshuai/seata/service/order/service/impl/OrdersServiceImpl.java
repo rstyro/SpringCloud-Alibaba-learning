@@ -64,10 +64,12 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
             ErrorUtils.err(ApiResultEnum.ERROR);
         }
         Commodity commodity = commodityInfo.getData();
+        String orderNumber = IdUtil.getRandomUUID();
         // 总金额
         BigDecimal totalPay = commodity.getMoney().multiply(new BigDecimal(dto.getCount().toString()));
         // 扣除余额
-        RemoteResult result1 = userAccountFeign.operateAccount(new UpdateAccountDto().setAmount(totalPay).setIsIncome(Boolean.FALSE).setSource(1).setUserId(dto.getUserId()));
+        RemoteResult result1 = userAccountFeign.operateAccount(new UpdateAccountDto().setAmount(totalPay)
+                .setIsIncome(Boolean.FALSE).setSource(1).setUserId(dto.getUserId()).setOrderNumber(orderNumber));
         if (!result1.ok()) {
             ErrorUtils.err(ApiResultEnum.ERROR);
         }
@@ -78,7 +80,7 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
         }
         Orders orders = new Orders().setCommoditysCode(dto.getCommodityCode())
                 .setCount(dto.getCount()).setUserId(dto.getUserId())
-                .setMoney(totalPay).setOderNumber(IdUtil.getRandomUUID());
+                .setMoney(totalPay).setOderNumber(orderNumber);
         // 新增订单
         this.save(orders);
         return Result.ok(orders);
