@@ -129,6 +129,7 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
     }
 
     @Override
+    @GlobalTransactional(rollbackFor = Exception.class)
     public Result payOrder3(PayDto dto) {
         log.info("全局事务xid={}", RootContext.getXID());
         // 获取商品信息
