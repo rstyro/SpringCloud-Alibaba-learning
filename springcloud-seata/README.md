@@ -281,12 +281,7 @@ end
 + 所以两种外观上很相似
 
 **与2PC的不同点：**
-+ ①、2PC和3PC都是数据库层面的操作，对于开发人员无感知；而TCC是业务层的操作，对开发人员来说具有较高的开发成本。
-	+ 比如2PC的一阶段是prepare事务，也就是预提交事务但是对资源的更新并没有执行(记录再日志文件等待二阶段提交或回滚)，开发者对资源都是单一的更新操作
-	+ 而TCC,它的一阶段是资源预留阶段，开发者需要从业务方面来考虑如何把资源预留出来。
-	+ 比如：现在A有100元，给B转账20元，那么我们需要把20元这个资源预留出来，不给其他的事务使用，所以一阶段Try要把A账户冻结20元。可用余额变为80元.
-	+ 如果二阶段是Confirm的话，就把A冻结置为0，然后给B的账户加上20元。如果二阶段是Cancel,那就释放A的冻结数量到余额即可。
-	+ 所以TCC需要开发者去实现`Try`、`Confirm`、`Cancel` 这3个接口,代码侵入性强
++ ①、2PC和3PC是资源层面的分布式事务，强一致性，在两阶段提交的整个过程中，一直会持有资源的锁。TCC是业务层面的分布式事务，最终一致性，不会一直持有资源的锁。
 + ②、TCC使用了加锁粒度较小的柔性事务（保证了最终一致性，并没有遵循ACID的原则包在一个大的事务中整体进行原子性的提交。而是变成各自独立应用处理的小事务分开处理。因此也无法保证在同一时刻各个数据源的数据是对应的（强一致性））。
 	+ 而2PC属于强一致性的事务，在一个大的事务中要么都成功要么都回滚。
 
@@ -642,9 +637,6 @@ public Result payOrder3(PayDto dto) {
 	log.info("全局事务xid={}", RootContext.getXID());
 	// todo ...
 
-	/**
-	 * 扣除库存这里不走全局事务，如果失败，照样进行
-	 */
 	// 解绑全局事务ID,不受全局事务影响，报错也不会回滚
 	String unbind = RootContext.unbind();
 	try{
@@ -666,6 +658,17 @@ public Result payOrder3(PayDto dto) {
 + 如上 扣除库存 这个操作就不受全局事务管理，不管它是失败还是成功，都不会对全局事务有任何影响。
 + 调用：`RootContext.unbind()` 解绑事务，和绑定事务：`RootContext.bind(unbind)`
 
+#### 5、启动应用
++ 排除默认的数据源自动装配`DataSourceAutoConfiguration`.
+
+```
+@SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
+public class UserApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(UserApplication.class, args);
+    }
+}
+```
 
 ### 四、seata使用配置中心
 + 如上的配置是写在配置文件的，没法动态修改
