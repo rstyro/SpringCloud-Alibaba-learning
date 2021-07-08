@@ -19,14 +19,16 @@
         <openfeign.version>2.2.3.RELEASE</openfeign.version>
         <mybatisplus.version>3.1.0</mybatisplus.version>
         <springboot.version>2.3.2.RELEASE</springboot.version>
+        <xxl.job.version>2.3.0</xxl.job.version>
+        <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
     </properties>
 
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.3.2.RELEASE</version>
-        <relativePath/>
-    </parent>
+<!--    <parent>-->
+<!--        <groupId>org.springframework.boot</groupId>-->
+<!--        <artifactId>spring-boot-starter-parent</artifactId>-->
+<!--        <version>2.3.2.RELEASE</version>-->
+<!--        <relativePath/>-->
+<!--    </parent>-->
 
     <modules>
         <module>springcloud-nacos-discovery-consumer</module>
@@ -37,6 +39,7 @@
         <module>springcloud-gateway</module>
         <module>springcloud-seata</module>
         <module>springcloud-web-commons</module>
+        <module>springcloud-scheduled</module>
         <!--
         <module>springcloud-nacos-discovery-config-server</module>
         -->
@@ -52,6 +55,17 @@
 
     <dependencyManagement>
         <dependencies>
+
+            <dependency>
+                <!-- 默认springboot 版本依赖 -->
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${springboot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+
             <dependency>
                 <groupId>com.alibaba.cloud</groupId>
                 <artifactId>spring-cloud-alibaba-dependencies</artifactId>
@@ -132,20 +146,38 @@
                 <version>${springboot.version}</version>
             </dependency>
 
+            <!-- xxl-job -->
+            <dependency>
+                <groupId>com.xuxueli</groupId>
+                <artifactId>xxl-job-core</artifactId>
+                <version>${xxl.job.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
     <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                    <encoding>UTF-8</encoding>
-                </configuration>
-            </plugin>
-        </plugins>
+
+        <!--插件管理-->
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${maven-compiler-plugin.version}</version>
+                    <configuration>
+                        <source>1.8</source>
+                        <target>1.8</target>
+                    </configuration>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <version>${springboot.version}</version>
+                </plugin>
+
+            </plugins>
+        </pluginManagement>
     </build>
 </project>

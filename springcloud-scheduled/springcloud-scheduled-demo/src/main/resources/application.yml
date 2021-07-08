@@ -1,0 +1,23 @@
+server:
+  port: 8861
+
+xxl:
+  job:
+    # 执行器通讯TOKEN [选填]：非空时启用；
+    accessToken: rstyro
+    admin:
+      # 调度中心部署跟地址 [选填]：如调度中心集群部署存在多个地址则用逗号分隔
+      addresses: http://127.0.0.1:8860/xxl-job-admin
+    executor:
+      # [选填] 与调度中心通信的地址，默认 ip:port
+      address: http://127.0.0.1:8862/
+      # 执行器名称：appName
+      appname: springcloud-scheduled-demo
+      # 执行器IP [选填]：默认为空表示自动获取IP，多网卡时可手动设置指定IP，该IP不会绑定Host仅作为通讯实用；地址信息用于 "执行器注册" 和 "调度中心请求并触发任务"
+      ip: 127.0.0.1
+      # 执行器端口号 [选填]：小于等于0则自动获取；默认端口为9999
+      port: 8862
+      logpath: /data/applogs/xxl-job/jobhandler
+      # 执行器日志文件保存天数 [选填] ： 过期日志自动清理, 限制值大于等于3时生效; 否则, 如-1, 关闭自动清理功能；
+      logretentiondays: 30
+
