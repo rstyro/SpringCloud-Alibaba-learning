@@ -16,18 +16,18 @@ spring:
   sleuth:
     web:
       client:
+        # 是否启用 webClient
         enabled: true
     sampler:
       probability: 1.0 # 采用比例，默认 0.1 全部采样 1.0
   zipkin:
     enabled: true
-    base-url: http://192.168.135.1:9411/ # 指定了Zipkin服务器的地址
+    base-url: http://127.0.0.1:9411/ # 指定了Zipkin服务器的地址
+    # 不注册成一个服务
     discoveryClientEnabled: false
     sender:
-      #  数据传输方式，web 表示以 HTTP 报文的形式向服务端发送数据
+      #  数据传输方式，web 表示以 HTTP 报文的形式向服务端发送数据，还有kafka 、ActiveMQ 等
       type: web
-    service:
-      name: ${spring.application.name}
 
 # 查看sleuth详细日志
 logging:

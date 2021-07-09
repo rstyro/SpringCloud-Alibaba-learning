@@ -22,8 +22,6 @@ spring:
     discoveryClientEnabled: false
     sender:
       type: web
-    service:
-      name: ${spring.application.name}
 
 feign:
   sentinel:
