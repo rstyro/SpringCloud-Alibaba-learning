@@ -1,8 +1,9 @@
+server:
+  port: 8870
+
 spring:
-  profiles:
-    active: dev
   application:
-    name: nacos-provider
+    name: sleuth-demo
   cloud:
     nacos:
       discovery:
@@ -10,7 +11,8 @@ spring:
         username: nacos
         password: nacos
 
-  # 调用链 Sleuth + ZipKin
+
+# 调用链 Sleuth + ZipKin
   sleuth:
     web:
       client:
@@ -22,6 +24,12 @@ spring:
     base-url: http://192.168.135.1:9411/ # 指定了Zipkin服务器的地址
     discoveryClientEnabled: false
     sender:
+      #  数据传输方式，web 表示以 HTTP 报文的形式向服务端发送数据
       type: web
     service:
       name: ${spring.application.name}
+
+# 查看sleuth详细日志
+logging:
+  level:
+    org.springframework.cloud.sleuth: debug
