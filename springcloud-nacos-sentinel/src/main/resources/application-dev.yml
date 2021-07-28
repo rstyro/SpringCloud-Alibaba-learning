@@ -1,2 +1,8 @@
 server:
   port: 8840
+
+# 服务启动直接建立心跳连接,访问sentinel 控制台就可以看到服务连接情况，不需要第一次访问应用的某个接口，才连接sentinel。
+spring:
+  cloud:
+    sentinel:
+      eager: true

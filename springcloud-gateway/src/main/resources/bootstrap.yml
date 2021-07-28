@@ -9,16 +9,16 @@ spring:
     active: dev
   cloud:
     nacos:
-#      config:
-#        server-addr: 127.0.0.1:8848
-#        file-extension: yaml
-#        group: DEFAULT_GROUP
-#        username: nacos
-#        password: rstyro
+      config:
+        server-addr: 127.0.0.1:8848
+        file-extension: yaml
+        group: DEFAULT_GROUP
+        username: nacos
+        password: nacos
       discovery:
         server-addr: 127.0.0.1:8848
         username: nacos
-        password: rstyro
+        password: nacos
 #  # 网关配置在nacos中配置
     gateway:
       enabled: true
@@ -26,30 +26,37 @@ spring:
         locator:
           enabled: true #表明gateway开启服务注册和发现的功能，并且spring cloud gateway自动根据服务发现为每一个服务创建了一个router，这个router将以服务名开头的请求路径转发到对应的服务。
           lower-case-service-id: true #是将请求路径上的服务名配置为小写
-      routes:
-        - id: provider
-          uri: lb://nacos-provider
-          predicates:
-            - Path=/provider/**
-          filters:
-            # StripPrefix 数字表示要截断的路径的数量
-            - StripPrefix=1
-        - id: consumer
-          uri: lb://nacos-consumer
-          predicates:
-            - Path=/consumer/**
-          filters:
-            - name: MyRequestRateLimiter
-              args:
-                # 令牌桶每秒填充平均速率
-                redis-rate-limiter.replenishRate: 1
-                # 令牌桶的上限
-                redis-rate-limiter.burstCapacity: 2
-                # 使用SpEL表达式从Spring容器中获取Bean对象
-                key-resolver: "#{@pathKeyResolver}"
-            - StripPrefix=1
+#      routes:
+#        - id: provider
+#          uri: lb://nacos-provider
+#          predicates:
+#            - Path=/provider/**
+#          filters:
+#            # StripPrefix 数字表示要截断的路径的数量
+#            - StripPrefix=1
+#        - id: consumer
+#          uri: lb://nacos-consumer
+#          predicates:
+#            - Path=/consumer/**
+#          filters:
+#            - name: MyRequestRateLimiter
+#              args:
+#                # 令牌桶每秒填充平均速率
+#                redis-rate-limiter.replenishRate: 1
+#                # 令牌桶的上限
+#                redis-rate-limiter.burstCapacity: 2
+#                # 使用SpEL表达式从Spring容器中获取Bean对象
+#                key-resolver: "#{@pathKeyResolver}"
+#            - StripPrefix=1
 
 
+# 动态路由配置
+route:
+  dynamic:
+    enabled: true
+    namespace:
+    dataId: gateway_route
+    group: DEFAULT_GROUP
 
 
 # 日志追踪
