@@ -56,6 +56,8 @@ public class DynamicGatewayRouteConfig implements ApplicationEventPublisherAware
 
     private RouteDefinitionWriter routeDefinitionWriter;
 
+    private final long timeoutMs=5000;
+
     @Autowired
     public void setRouteDefinitionWriter(RouteDefinitionWriter routeDefinitionWriter) {
         this.routeDefinitionWriter = routeDefinitionWriter;
@@ -63,7 +65,7 @@ public class DynamicGatewayRouteConfig implements ApplicationEventPublisherAware
 
     private ApplicationEventPublisher applicationEventPublisher;
 
-    private static final List<String> ROUTE_LIST = new ArrayList<String>();
+    private static final List<String> ROUTES = new ArrayList<String>();
 
     @PostConstruct
     public void dynamicRouteByNacosListener() {
@@ -77,14 +79,12 @@ public class DynamicGatewayRouteConfig implements ApplicationEventPublisherAware
                 // 参考官网：https://nacos.io/zh-cn/docs/sdk.html
                 ConfigService configService = NacosFactory.createConfigService(properties);
                 // 程序首次启动, 并加载初始化路由配置
-                String initConfigInfo = configService.getConfig(dataId, group, 5000);
-                System.out.println("init="+initConfigInfo);
-                addAndPublishBatchRoute(initConfigInfo);
-
+                String initConfigInfo = configService.getConfig(dataId, group, timeoutMs);
+                batchAddOrUpdateRouteAndPublish(initConfigInfo);
                 configService.addListener(dataId, group, new Listener() {
                     @Override
                     public void receiveConfigInfo(String configInfo) {
-                        addAndPublishBatchRoute(configInfo);
+                        batchAddOrUpdateRouteAndPublish(configInfo);
                     }
 
                     @Override
@@ -103,10 +103,10 @@ public class DynamicGatewayRouteConfig implements ApplicationEventPublisherAware
      * 清空所有路由
      */
     private void clearRoute() {
-        for(String id : ROUTE_LIST) {
+        for(String id : ROUTES) {
             this.routeDefinitionWriter.delete(Mono.just(id)).subscribe();
         }
-        ROUTE_LIST.clear();
+        ROUTES.clear();
     }
 
     /**
@@ -115,14 +115,14 @@ public class DynamicGatewayRouteConfig implements ApplicationEventPublisherAware
      */
     private void addRoute(RouteDefinition definition) {
         routeDefinitionWriter.save(Mono.just(definition)).subscribe();
-        ROUTE_LIST.add(definition.getId());
+        ROUTES.add(definition.getId());
     }
 
     /**
-     * 批量 添加及发布 路由
+     * 批量添加或更新路由，及发布 路由
      * @param configInfo 配置文件字符串, 必须为json array格式
      */
-    private void addAndPublishBatchRoute(String configInfo) {
+    private void batchAddOrUpdateRouteAndPublish(String configInfo) {
         try {
             clearRoute();
             List<RouteDefinition> gatewayRouteDefinitions = JSONObject.parseArray(configInfo, RouteDefinition.class);
