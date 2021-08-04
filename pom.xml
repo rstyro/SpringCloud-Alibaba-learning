@@ -21,6 +21,7 @@
         <springboot.version>2.3.2.RELEASE</springboot.version>
         <xxl.job.version>2.3.0</xxl.job.version>
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+        <shiro-spring.version>1.7.1</shiro-spring.version>
     </properties>
 
 <!--    <parent>-->
@@ -41,6 +42,7 @@
         <module>springcloud-web-commons</module>
         <module>springcloud-scheduled</module>
         <module>springcloud-sleuth</module>
+        <module>springcloud-shiro</module>
         <!--
         <module>springcloud-nacos-discovery-config-server</module>
         -->
@@ -152,6 +154,12 @@
                 <groupId>com.xuxueli</groupId>
                 <artifactId>xxl-job-core</artifactId>
                 <version>${xxl.job.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.shiro</groupId>
+                <artifactId>shiro-spring-boot-starter</artifactId>
+                <version>${shiro-spring.version}</version>
             </dependency>
 
         </dependencies>

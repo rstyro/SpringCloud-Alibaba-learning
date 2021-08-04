@@ -23,3 +23,7 @@ spring:
     discoveryClientEnabled: false
     sender:
       type: web
+
+rstyro:
+  shiro:
+    enabled: true

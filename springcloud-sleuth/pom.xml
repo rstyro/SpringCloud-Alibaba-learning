@@ -9,7 +9,6 @@
 	</parent>
 	<groupId>top.lrshuai</groupId>
 	<artifactId>springcloud-sleuth</artifactId>
-	<version>${parent.version}</version>
 	<name>springcloud-sleuth</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>

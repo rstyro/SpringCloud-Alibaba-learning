@@ -1,5 +1,6 @@
 package top.lrshuai.nacos.controller;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.web.bind.annotation.*;
 import top.lrshuai.nacos.commons.Result;
 import top.lrshuai.nacos.commons.entity.User;
@@ -9,6 +10,7 @@ import top.lrshuai.nacos.commons.entity.User;
 public class TestController {
 
     @GetMapping("/sayHi")
+    @RequiresPermissions("user:list")
     public Result sayHi(String name) throws InterruptedException {
         String result = "hello ";
 //        Thread.sleep(5000l);

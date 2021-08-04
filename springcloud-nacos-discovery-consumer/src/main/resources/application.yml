@@ -37,3 +37,12 @@ feign:
         readTimeout: 6000
 #        loggerLevel: full
 
+
+rstyro:
+  shiro:
+    enabled: true
+
+
+logging:
+  level:
+    org.apache.shiro: debug

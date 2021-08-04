@@ -16,6 +16,7 @@ public class FeignController {
     NacosProviderFeignClient nacosProviderFeignClient;
 
     @GetMapping("/hello")
+//    @RequiresPermissions("user:list")
     public Result hello(String name){
         Result result = nacosProviderFeignClient.sayHi(name);
         System.out.println("feign访问provider返回 : "+result);
