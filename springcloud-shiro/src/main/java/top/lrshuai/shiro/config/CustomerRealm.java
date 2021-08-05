@@ -8,6 +8,7 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.springframework.util.ObjectUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,8 +38,8 @@ public class CustomerRealm extends AuthorizingRealm {
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
         String token = (String) principals.getPrimaryPrincipal();
         System.out.println("授权token：" + token);
+        SimpleAuthorizationInfo simpleAuthenticationInfo = new SimpleAuthorizationInfo();
         if("rstyro".equals(token)){
-            SimpleAuthorizationInfo simpleAuthenticationInfo = new SimpleAuthorizationInfo();
             // 给用户添加角色
             simpleAuthenticationInfo.addRole("user");
             simpleAuthenticationInfo.addRole("admin");
@@ -50,7 +51,14 @@ public class CustomerRealm extends AuthorizingRealm {
             permissions.add("user:del");
             simpleAuthenticationInfo.addStringPermissions(permissions);
             return simpleAuthenticationInfo;
-
+        }else if("user".equals(token)){
+            // 给用户添加角色
+            simpleAuthenticationInfo.addRole("user");
+            // 添加菜单权限
+            List<String> permissions = new ArrayList<>();
+            permissions.add("user:list");
+            simpleAuthenticationInfo.addStringPermissions(permissions);
+            return simpleAuthenticationInfo;
         }
         return null;
     }
@@ -64,7 +72,8 @@ public class CustomerRealm extends AuthorizingRealm {
      */
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
         String loginToken = (String) token.getPrincipal();
-        if("rstyro".equals(loginToken)){
+//        if("rstyro".equals(loginToken)){
+        if(!ObjectUtils.isEmpty(loginToken)){
             SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(token.getPrincipal(), token.getCredentials(), this.getName());
             return simpleAuthenticationInfo;
         }

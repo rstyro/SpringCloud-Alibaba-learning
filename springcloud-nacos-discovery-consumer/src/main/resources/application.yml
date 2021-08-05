@@ -9,6 +9,11 @@ spring:
         server-addr: 127.0.0.1:8848
         username: nacos
         password: nacos
+    sentinel:
+      enabled: true
+      transport:
+        port: 18808
+        dashboard: localhost:8080
   # 调用链 Sleuth + ZipKin
   sleuth:
     web:
@@ -35,13 +40,14 @@ feign:
         connectTimeout: 2000
         #指的是建立连接后从服务器读取到可用资源所用的时间
         readTimeout: 6000
-#        loggerLevel: full
+        loggerLevel: full
 
-
-rstyro:
-  shiro:
-    enabled: true
-
+# 关闭shiro的 ShiroAnnotationProcessorAutoConfiguration 中的DefaultAdvisorAutoProxyCreator，不需要增强2次，防止出现404
+shiro:
+  annotations:
+    enabled: false
+    # 是否启动shiro
+  enabled: true
 
 logging:
   level:

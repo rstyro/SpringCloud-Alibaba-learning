@@ -1,11 +1,13 @@
 package top.lrshuai.cloud.commons.exception;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.shiro.authz.AuthorizationException;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import top.lrshuai.nacos.commons.ApiResultEnum;
 import top.lrshuai.nacos.commons.Result;
 
 import javax.validation.ConstraintViolation;
@@ -43,6 +45,15 @@ public class GlobalExceptionHandlerAdvice {
         }
         log.error(e.getMessage(),e);
         return Result.error(e.getMessage());
+    }
+
+    /**
+     * 默认异常
+     */
+    @ExceptionHandler(value = AuthorizationException.class)
+    public Result authorityException(Exception e) {
+        log.error("系统异常:" + e.getMessage(), e);
+        return Result.error(ApiResultEnum.AUTH_ERR);
     }
 
     /**

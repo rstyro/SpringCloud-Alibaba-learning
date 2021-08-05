@@ -27,3 +27,7 @@ spring:
 rstyro:
   shiro:
     enabled: true
+shiro:
+  enabled: true
+  annotations:
+    enabled: false

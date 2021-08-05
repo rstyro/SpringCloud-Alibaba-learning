@@ -3,6 +3,7 @@ package top.lrshuai.nacos.commons;
 public enum ApiResultEnum {
 	SUCCESS("200","ok"),
 	FAILED("400","请求失败"),
+	AUTH_ERR("403","权限不足"),
 	ERROR("500","服务繁忙"),
 
 	ACCOUNT_INSUFFICIENT_BALANCE("10000","余额不足"),
