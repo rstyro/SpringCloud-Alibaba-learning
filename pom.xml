@@ -23,6 +23,8 @@
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
         <shiro-spring.version>1.7.1</shiro-spring.version>
         <shiro.version>1.7.1</shiro.version>
+        <!-- 修改版本，低于这个版本的有 远程代码执行漏洞（CVE-2021-42550） -->
+        <logback.version>1.2.9</logback.version>
     </properties>
 
 <!--    <parent>-->
