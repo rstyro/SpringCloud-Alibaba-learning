@@ -15,11 +15,13 @@ spring:
         group: DEFAULT_GROUP
         username: nacos
         password: nacos
+        namespace: 94455b2a-cf66-40b5-819b-bba352aaa4f1
       discovery:
         server-addr: 127.0.0.1:8848
         username: nacos
         password: nacos
-#  # 网关配置在nacos中配置
+        namespace: 94455b2a-cf66-40b5-819b-bba352aaa4f1
+    #  # 网关配置在nacos中配置
     gateway:
       enabled: true
       discovery:
@@ -54,7 +56,7 @@ spring:
 route:
   dynamic:
     enabled: true
-    namespace:
+    namespace: 94455b2a-cf66-40b5-819b-bba352aaa4f1
     dataId: gateway_route
     group: DEFAULT_GROUP
 
