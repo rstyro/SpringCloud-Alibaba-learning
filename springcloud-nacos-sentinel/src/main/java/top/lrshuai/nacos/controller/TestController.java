@@ -1,16 +1,17 @@
 package top.lrshuai.nacos.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import top.lrshuai.nacos.service.TestService;
 
+import javax.annotation.Resource;
+
 @RequestMapping("/sentinel")
 @RestController
 public class TestController {
 
-    @Autowired
+    @Resource
     private TestService testService;
 
     @GetMapping("/sayHi")
@@ -22,6 +23,5 @@ public class TestController {
     public String remoteSayHi(String name){
         return testService.remoteSayHi(name);
     }
-
 
 }
