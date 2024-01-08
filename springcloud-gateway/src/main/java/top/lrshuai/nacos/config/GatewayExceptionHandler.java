@@ -21,7 +21,7 @@ import top.lrshuai.nacos.commons.Result;
 /**
  * 网关统一异常处理
  *
- * @author wxm
+ * @author rstyro
  */
 @Order(-1)
 @Configuration
