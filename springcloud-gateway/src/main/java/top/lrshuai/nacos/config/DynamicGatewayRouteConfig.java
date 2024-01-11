@@ -1,7 +1,6 @@
 package top.lrshuai.nacos.config;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSON;
 import com.alibaba.nacos.api.NacosFactory;
 import com.alibaba.nacos.api.config.ConfigService;
 import com.alibaba.nacos.api.config.listener.Listener;
@@ -125,7 +124,7 @@ public class DynamicGatewayRouteConfig implements ApplicationEventPublisherAware
     private void batchAddOrUpdateRouteAndPublish(String configInfo) {
         try {
             clearRoute();
-            List<RouteDefinition> gatewayRouteDefinitions = JSONObject.parseArray(configInfo, RouteDefinition.class);
+            List<RouteDefinition> gatewayRouteDefinitions = JSON.parseArray(configInfo, RouteDefinition.class);
             for (RouteDefinition routeDefinition : gatewayRouteDefinitions) {
                 addRoute(routeDefinition);
             }

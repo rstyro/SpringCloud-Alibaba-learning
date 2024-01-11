@@ -4,16 +4,17 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>top.lrshuai.nacos</groupId>
-    <artifactId>springcloud-nacos-config</artifactId>
-     <version>1.0.0</version>
-    <name>springcloud-nacos-config</name>
-
     <parent>
-        <groupId>top.lrshuai.cloud</groupId>
+        <groupId>top.lrshuai</groupId>
         <artifactId>SpringCloud-Alibaba-learning</artifactId>
-         <version>1.0.0</version>
+        <version>${revision}</version>
     </parent>
+
+    <artifactId>springcloud-nacos-config</artifactId>
+    <name>springcloud-nacos-config</name>
+    <packaging>jar</packaging>
+
+
 
     <dependencies>
         <dependency>

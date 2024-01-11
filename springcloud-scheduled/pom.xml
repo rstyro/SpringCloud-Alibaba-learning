@@ -3,48 +3,35 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>top.lrshuai.cloud.task</groupId>
-	<artifactId>springcloud-scheduled-admin</artifactId>
-	<version>1.0.0</version>
-	<name>springcloud-scheduled-admin</name>
+	<parent>
+		<groupId>top.lrshuai</groupId>
+		<artifactId>SpringCloud-Alibaba-learning</artifactId>
+		<version>${revision}</version>
+	</parent>
+
+	<artifactId>springcloud-scheduled</artifactId>
+	<name>springcloud-scheduled</name>
+
 	<description>Demo project for Spring Boot</description>
 	<packaging>pom</packaging>
-
-	<properties>
-		<java.version>1.8</java.version>
-		<xxl.job.version>2.3.0</xxl.job.version>
-	</properties>
-
 
 	<modules>
 		<module>springcloud-scheduled-admin</module>
 		<module>springcloud-scheduled-demo</module>
 	</modules>
 
-
-	<dependencyManagement>
-		<dependencies>
-			<!-- xxl-job -->
-			<dependency>
-				<groupId>com.xuxueli</groupId>
-				<artifactId>xxl-job-core</artifactId>
-				<version>${xxl.job.version}</version>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
-
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
-					<encoding>UTF-8</encoding>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
+<!--	<build>-->
+<!--		<plugins>-->
+<!--			<plugin>-->
+<!--				<groupId>org.apache.maven.plugins</groupId>-->
+<!--				<artifactId>maven-compiler-plugin</artifactId>-->
+<!--				<configuration>-->
+<!--					<source>1.8</source>-->
+<!--					<target>1.8</target>-->
+<!--					<encoding>UTF-8</encoding>-->
+<!--				</configuration>-->
+<!--			</plugin>-->
+<!--		</plugins>-->
+<!--	</build>-->
 
 </project>

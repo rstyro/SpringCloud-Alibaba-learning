@@ -4,18 +4,24 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>top.lrshuai.nacos</groupId>
-    <artifactId>springcloud-nacos-sentinel</artifactId>
-     <version>1.0.0</version>
-    <name>springcloud-nacos-sentinel</name>
 
     <parent>
-        <groupId>top.lrshuai.cloud</groupId>
+        <groupId>top.lrshuai</groupId>
         <artifactId>SpringCloud-Alibaba-learning</artifactId>
-         <version>1.0.0</version>
+        <version>${revision}</version>
     </parent>
 
+    <artifactId>springcloud-nacos-sentinel</artifactId>
+    <name>springcloud-nacos-sentinel</name>
+
+
     <dependencies>
+
+        <dependency>
+            <groupId>top.lrshuai</groupId>
+            <artifactId>springcloud-nacos-commons</artifactId>
+            <version>${revision}</version>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>

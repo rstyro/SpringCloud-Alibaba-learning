@@ -5,17 +5,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>top.lrshuai.cloud</groupId>
-        <artifactId>SpringCloud-Alibaba-learning</artifactId>
-         <version>1.0.0</version>
-        <relativePath>../../pom.xml</relativePath>
+        <groupId>top.lrshuai</groupId>
+        <artifactId>springcloud-seata</artifactId>
+        <version>${revision}</version>
     </parent>
 
-    <groupId>top.lrshuai.seata</groupId>
     <artifactId>springcloud-seata-order</artifactId>
     <name>springcloud-seata-order</name>
     <packaging>pom</packaging>
-    <version>1.0.0</version>
 
     <modules>
         <module>springcloud-seata-order-api</module>
@@ -25,30 +22,8 @@
     </modules>
 
 
-
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>1.8</java.version>
-    </properties>
-
     <dependencies>
 
     </dependencies>
-
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                    <encoding>UTF-8</encoding>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 
 </project>

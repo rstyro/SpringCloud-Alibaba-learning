@@ -2,25 +2,26 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <parent>
-        <artifactId>SpringCloud-Alibaba-learning</artifactId>
-        <groupId>top.lrshuai.cloud</groupId>
-        <version>1.0.0</version>
-    </parent>
 
     <modelVersion>4.0.0</modelVersion>
-    <groupId>top.lrshuai.cloud</groupId>
+
+    <parent>
+        <groupId>top.lrshuai</groupId>
+        <artifactId>SpringCloud-Alibaba-learning</artifactId>
+        <version>${revision}</version>
+    </parent>
+
+
     <artifactId>springcloud-web-commons</artifactId>
     <name>springcloud-web-commons</name>
     <packaging>jar</packaging>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>1.8</java.version>
-    </properties>
-
     <dependencies>
+        <dependency>
+            <groupId>top.lrshuai</groupId>
+            <artifactId>springcloud-nacos-commons</artifactId>
+            <version>${revision}</version>
+        </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -40,18 +41,5 @@
 
     </dependencies>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                    <encoding>UTF-8</encoding>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 
 </project>

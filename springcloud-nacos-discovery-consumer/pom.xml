@@ -4,16 +4,17 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>top.lrshuai.nacos</groupId>
-    <artifactId>springcloud-nacos-discovery-consumer</artifactId>
-     <version>1.0.0</version>
-    <name>springcloud-nacos-discovery-consumer</name>
 
     <parent>
-        <groupId>top.lrshuai.cloud</groupId>
+        <groupId>top.lrshuai</groupId>
         <artifactId>SpringCloud-Alibaba-learning</artifactId>
-         <version>1.0.0</version>
+        <version>${revision}</version>
     </parent>
+
+    <artifactId>springcloud-nacos-discovery-consumer</artifactId>
+    <name>springcloud-nacos-discovery-consumer</name>
+
+
 
     <dependencies>
         <dependency>
@@ -35,7 +36,7 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
-            <version>2.2.3.RELEASE</version>
+
         </dependency>
 
         <dependency>
@@ -49,9 +50,9 @@
 <!--        </dependency>-->
 
         <dependency>
-            <groupId>top.lrshuai.cloud</groupId>
+            <groupId>top.lrshuai</groupId>
             <artifactId>springcloud-shiro</artifactId>
-            <version>1.0.0</version>
+            <version>${revision}</version>
         </dependency>
 
     </dependencies>

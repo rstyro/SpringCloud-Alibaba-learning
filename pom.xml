@@ -3,18 +3,20 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>top.lrshuai.cloud</groupId>
+
+    <groupId>top.lrshuai</groupId>
     <artifactId>SpringCloud-Alibaba-learning</artifactId>
-     <version>1.0.0</version>
+    <version>${revision}</version>
     <packaging>pom</packaging>
 
     <properties>
+        <revision>1.0.0</revision>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
         <springcloud-alibaba.version>2.2.3.RELEASE</springcloud-alibaba.version>
         <alibaba.seata.version>2.2.0.RELEASE</alibaba.seata.version>
-<!--        <seata-spring-boot-starter.version>1.4.2</seata-spring-boot-starter.version>-->
+
         <seata-spring-boot-starter.version>1.7.0</seata-spring-boot-starter.version>
         <swagger.version>2.9.2</swagger.version>
         <openfeign.version>2.2.3.RELEASE</openfeign.version>
@@ -24,16 +26,22 @@
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
         <shiro-spring.version>1.7.1</shiro-spring.version>
         <shiro.version>1.7.1</shiro.version>
+        <hutool.version>5.8.23</hutool.version>
+        <fastjson2.version>2.0.42</fastjson2.version>
+        <mysql.version>8.0.33</mysql.version>
+        <druid.version>1.2.20</druid.version>
+        <lombok.version>1.18.30</lombok.version>
+        <mybatis-spring-boot.version>2.1.4</mybatis-spring-boot.version>
+        <freemarker.version>2.3.28</freemarker.version>
         <!-- 修改版本，低于这个版本的有 远程代码执行漏洞（CVE-2021-42550） -->
         <logback.version>1.2.9</logback.version>
-    </properties>
 
-<!--    <parent>-->
-<!--        <groupId>org.springframework.boot</groupId>-->
-<!--        <artifactId>spring-boot-starter-parent</artifactId>-->
-<!--        <version>2.3.2.RELEASE</version>-->
-<!--        <relativePath/>-->
-<!--    </parent>-->
+        <!-- 插件版本 -->
+        <maven-jar-plugin.version>3.2.2</maven-jar-plugin.version>
+        <maven-war-plugin.version>3.3.2</maven-war-plugin.version>
+        <maven-compiler-plugin.verison>2.7.14</maven-compiler-plugin.verison>
+        <flatten-maven-plugin.version>1.1.0</flatten-maven-plugin.version>
+    </properties>
 
     <modules>
         <module>springcloud-nacos-discovery-consumer</module>
@@ -47,19 +55,9 @@
         <module>springcloud-scheduled</module>
         <module>springcloud-sleuth</module>
         <module>springcloud-shiro</module>
-        <!--
-        <module>springcloud-nacos-discovery-config-server</module>
-        -->
     </modules>
 
-    <dependencies>
-        <dependency>
-            <groupId>top.lrshuai.nacos</groupId>
-            <artifactId>springcloud-nacos-commons</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-    </dependencies>
-
+    <!-- 依赖声明 -->
     <dependencyManagement>
         <dependencies>
 
@@ -160,12 +158,6 @@
                 <version>${xxl.job.version}</version>
             </dependency>
 
-            <dependency>
-                <groupId>org.apache.shiro</groupId>
-                <artifactId>shiro-spring-boot-starter</artifactId>
-                <version>${shiro-spring.version}</version>
-            </dependency>
-
             <!-- shiro -->
             <dependency>
                 <groupId>org.apache.shiro</groupId>
@@ -178,11 +170,66 @@
                 <version>${shiro.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-bom</artifactId>
+                <version>${hutool.version}</version>
+                <type>pom</type>
+                <!-- 注意这里是import -->
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba.fastjson2</groupId>
+                <artifactId>fastjson2</artifactId>
+                <version>${fastjson2.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql.version}</version>
+            </dependency>
+
+            <!--  阿里巴巴数据库连接池     -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid-spring-boot-starter</artifactId>
+                <version>${druid.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <version>${mybatis-spring-boot.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.freemarker</groupId>
+                <artifactId>freemarker</artifactId>
+                <version>${freemarker.version}</version>
+                <scope>compile</scope>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
     <build>
-
+        <resources>
+            <!-- 全部引入 -->
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*.*</include>
+                </includes>
+            </resource>
+        </resources>
         <!--插件管理-->
         <pluginManagement>
             <plugins>
@@ -191,8 +238,8 @@
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>${maven-compiler-plugin.version}</version>
                     <configuration>
-                        <source>1.8</source>
-                        <target>1.8</target>
+                        <source>${java.version}</source>
+                        <target>${java.version}</target>
                     </configuration>
                 </plugin>
 
@@ -205,6 +252,43 @@
                         <execution>
                             <goals>
                                 <goal>repackage</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-war-plugin</artifactId>
+                    <version>${maven-war-plugin.version}</version>
+                    <configuration>
+                        <warSourceExcludes>src/main/resources/**</warSourceExcludes>
+                        <warName></warName>
+                    </configuration>
+                </plugin>
+
+                <!-- 统一版本号管理 -->
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>flatten-maven-plugin</artifactId>
+                    <version>${flatten-maven-plugin.version}</version>
+                    <configuration>
+                        <updatePomFile>true</updatePomFile>
+                        <flattenMode>resolveCiFriendliesOnly</flattenMode>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>flatten</id>
+                            <phase>process-resources</phase>
+                            <goals>
+                                <goal>flatten</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>flatten.clean</id>
+                            <phase>clean</phase>
+                            <goals>
+                                <goal>clean</goal>
                             </goals>
                         </execution>
                     </executions>

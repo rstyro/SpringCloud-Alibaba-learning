@@ -5,49 +5,28 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
+        <groupId>top.lrshuai</groupId>
         <artifactId>springcloud-seata-user</artifactId>
-        <groupId>top.lrshuai.seata</groupId>
-        <version>1.0.0</version>
+        <version>${revision}</version>
     </parent>
+
     <artifactId>springcloud-seata-user-api</artifactId>
-    <version>1.0.0</version>
     <name>springcloud-seata-user-api</name>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>1.8</java.version>
-        <openfeign.version>2.2.3.RELEASE</openfeign.version>
-    </properties>
 
     <dependencies>
 
         <dependency>
-            <groupId>top.lrshuai.seata</groupId>
+            <groupId>top.lrshuai</groupId>
             <artifactId>springcloud-seata-user-commons</artifactId>
-             <version>1.0.0</version>
+             <version>${revision}</version>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
-            <version>${openfeign.version}</version>
         </dependency>
 
     </dependencies>
 
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                    <encoding>UTF-8</encoding>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 </project>

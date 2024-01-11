@@ -4,15 +4,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>SpringCloud-Alibaba-learning</artifactId>
-        <groupId>top.lrshuai.cloud</groupId>
-        <version>1.0.0</version>
-        <relativePath>../pom.xml</relativePath>
+        <groupId>top.lrshuai</groupId>
+        <version>${revision}</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <version>${parent.version}</version>
     <artifactId>springcloud-shiro</artifactId>
-
-
+    <name>springcloud-shiro</name>
+    <description>shiro权限相关</description>
     <dependencies>
 
         <!-- shiro springboot 集成 -->
@@ -32,15 +30,15 @@
         </dependency>
 
         <dependency>
-            <groupId>top.lrshuai.cloud</groupId>
+            <groupId>top.lrshuai</groupId>
             <artifactId>springcloud-web-commons</artifactId>
-            <version>1.0.0</version>
+            <version>${revision}</version>
         </dependency>
 
         <dependency>
-            <groupId>top.lrshuai.nacos</groupId>
+            <groupId>top.lrshuai</groupId>
             <artifactId>springcloud-nacos-commons</artifactId>
-            <version>1.0.0</version>
+            <version>${revision}</version>
         </dependency>
 
         <dependency>

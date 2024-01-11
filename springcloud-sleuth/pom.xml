@@ -3,11 +3,10 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>top.lrshuai.cloud</groupId>
+		<groupId>top.lrshuai</groupId>
 		<artifactId>SpringCloud-Alibaba-learning</artifactId>
-		<version>1.0.0</version>
+		<version>${revision}</version>
 	</parent>
-	<groupId>top.lrshuai</groupId>
 	<artifactId>springcloud-sleuth</artifactId>
 	<name>springcloud-sleuth</name>
 	<description>Demo project for Spring Boot</description>
@@ -42,6 +41,11 @@
 <!--			<artifactId>spring-cloud-starter-openfeign</artifactId>-->
 <!--		</dependency>-->
 
+		<dependency>
+			<groupId>top.lrshuai</groupId>
+			<artifactId>springcloud-nacos-commons</artifactId>
+			<version>${revision}</version>
+		</dependency>
 	</dependencies>
 
 	<build>
