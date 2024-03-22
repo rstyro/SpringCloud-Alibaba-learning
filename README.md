@@ -14,14 +14,14 @@
   - springcloud-common-core  核心，通用工具实体类
   - springcloud-common-redis  集成redis缓存
   - springcloud-common-security 权限管理类，拦截器异常处理等
-  - springcloud-common-swagger swagger3集成
+  - springcloud-common-swagger 集成swagger3
   - springcloud-common-mybatis-plus 集成mybatis-plus
   - springcloud-common-seata 集成分布式事务seata
 - springcloud-gencode 代码生成器
 - springcloud-nacos-discovery-provider 入门级-提供者
 - springcloud-nacos-discovery-consumer 入门级-消费者
 - springcloud-nacos-config  nacos配置中心demo
-- springcloud-nacos-sentinel sentinel流程控制，熔断等demo
+- springcloud-nacos-sentinel 流程控制，熔断等demo
 - springcloud-sleuth  链路追踪demo
 - springcloud-scheduled  分布式定时任务xxl-job
 - springcloud-module  业务服务模块，测试seata
