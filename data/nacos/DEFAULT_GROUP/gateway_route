@@ -1,0 +1,90 @@
+[
+    {
+        "id": "mall",
+        "predicates": [
+            {
+                "args": {
+                    "pattern": "/mall/**"
+                },
+                "name": "Path"
+            }
+        ],
+        "filters": [
+            {
+                "name": "StripPrefix",
+                "args": {
+                    "parts": "1"
+                }
+            }
+        ],
+        "uri": "lb://mall"
+    },
+    {
+        "id": "order",
+        "predicates": [
+            {
+                "args": {
+                    "pattern": "/order/**"
+                },
+                "name": "Path"
+            }
+        ],
+        "filters": [
+            {
+                "name": "StripPrefix",
+                "args": {
+                    "parts": "1"
+                }
+            }
+        ],
+        "uri": "lb://order"
+    },
+    {
+        "id": "user",
+        "predicates": [
+            {
+                "args": {
+                    "pattern": "/user/**"
+                },
+                "name": "Path"
+            }
+        ],
+        "filters": [
+            {
+                "name": "StripPrefix",
+                "args": {
+                    "parts": "1"
+                }
+            },
+            {
+                "name": "MyRequestRateLimiter",
+                "args": {
+                    "redis-rate-limiter.replenishRate": 1000,
+                    "redis-rate-limiter.burstCapacity": 1000,
+                    "key-resolver": "#{@pathKeyResolver}"
+                }
+            }
+        ],
+        "uri": "lb://user"
+    },
+      {
+        "id": "nacos-provider",
+        "predicates": [
+            {
+                "args": {
+                    "pattern": "/provider/**"
+                },
+                "name": "Path"
+            }
+        ],
+        "filters": [
+            {
+                "name": "StripPrefix",
+                "args": {
+                    "parts": "1"
+                }
+            }
+        ],
+        "uri": "lb://nacos-provider"
+    }
+]
