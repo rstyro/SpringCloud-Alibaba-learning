@@ -1,12 +1,11 @@
 package top.lrshuai.nacos.controller.webClient;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.client.loadbalancer.LoadBalanced;
-import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
-import top.lrshuai.nacos.commons.entity.User;
+import top.lrshuai.common.core.test.User;
+
+import javax.annotation.Resource;
 
 /**
  * webClient 调用
@@ -15,7 +14,7 @@ import top.lrshuai.nacos.commons.entity.User;
 @RestController
 public class WebClientController {
 
-    @Autowired
+    @Resource
     private WebClient.Builder webClientBuilder;
 
 
@@ -40,10 +39,4 @@ public class WebClientController {
         return result;
     }
 
-
-    @Bean
-    @LoadBalanced
-    public WebClient.Builder loadBalancedWebClientBuilder() {
-        return WebClient.builder();
-    }
 }

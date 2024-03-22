@@ -1,9 +1,0 @@
-server:
-  port: 8850
-
-management:
-  endpoint:
-    env:
-      post:
-        enabled: true
-

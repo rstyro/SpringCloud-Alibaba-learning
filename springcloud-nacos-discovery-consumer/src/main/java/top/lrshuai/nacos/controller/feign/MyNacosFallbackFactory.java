@@ -1,9 +1,9 @@
 package top.lrshuai.nacos.controller.feign;
 
-import feign.hystrix.FallbackFactory;
+import org.springframework.cloud.openfeign.FallbackFactory;
 import org.springframework.stereotype.Component;
-import top.lrshuai.nacos.commons.Result;
-import top.lrshuai.nacos.commons.entity.User;
+import top.lrshuai.common.core.resp.R;
+import top.lrshuai.common.core.test.User;
 
 
 @Component
@@ -13,14 +13,14 @@ public class MyNacosFallbackFactory implements FallbackFactory<NacosProviderFeig
 //        return new MyNacosProviderFallback();
         return new NacosProviderFeignClient() {
             @Override
-            public Result sayHi(String name) {
-                return Result.error("sayHi 服务未找到，熔断");
+            public R sayHi(String name) {
+                return R.fail("sayHi 服务未找到，熔断");
             }
 
             @Override
-            public Result setUser(User user) {
+            public R setUser(User user) {
                 System.out.println("服务未找到");
-                return Result.error("服务未找到");
+                return R.fail("服务未找到");
             }
         };
     }

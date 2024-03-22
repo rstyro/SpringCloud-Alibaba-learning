@@ -1,0 +1,119 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>top.lrshuai</groupId>
+        <artifactId>springcloud-module</artifactId>
+        <version>${revision}</version>
+    </parent>
+
+    <artifactId>springcloud-order</artifactId>
+    <packaging>jar</packaging>
+
+    <name>springcloud-order</name>
+    <description>订单模块</description>
+
+
+    <dependencies>
+
+        <dependency>
+            <groupId>top.lrshuai</groupId>
+            <artifactId>springcloud-common-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>top.lrshuai</groupId>
+            <artifactId>springcloud-common-security</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <!-- SpringCloud Alibaba Nacos -->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+        </dependency>
+
+        <!-- SpringCloud Alibaba Nacos Config -->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+        </dependency>
+        <!-- openfeign -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+        <!-- SpringCloud Loadbalancer-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-loadbalancer</artifactId>
+        </dependency>
+
+        <!-- mybatis-plus -->
+        <dependency>
+            <groupId>top.lrshuai</groupId>
+            <artifactId>springcloud-common-mybatis-plus</artifactId>
+        </dependency>
+
+        <!-- swagger-ui -->
+        <dependency>
+            <groupId>top.lrshuai</groupId>
+            <artifactId>springcloud-common-swagger</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>top.lrshuai</groupId>
+            <artifactId>springcloud-common-redis</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>top.lrshuai</groupId>
+            <artifactId>springcloud-api-user</artifactId>
+        </dependency>
+
+
+        <dependency>
+            <groupId>top.lrshuai</groupId>
+            <artifactId>springcloud-api-order</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>top.lrshuai</groupId>
+            <artifactId>springcloud-api-mall</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>top.lrshuai</groupId>
+            <artifactId>springcloud-common-seata</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <finalName>${project.artifactId}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring-boot.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

@@ -5,9 +5,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.cloud.gateway.filter.factory.RequestRateLimiterGatewayFilterFactory;
-import org.springframework.cloud.gateway.filter.ratelimit.RedisRateLimiter;
 import org.springframework.cloud.gateway.filter.ratelimit.KeyResolver;
 import org.springframework.cloud.gateway.filter.ratelimit.RateLimiter;
+import org.springframework.cloud.gateway.filter.ratelimit.RedisRateLimiter;
 import org.springframework.cloud.gateway.route.Route;
 import org.springframework.cloud.gateway.support.ServerWebExchangeUtils;
 import org.springframework.core.io.buffer.DataBuffer;
@@ -15,7 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
-import top.lrshuai.nacos.commons.Result;
+import top.lrshuai.common.core.resp.R;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
@@ -68,7 +68,7 @@ public class MyRequestRateLimiterGatewayFilterFactory extends AbstractGatewayFil
                         ServerHttpResponse httpResponse = exchange.getResponse();
                         httpResponse.setStatusCode(config.getStatusCode());
                         httpResponse.getHeaders().add("Content-Type", "application/json;charset=UTF-8");
-                        Result error = Result.error("访问已限流，请稍候再请求");
+                        R error = R.fail("访问已限流，请稍候再请求");
                         DataBuffer buffer = httpResponse.bufferFactory().wrap(JSON.toJSONString(error).getBytes(StandardCharsets.UTF_8));
                         return httpResponse.writeWith(Mono.just(buffer));
                     }));

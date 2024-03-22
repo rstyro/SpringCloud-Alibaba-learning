@@ -1,0 +1,36 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>top.lrshuai</groupId>
+        <artifactId>springcloud-common</artifactId>
+        <version>${revision}</version>
+    </parent>
+
+    <artifactId>springcloud-common-swagger</artifactId>
+    <packaging>jar</packaging>
+
+    <name>springcloud-common-swagger</name>
+    <description>swagger-ui 集成</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>top.lrshuai</groupId>
+            <artifactId>springcloud-common-core</artifactId>
+        </dependency>
+
+        <!-- Swagger -->
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-ui</artifactId>
+        </dependency>
+
+        <!-- SpringBoot Web -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+    </dependencies>
+</project>

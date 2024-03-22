@@ -8,10 +8,9 @@ spring:
       config:
         server-addr: 127.0.0.1:8848
         file-extension: yaml
-        namespace: aa0e66cf-3907-4944-bed6-7b493ca1eafb
         group: DEFAULT_GROUP
         username: nacos
-        password: rstyro
+        password: nacos
         # 共享配置
         shared-configs[0]:
           data-id: share-config.yaml

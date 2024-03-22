@@ -6,9 +6,9 @@ import com.alibaba.nacos.api.config.ConfigService;
 import com.alibaba.nacos.api.config.listener.Listener;
 import com.alibaba.nacos.api.exception.NacosException;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.cloud.gateway.event.RefreshRoutesEvent;
 import org.springframework.cloud.gateway.route.RouteDefinition;
 import org.springframework.cloud.gateway.route.RouteDefinitionWriter;
@@ -18,6 +18,7 @@ import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -27,6 +28,7 @@ import java.util.concurrent.Executor;
  * 动态路由配置
  *
  */
+@RefreshScope
 @Slf4j
 @Component
 @ConditionalOnProperty(name = "route.dynamic.enabled", matchIfMissing = true)
@@ -53,18 +55,19 @@ public class DynamicGatewayRouteConfig implements ApplicationEventPublisherAware
     @Value("${spring.cloud.nacos.config.password}")
     private String password;
 
+    @Resource
     private RouteDefinitionWriter routeDefinitionWriter;
 
     private final long timeoutMs=5000;
 
-    @Autowired
-    public void setRouteDefinitionWriter(RouteDefinitionWriter routeDefinitionWriter) {
-        this.routeDefinitionWriter = routeDefinitionWriter;
-    }
+    private static final List<String> ROUTES = new ArrayList<String>();
 
     private ApplicationEventPublisher applicationEventPublisher;
 
-    private static final List<String> ROUTES = new ArrayList<String>();
+    @Override
+    public void setApplicationEventPublisher(ApplicationEventPublisher applicationEventPublisher) {
+        this.applicationEventPublisher = applicationEventPublisher;
+    }
 
     @PostConstruct
     public void dynamicRouteByNacosListener() {
@@ -139,8 +142,5 @@ public class DynamicGatewayRouteConfig implements ApplicationEventPublisherAware
         this.applicationEventPublisher.publishEvent(new RefreshRoutesEvent(this.routeDefinitionWriter));
     }
 
-    @Override
-    public void setApplicationEventPublisher(ApplicationEventPublisher applicationEventPublisher) {
-        this.applicationEventPublisher = applicationEventPublisher;
-    }
+
 }

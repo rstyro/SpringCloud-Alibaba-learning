@@ -1,6 +1,7 @@
 package top.lrshuai.nacos.config;
 
-import org.springframework.beans.factory.annotation.Value;
+import lombok.Data;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Component;
 
@@ -8,17 +9,17 @@ import org.springframework.stereotype.Component;
  * 自定义配置
  */
 @RefreshScope
+@Data
 @Component
+@ConfigurationProperties(prefix = "ext")
 public class ExtensionConfig {
-    @Value("${ext.name}")
     private String name;
 
-    @Value("${ext.age}")
     private int age;
 
     @Override
     public String toString() {
-        return "UserConfig{" +
+        return "ExtensionConfig{" +
                 "name='" + name + '\'' +
                 ", age=" + age +
                 '}';

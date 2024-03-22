@@ -1,6 +1,5 @@
 package top.lrshuai.nacos.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -10,6 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 import top.lrshuai.nacos.config.ExtensionConfig;
 import top.lrshuai.nacos.config.ShareConfig;
 import top.lrshuai.nacos.config.UserConfig;
+
+import javax.annotation.Resource;
 
 /**
  * 测试
@@ -23,16 +24,16 @@ public class TestController {
     @Value("${user.name}")
     private String name;
 
-    @Autowired
+    @Resource
     private UserConfig userConfig;
 
-    @Autowired
+    @Resource
     private ShareConfig shareConfig;
 
-    @Autowired
+    @Resource
     private ExtensionConfig extensionConfig;
 
-    @Autowired
+    @Resource
     private ConfigurableApplicationContext applicationContext;
 
 

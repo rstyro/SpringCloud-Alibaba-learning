@@ -1,0 +1,8 @@
+# seata 默认配置，可再nacos覆盖
+seata:
+  service:
+    vgroupMapping:
+      default_tx_group: default
+    disable-global-transaction: false
+    grouplist:
+      default: 127.0.0.1:8091

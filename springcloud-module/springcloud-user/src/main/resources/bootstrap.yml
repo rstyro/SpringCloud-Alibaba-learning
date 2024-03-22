@@ -1,0 +1,14 @@
+server:
+  port: 8001
+spring:
+  application:
+    name: user
+  profiles:
+    active: dev
+  main:
+    allow-bean-definition-overriding: true
+    allow-circular-references: true
+
+
+swagger:
+  description: 用户服务模块接口

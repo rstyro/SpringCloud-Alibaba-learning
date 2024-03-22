@@ -1,0 +1,54 @@
+spring:
+  cloud:
+    nacos:
+      config:
+        server-addr: 127.0.0.1:8848
+        file-extension: yaml
+        group: DEFAULT_GROUP
+        username: nacos
+        password: nacos
+        namespace: 94455b2a-cf66-40b5-819b-bba352aaa4f1
+      discovery:
+        server-addr: 127.0.0.1:8848
+        username: nacos
+        password: nacos
+        namespace: 94455b2a-cf66-40b5-819b-bba352aaa4f1
+    #  # 网关配置在nacos中配置
+#    gateway:
+#      routes:
+#        - id: provider
+#          uri: lb://nacos-provider
+#          predicates:
+#            - Path=/provider/**
+#          filters:
+#            # StripPrefix 数字表示要截断的路径的数量
+#            - StripPrefix=1
+#        - id: consumer
+#          uri: lb://nacos-consumer
+#          predicates:
+#            - Path=/consumer/**
+#          filters:
+#            - name: MyRequestRateLimiter
+#              args:
+#                # 令牌桶每秒填充平均速率
+#                redis-rate-limiter.replenishRate: 1
+#                # 令牌桶的上限
+#                redis-rate-limiter.burstCapacity: 2
+#                # 使用SpEL表达式从Spring容器中获取Bean对象
+#                key-resolver: "#{@pathKeyResolver}"
+#            - StripPrefix=1
+
+
+# 动态路由配置
+route:
+  dynamic:
+    enabled: true
+    namespace: 94455b2a-cf66-40b5-819b-bba352aaa4f1
+    dataId: gateway_route
+    group: DEFAULT_GROUP
+
+
+# 日志追踪
+logging:
+  level:
+    org.springframework.cloud.gateway: info

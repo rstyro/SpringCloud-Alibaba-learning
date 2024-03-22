@@ -1,0 +1,14 @@
+server:
+  port: 8003
+spring:
+  application:
+    name: mall
+  profiles:
+    active: dev
+  main:
+    allow-circular-references: true
+    allow-bean-definition-overriding: true
+
+
+swagger:
+  description: 商城服务模块接口

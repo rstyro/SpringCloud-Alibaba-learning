@@ -9,72 +9,97 @@
     <version>${revision}</version>
     <packaging>pom</packaging>
 
+    <modules>
+        <module>springcloud-nacos-discovery-consumer</module>
+        <module>springcloud-nacos-discovery-provider</module>
+        <module>springcloud-nacos-config</module>
+        <module>springcloud-nacos-sentinel</module>
+        <module>springcloud-sleuth</module>
+        <module>springcloud-gateway</module>
+        <module>springcloud-common</module>
+        <module>springcloud-gencode</module>
+        <module>springcloud-module</module>
+        <module>springcloud-scheduled</module>
+        <module>springcloud-api</module>
+    </modules>
+
     <properties>
         <revision>1.0.0</revision>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
-        <springcloud-alibaba.version>2.2.3.RELEASE</springcloud-alibaba.version>
-        <alibaba.seata.version>2.2.0.RELEASE</alibaba.seata.version>
 
-        <seata-spring-boot-starter.version>1.7.0</seata-spring-boot-starter.version>
-        <swagger.version>2.9.2</swagger.version>
-        <openfeign.version>2.2.3.RELEASE</openfeign.version>
-        <mybatisplus.version>3.1.0</mybatisplus.version>
-        <springboot.version>2.3.2.RELEASE</springboot.version>
-        <xxl.job.version>2.3.0</xxl.job.version>
-        <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
-        <shiro-spring.version>1.7.1</shiro-spring.version>
-        <shiro.version>1.7.1</shiro.version>
+        <!-- cloud 和springboot 版本 -->
+        <spring-cloud-alibaba.version>2021.0.5.0</spring-cloud-alibaba.version>
+        <spring-cloud.version>2021.0.5</spring-cloud.version>
+        <spring-boot.version>2.7.6</spring-boot.version>
+
+        <!-- swagger / springdoc -->
+        <springdoc-openapi-ui.version>1.8.0</springdoc-openapi-ui.version>
+        <swagger-annotations.version>2.2.20</swagger-annotations.version>
+
+
+        <!-- 工具包 -->
+        <lombok.version>1.18.30</lombok.version>
         <hutool.version>5.8.23</hutool.version>
         <fastjson2.version>2.0.42</fastjson2.version>
-        <mysql.version>8.0.33</mysql.version>
+        <commons-lang3.version>3.14.0</commons-lang3.version>
+        <freemarker.version>2.3.32</freemarker.version>
+        <transmittable-thread-local.version>2.14.5</transmittable-thread-local.version>
+        <guava.version>33.0.0-jre</guava.version>
+        <redisson.version>3.27.1</redisson.version>
+
+        <!-- 数据库相关 -->
+        <mybatisplus.version>3.5.5</mybatisplus.version>
+        <mysql.version>8.3.0</mysql.version>
         <druid.version>1.2.20</druid.version>
-        <lombok.version>1.18.30</lombok.version>
-        <mybatis-spring-boot.version>2.1.4</mybatis-spring-boot.version>
-        <freemarker.version>2.3.28</freemarker.version>
-        <!-- 修改版本，低于这个版本的有 远程代码执行漏洞（CVE-2021-42550） -->
-        <logback.version>1.2.9</logback.version>
+        <mybatis-spring-boot.version>3.0.3</mybatis-spring-boot.version>
+
+        <!-- springboot2.7.6 logbock版本是1.2.11有风险换一下吧 -->
+        <logback.version>1.5.3</logback.version>
+
+        <!-- 定时任务 -->
+        <xxl.job.version>2.3.0</xxl.job.version>
 
         <!-- 插件版本 -->
         <maven-jar-plugin.version>3.2.2</maven-jar-plugin.version>
         <maven-war-plugin.version>3.3.2</maven-war-plugin.version>
-        <maven-compiler-plugin.verison>2.7.14</maven-compiler-plugin.verison>
+        <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
         <flatten-maven-plugin.version>1.1.0</flatten-maven-plugin.version>
     </properties>
 
-    <modules>
-        <module>springcloud-nacos-discovery-consumer</module>
-        <module>springcloud-nacos-discovery-provider</module>
-        <module>springcloud-nacos-config</module>
-        <module>springcloud-nacos-commons</module>
-        <module>springcloud-nacos-sentinel</module>
-        <module>springcloud-gateway</module>
-        <module>springcloud-seata</module>
-        <module>springcloud-web-commons</module>
-        <module>springcloud-scheduled</module>
-        <module>springcloud-sleuth</module>
-        <module>springcloud-shiro</module>
-    </modules>
+    <dependencies>
+        <!-- 在SpringBoot 2.4.x的版本之后，对于bootstrap.properties/bootstrap.yaml配置文件(我们合起来成为Bootstrap配置文件)的支持，需要导入如下的依赖 -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-bootstrap</artifactId>
+        </dependency>
+
+        <!-- mybatis-plus -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- openfeign -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+    </dependencies>
 
     <!-- 依赖声明 -->
     <dependencyManagement>
         <dependencies>
 
-            <dependency>
-                <!-- 默认springboot 版本依赖 -->
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-dependencies</artifactId>
-                <version>${springboot.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-
+            <!-- springcloud版本 -->
             <dependency>
                 <groupId>com.alibaba.cloud</groupId>
                 <artifactId>spring-cloud-alibaba-dependencies</artifactId>
-                <version>${springcloud-alibaba.version}</version>
+                <version>${spring-cloud-alibaba.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -82,112 +107,62 @@
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
-                <version>Hoxton.SR8</version>
+                <version>${spring-cloud.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
 
+            <!-- spring-boot 版本 -->
             <dependency>
-                <groupId>com.alibaba.cloud</groupId>
-                <artifactId>spring-cloud-alibaba-seata</artifactId>
-                <version>${alibaba.seata.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>io.seata</groupId>
-                        <artifactId>seata-spring-boot-starter</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <artifactId>seata-all</artifactId>
-                        <groupId>io.seata</groupId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>io.seata</groupId>
-                <artifactId>seata-spring-boot-starter</artifactId>
-                <version>${seata-spring-boot-starter.version}</version>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
 
 
-            <!-- swagger2 -->
+            <!-- Swagger 依赖配置 -->
             <dependency>
-                <groupId>io.springfox</groupId>
-                <artifactId>springfox-swagger2</artifactId>
-                <version>${swagger.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <artifactId>mapstruct</artifactId>
-                        <groupId>org.mapstruct</groupId>
-                    </exclusion>
-                </exclusions>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-ui</artifactId>
+                <version>${springdoc-openapi-ui.version}</version>
             </dependency>
             <dependency>
-                <groupId>io.springfox</groupId>
-                <artifactId>springfox-swagger-ui</artifactId>
-                <version>${swagger.version}</version>
+                <groupId>io.swagger.core.v3</groupId>
+                <artifactId>swagger-annotations</artifactId>
+                <version>${swagger-annotations.version}</version>
             </dependency>
 
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-starter-openfeign</artifactId>
-                <version>${openfeign.version}</version>
-            </dependency>
 
+            <!--  mybatis-plus -->
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
                 <version>${mybatisplus.version}</version>
             </dependency>
-
             <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-web</artifactId>
-                <version>${springboot.version}</version>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-generator</artifactId>
+                <version>${mybatisplus.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-validation</artifactId>
-                <version>${springboot.version}</version>
-            </dependency>
-
-            <!-- xxl-job -->
-            <dependency>
-                <groupId>com.xuxueli</groupId>
-                <artifactId>xxl-job-core</artifactId>
-                <version>${xxl.job.version}</version>
-            </dependency>
-
-            <!-- shiro -->
-            <dependency>
-                <groupId>org.apache.shiro</groupId>
-                <artifactId>shiro-core</artifactId>
-                <version>${shiro.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.shiro</groupId>
-                <artifactId>shiro-spring</artifactId>
-                <version>${shiro.version}</version>
+                <groupId>org.freemarker</groupId>
+                <artifactId>freemarker</artifactId>
+                <version>${freemarker.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>cn.hutool</groupId>
-                <artifactId>hutool-bom</artifactId>
-                <version>${hutool.version}</version>
-                <type>pom</type>
-                <!-- 注意这里是import -->
-                <scope>import</scope>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <version>${mybatis-spring-boot.version}</version>
             </dependency>
 
+            <!-- mysql 数据库连接 -->
             <dependency>
-                <groupId>com.alibaba.fastjson2</groupId>
-                <artifactId>fastjson2</artifactId>
-                <version>${fastjson2.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>mysql</groupId>
-                <artifactId>mysql-connector-java</artifactId>
+                <groupId>com.mysql</groupId>
+                <artifactId>mysql-connector-j</artifactId>
                 <version>${mysql.version}</version>
             </dependency>
 
@@ -198,23 +173,90 @@
                 <version>${druid.version}</version>
             </dependency>
 
+            <!-- xxl-job -->
+            <dependency>
+                <groupId>com.xuxueli</groupId>
+                <artifactId>xxl-job-core</artifactId>
+                <version>${xxl.job.version}</version>
+            </dependency>
+
+            <!-- hutool -->
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-bom</artifactId>
+                <version>${hutool.version}</version>
+                <type>pom</type>
+                <!-- 注意这里是import -->
+                <scope>import</scope>
+            </dependency>
+
+            <!-- fastjson2 -->
+            <dependency>
+                <groupId>com.alibaba.fastjson2</groupId>
+                <artifactId>fastjson2</artifactId>
+                <version>${fastjson2.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${commons-lang3.version}</version>
+            </dependency>
+
             <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
                 <version>${lombok.version}</version>
             </dependency>
 
+            <!-- 线程传递值 -->
             <dependency>
-                <groupId>org.mybatis.spring.boot</groupId>
-                <artifactId>mybatis-spring-boot-starter</artifactId>
-                <version>${mybatis-spring-boot.version}</version>
+                <groupId>com.alibaba</groupId>
+                <artifactId>transmittable-thread-local</artifactId>
+                <version>${transmittable-thread-local.version}</version>
             </dependency>
 
+            <!-- guava工具类 -->
             <dependency>
-                <groupId>org.freemarker</groupId>
-                <artifactId>freemarker</artifactId>
-                <version>${freemarker.version}</version>
-                <scope>compile</scope>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
+            </dependency>
+
+            <!-- common包 import -->
+            <dependency>
+                <groupId>top.lrshuai</groupId>
+                <artifactId>springcloud-common-bom</artifactId>
+                <version>${revision}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- api包 import -->
+            <dependency>
+                <groupId>top.lrshuai</groupId>
+                <artifactId>springcloud-api-bom</artifactId>
+                <version>${revision}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- redisson -->
+            <dependency>
+                <groupId>org.redisson</groupId>
+                <artifactId>redisson</artifactId>
+                <version>${redisson.version}</version>
+            </dependency>
+            <!-- springboot2版本的，需要 redisson-spring-data-2x-->
+            <dependency>
+                <groupId>org.redisson</groupId>
+                <artifactId>redisson-spring-data-27</artifactId>
+                <version>${redisson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.redisson</groupId>
+                <artifactId>redisson-spring-boot-starter</artifactId>
+                <version>${redisson.version}</version>
             </dependency>
 
         </dependencies>
@@ -246,7 +288,7 @@
                 <plugin>
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
-                    <version>${springboot.version}</version>
+                    <version>${spring-boot.version}</version>
                     <!-- repackage 创建一个自动可执行的jar或war文件。它可以替换常规的artifact，或者用一个单独的classifier附属在maven构建的生命周期中。 -->
                     <executions>
                         <execution>

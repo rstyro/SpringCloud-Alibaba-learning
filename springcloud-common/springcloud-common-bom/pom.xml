@@ -1,0 +1,59 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>top.lrshuai</groupId>
+    <artifactId>springcloud-common-bom</artifactId>
+    <version>${revision}</version>
+    <packaging>pom</packaging>
+
+    <name>springcloud-common-bom</name>
+
+    <description>主要是声明common包的版本</description>
+
+    <properties>
+        <revision>1.0.0</revision>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- 通用核心 -->
+            <dependency>
+                <groupId>top.lrshuai</groupId>
+                <artifactId>springcloud-common-core</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>top.lrshuai</groupId>
+                <artifactId>springcloud-common-mybatis-plus</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>top.lrshuai</groupId>
+                <artifactId>springcloud-common-redis</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>top.lrshuai</groupId>
+                <artifactId>springcloud-common-seata</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>top.lrshuai</groupId>
+                <artifactId>springcloud-common-security</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>top.lrshuai</groupId>
+                <artifactId>springcloud-common-swagger</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
+</project>

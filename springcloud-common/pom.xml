@@ -1,0 +1,24 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>top.lrshuai</groupId>
+        <artifactId>SpringCloud-Alibaba-learning</artifactId>
+        <version>${revision}</version>
+    </parent>
+    <artifactId>springcloud-common</artifactId>
+    <packaging>pom</packaging>
+    <name>springcloud-common</name>
+    <description>通用模块</description>
+
+    <modules>
+        <module>springcloud-common-core</module>
+        <module>springcloud-common-security</module>
+        <module>springcloud-common-bom</module>
+        <module>springcloud-common-redis</module>
+        <module>springcloud-common-swagger</module>
+        <module>springcloud-common-mybatis-plus</module>
+        <module>springcloud-common-seata</module>
+    </modules>
+
+</project>

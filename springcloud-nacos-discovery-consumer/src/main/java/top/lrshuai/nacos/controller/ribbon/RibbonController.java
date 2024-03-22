@@ -1,11 +1,12 @@
 package top.lrshuai.nacos.controller.ribbon;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
-import top.lrshuai.nacos.commons.entity.User;
+import top.lrshuai.common.core.test.User;
+
+import javax.annotation.Resource;
 
 @RequestMapping("/ribbon")
 @RestController
@@ -14,7 +15,7 @@ public class RibbonController {
     /**
      * 底层就是ribbon
      */
-    @Autowired
+    @Resource
     LoadBalancerClient loadBalancerClient;
 
 
@@ -27,7 +28,7 @@ public class RibbonController {
     }
 
     @PostMapping("/setUser")
-    public String setUser(@RequestBody  User user){
+    public String setUser(@RequestBody User user){
         ServiceInstance serviceInstance = loadBalancerClient.choose("nacos-provider");
         String url = serviceInstance.getUri() + "/test/setUser" ;
         String result = new RestTemplate().postForObject(url, user, String.class);

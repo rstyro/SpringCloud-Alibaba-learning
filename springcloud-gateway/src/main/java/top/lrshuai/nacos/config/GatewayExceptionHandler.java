@@ -15,8 +15,8 @@ import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
-import top.lrshuai.nacos.commons.ApiResultEnum;
-import top.lrshuai.nacos.commons.Result;
+import top.lrshuai.common.core.enums.ApiResultEnum;
+import top.lrshuai.common.core.resp.R;
 
 /**
  * 网关统一异常处理
@@ -44,7 +44,7 @@ public class GatewayExceptionHandler implements ErrorWebExceptionHandler {
             msg = "内部服务器错误";
         }
         log.error("[网关异常处理]请求路径:{},异常信息:{}", exchange.getRequest().getPath(), ex.getMessage());
-        return webFluxResponseWriter(response, HttpStatus.OK, msg, ApiResultEnum.FAILED.getStatus());
+        return webFluxResponseWriter(response, HttpStatus.OK, msg, ApiResultEnum.FAILED.getCode());
     }
 
     /**
@@ -56,10 +56,10 @@ public class GatewayExceptionHandler implements ErrorWebExceptionHandler {
      * @param value    响应内容
      * @return Mono<Void>
      */
-    public static Mono<Void> webFluxResponseWriter(ServerHttpResponse response, HttpStatus status, Object value, String code) {
+    public static Mono<Void> webFluxResponseWriter(ServerHttpResponse response, HttpStatus status, Object value, int code) {
         response.setStatusCode(status);
         response.getHeaders().add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
-        Result result = Result.error(code, value.toString());
+        R result = R.fail(code, value.toString());
         DataBuffer dataBuffer = response.bufferFactory().wrap(JSONObject.toJSONString(result).getBytes());
         return response.writeWith(Mono.just(dataBuffer));
     }

@@ -12,12 +12,13 @@
 
     <artifactId>springcloud-gateway</artifactId>
     <name>springcloud-gateway</name>
+    <description>微服务-网关</description>
 
     <dependencies>
 
         <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-gateway</artifactId>
         </dependency>
 
         <dependency>
@@ -26,8 +27,8 @@
         </dependency>
 
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-gateway</artifactId>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
         </dependency>
 
         <!-- 网关限流 -->
@@ -40,20 +41,22 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-pool2</artifactId>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.boot</groupId>-->
-<!--            <artifactId>spring-boot-starter-data-redis</artifactId>-->
-<!--        </dependency>-->
 
         <dependency>
             <groupId>top.lrshuai</groupId>
-            <artifactId>springcloud-nacos-commons</artifactId>
-            <version>${revision}</version>
+            <artifactId>springcloud-common-redis</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>top.lrshuai</groupId>
+            <artifactId>springcloud-common-core</artifactId>
+        </dependency>
+
 
     </dependencies>
 
     <build>
+        <finalName>${project.artifactId}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

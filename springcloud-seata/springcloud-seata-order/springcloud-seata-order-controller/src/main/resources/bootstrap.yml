@@ -1,7 +1,0 @@
-spring:
-  profiles:
-    active: dev
-  application:
-    name: seata-order
-  main:
-    allow-bean-definition-overriding: true

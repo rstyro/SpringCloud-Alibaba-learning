@@ -1,0 +1,3 @@
+top.lrshuai.common.mybatis.config.MybatisPlusConfig
+top.lrshuai.common.mybatis.handler.DefaultFieldAutoFillHandler
+top.lrshuai.common.mybatis.handler.MybatisExceptionHandler

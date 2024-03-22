@@ -1,0 +1,39 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>top.lrshuai</groupId>
+    <artifactId>springcloud-api-bom</artifactId>
+    <name>springcloud-api-bom</name>
+    <version>${revision}</version>
+    <description>api的依赖</description>
+
+    <properties>
+        <revision>1.0.0</revision>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>top.lrshuai</groupId>
+                <artifactId>springcloud-api-user</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>top.lrshuai</groupId>
+                <artifactId>springcloud-api-order</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>top.lrshuai</groupId>
+                <artifactId>springcloud-api-mall</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+
+        </dependencies>
+    </dependencyManagement>
+
+</project>

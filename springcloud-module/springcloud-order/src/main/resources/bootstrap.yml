@@ -1,0 +1,14 @@
+server:
+  port: 8002
+spring:
+  application:
+    name: order
+  profiles:
+    active: dev
+  main:
+    allow-circular-references: true
+    allow-bean-definition-overriding: true
+
+
+swagger:
+  description: 订单服务模块接口

@@ -1,12 +1,11 @@
 package top.lrshuai.nacos.controller.restTemplate;
 
+import com.alibaba.fastjson.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.client.loadbalancer.LoadBalanced;
-import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
-import top.lrshuai.nacos.commons.Result;
-import top.lrshuai.nacos.commons.entity.User;
+import top.lrshuai.common.core.resp.R;
+import top.lrshuai.common.core.test.User;
 
 @RequestMapping("/rest")
 @RestController
@@ -17,19 +16,15 @@ public class RestTemplateController {
 
     @GetMapping("/hello")
     public String hello(String name){
-        Result result = loadRestTemplate.getForObject("http://nacos-provider/test/sayHi?name="+name, Result.class);
-        return "访问provider 返回 : " + result;
+        R result = loadRestTemplate.getForObject("http://nacos-provider/test/sayHi?name="+name, R.class);
+        return "访问provider 返回 : " + JSON.toJSONString(result);
     }
 
     @PostMapping("/setUser")
     public String setUser(@RequestBody User user){
-        Result result = loadRestTemplate.postForObject("http://nacos-provider/test/setUser", user, Result.class);
-        return "访问provider 返回 : " + result;
+        R result = loadRestTemplate.postForObject("http://nacos-provider/test/setUser", user, R.class);
+        return "访问provider 返回 : " + JSON.toJSONString(result);
     }
 
-    @Bean
-    @LoadBalanced
-    public RestTemplate loadRestTemplate(){
-        return  new RestTemplate();
-    }
+
 }

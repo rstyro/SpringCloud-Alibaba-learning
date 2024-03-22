@@ -1,0 +1,12 @@
+# 自定义swagger配置，可覆盖,参数含义可查看 SpringdocProperties.class
+swagger:
+  enable: true
+  title: 接口文档
+  description: 微服务接口文档
+  version: 1.0.0
+  name: rstyro
+  email:
+  authUrl: https://rstyro.gitee.io/blog/
+  license: Apache 2.0
+  licenseUrl: https://springdoc.org
+  termsOfServiceUrl:
