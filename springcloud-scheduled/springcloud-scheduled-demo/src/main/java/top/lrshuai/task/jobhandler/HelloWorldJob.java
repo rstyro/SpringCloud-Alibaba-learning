@@ -11,6 +11,7 @@ public class HelloWorldJob {
 
     @XxlJob("helloWorldHandler")
     public void helloWorldHandler(){
+        log.info("Hello XxlJob !!!");
         XxlJobHelper.log("Hello XxlJob !!!");
     }
 }

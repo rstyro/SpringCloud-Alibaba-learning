@@ -3,15 +3,15 @@
 
  Source Server         : localhost
  Source Server Type    : MySQL
- Source Server Version : 80016
+ Source Server Version : 80027
  Source Host           : localhost:3306
- Source Schema         : xxl_job
+ Source Schema         : cloud_job
 
  Target Server Type    : MySQL
- Target Server Version : 80016
+ Target Server Version : 80027
  File Encoding         : 65001
 
- Date: 07/07/2021 14:56:13
+ Date: 25/03/2024 18:03:23
 */
 
 SET NAMES utf8mb4;
@@ -22,10 +22,10 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 DROP TABLE IF EXISTS `xxl_job_group`;
 CREATE TABLE `xxl_job_group`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `app_name` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '执行器AppName',
   `title` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '执行器名称',
-  `address_type` tinyint(4) NOT NULL DEFAULT 0 COMMENT '执行器地址类型：0=自动注册、1=手动录入',
+  `address_type` tinyint NOT NULL DEFAULT 0 COMMENT '执行器地址类型：0=自动注册、1=手动录入',
   `address_list` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL COMMENT '执行器地址列表，多地址逗号分隔',
   `update_time` datetime NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
@@ -34,15 +34,15 @@ CREATE TABLE `xxl_job_group`  (
 -- ----------------------------
 -- Records of xxl_job_group
 -- ----------------------------
-INSERT INTO `xxl_job_group` VALUES (1, 'xxl-job-executor-sample', '示例执行器', 0, NULL, '2018-11-03 22:21:31');
+INSERT INTO `xxl_job_group` VALUES (1, 'springcloud-job-executor', 'job执行器', 0, NULL, '2024-03-25 18:03:22');
 
 -- ----------------------------
 -- Table structure for xxl_job_info
 -- ----------------------------
 DROP TABLE IF EXISTS `xxl_job_info`;
 CREATE TABLE `xxl_job_info`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `job_group` int(11) NOT NULL COMMENT '执行器主键ID',
+  `id` int NOT NULL AUTO_INCREMENT,
+  `job_group` int NOT NULL COMMENT '执行器主键ID',
   `job_desc` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `add_time` datetime NULL DEFAULT NULL,
   `update_time` datetime NULL DEFAULT NULL,
@@ -55,23 +55,24 @@ CREATE TABLE `xxl_job_info`  (
   `executor_handler` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '执行器任务handler',
   `executor_param` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '执行器任务参数',
   `executor_block_strategy` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '阻塞处理策略',
-  `executor_timeout` int(11) NOT NULL DEFAULT 0 COMMENT '任务执行超时时间，单位秒',
-  `executor_fail_retry_count` int(11) NOT NULL DEFAULT 0 COMMENT '失败重试次数',
+  `executor_timeout` int NOT NULL DEFAULT 0 COMMENT '任务执行超时时间，单位秒',
+  `executor_fail_retry_count` int NOT NULL DEFAULT 0 COMMENT '失败重试次数',
   `glue_type` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT 'GLUE类型',
   `glue_source` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL COMMENT 'GLUE源代码',
   `glue_remark` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT 'GLUE备注',
   `glue_updatetime` datetime NULL DEFAULT NULL COMMENT 'GLUE更新时间',
   `child_jobid` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '子任务ID，多个逗号分隔',
-  `trigger_status` tinyint(4) NOT NULL DEFAULT 0 COMMENT '调度状态：0-停止，1-运行',
-  `trigger_last_time` bigint(13) NOT NULL DEFAULT 0 COMMENT '上次调度时间',
-  `trigger_next_time` bigint(13) NOT NULL DEFAULT 0 COMMENT '下次调度时间',
+  `trigger_status` tinyint NOT NULL DEFAULT 0 COMMENT '调度状态：0-停止，1-运行',
+  `trigger_last_time` bigint NOT NULL DEFAULT 0 COMMENT '上次调度时间',
+  `trigger_next_time` bigint NOT NULL DEFAULT 0 COMMENT '下次调度时间',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of xxl_job_info
 -- ----------------------------
-INSERT INTO `xxl_job_info` VALUES (1, 1, '测试任务1', '2018-11-03 22:21:31', '2018-11-03 22:21:31', 'XXL', '', 'CRON', '0 0 0 * * ? *', 'DO_NOTHING', 'FIRST', 'demoJobHandler', '', 'SERIAL_EXECUTION', 0, 0, 'BEAN', '', 'GLUE代码初始化', '2018-11-03 22:21:31', '', 0, 0, 0);
+INSERT INTO `xxl_job_info` VALUES (2, 1, '测试', '2024-03-25 17:46:47', '2024-03-25 17:57:45', 'rstyro', '', 'CRON', '0/2 * * * * ?', 'DO_NOTHING', 'FIRST', 'helloWorldHandler', '', 'SERIAL_EXECUTION', 0, 0, 'BEAN', '', 'GLUE代码初始化', '2024-03-25 17:46:47', '', 1, 1711360708000, 1711360710000);
+INSERT INTO `xxl_job_info` VALUES (3, 1, 'demo', '2024-03-25 17:47:32', '2024-03-25 17:57:48', 'rstyro', '', 'CRON', '0/2 * * * * ?', 'DO_NOTHING', 'FIRST', 'demoHandler', '参数', 'SERIAL_EXECUTION', 0, 0, 'BEAN', '', 'GLUE代码初始化', '2024-03-25 17:47:32', '', 1, 1711360708000, 1711360710000);
 
 -- ----------------------------
 -- Table structure for xxl_job_lock
@@ -92,25 +93,25 @@ INSERT INTO `xxl_job_lock` VALUES ('schedule_lock');
 -- ----------------------------
 DROP TABLE IF EXISTS `xxl_job_log`;
 CREATE TABLE `xxl_job_log`  (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `job_group` int(11) NOT NULL COMMENT '执行器主键ID',
-  `job_id` int(11) NOT NULL COMMENT '任务，主键ID',
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `job_group` int NOT NULL COMMENT '执行器主键ID',
+  `job_id` int NOT NULL COMMENT '任务，主键ID',
   `executor_address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '执行器地址，本次执行的地址',
   `executor_handler` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '执行器任务handler',
   `executor_param` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '执行器任务参数',
   `executor_sharding_param` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '执行器任务分片参数，格式如 1/2',
-  `executor_fail_retry_count` int(11) NOT NULL DEFAULT 0 COMMENT '失败重试次数',
+  `executor_fail_retry_count` int NOT NULL DEFAULT 0 COMMENT '失败重试次数',
   `trigger_time` datetime NULL DEFAULT NULL COMMENT '调度-时间',
-  `trigger_code` int(11) NOT NULL COMMENT '调度-结果',
+  `trigger_code` int NOT NULL COMMENT '调度-结果',
   `trigger_msg` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL COMMENT '调度-日志',
   `handle_time` datetime NULL DEFAULT NULL COMMENT '执行-时间',
-  `handle_code` int(11) NOT NULL COMMENT '执行-状态',
+  `handle_code` int NOT NULL COMMENT '执行-状态',
   `handle_msg` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL COMMENT '执行-日志',
-  `alarm_status` tinyint(4) NOT NULL DEFAULT 0 COMMENT '告警状态：0-默认、1-无需告警、2-告警成功、3-告警失败',
+  `alarm_status` tinyint NOT NULL DEFAULT 0 COMMENT '告警状态：0-默认、1-无需告警、2-告警成功、3-告警失败',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `I_trigger_time`(`trigger_time`) USING BTREE,
   INDEX `I_handle_code`(`handle_code`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of xxl_job_log
@@ -121,34 +122,37 @@ CREATE TABLE `xxl_job_log`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `xxl_job_log_report`;
 CREATE TABLE `xxl_job_log_report`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `trigger_day` datetime NULL DEFAULT NULL COMMENT '调度-时间',
-  `running_count` int(11) NOT NULL DEFAULT 0 COMMENT '运行中-日志数量',
-  `suc_count` int(11) NOT NULL DEFAULT 0 COMMENT '执行成功-日志数量',
-  `fail_count` int(11) NOT NULL DEFAULT 0 COMMENT '执行失败-日志数量',
+  `running_count` int NOT NULL DEFAULT 0 COMMENT '运行中-日志数量',
+  `suc_count` int NOT NULL DEFAULT 0 COMMENT '执行成功-日志数量',
+  `fail_count` int NOT NULL DEFAULT 0 COMMENT '执行失败-日志数量',
   `update_time` datetime NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `i_trigger_day`(`trigger_day`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of xxl_job_log_report
 -- ----------------------------
+INSERT INTO `xxl_job_log_report` VALUES (1, '2024-03-25 00:00:00', 0, 0, 0, NULL);
+INSERT INTO `xxl_job_log_report` VALUES (2, '2024-03-24 00:00:00', 0, 0, 0, NULL);
+INSERT INTO `xxl_job_log_report` VALUES (3, '2024-03-23 00:00:00', 0, 0, 0, NULL);
 
 -- ----------------------------
 -- Table structure for xxl_job_logglue
 -- ----------------------------
 DROP TABLE IF EXISTS `xxl_job_logglue`;
 CREATE TABLE `xxl_job_logglue`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `job_id` int(11) NOT NULL COMMENT '任务，主键ID',
+  `id` int NOT NULL AUTO_INCREMENT,
+  `job_id` int NOT NULL COMMENT '任务，主键ID',
   `glue_type` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT 'GLUE类型',
   `glue_source` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL COMMENT 'GLUE源代码',
   `glue_remark` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT 'GLUE备注',
   `add_time` datetime NULL DEFAULT NULL,
   `update_time` datetime NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of xxl_job_logglue
@@ -159,14 +163,14 @@ CREATE TABLE `xxl_job_logglue`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `xxl_job_registry`;
 CREATE TABLE `xxl_job_registry`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `registry_group` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `registry_key` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `registry_value` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `update_time` datetime NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `i_g_k_v`(`registry_group`, `registry_key`, `registry_value`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of xxl_job_registry
@@ -177,10 +181,10 @@ CREATE TABLE `xxl_job_registry`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `xxl_job_user`;
 CREATE TABLE `xxl_job_user`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `username` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '账号',
   `password` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '密码',
-  `role` tinyint(4) NOT NULL COMMENT '角色：0-普通用户、1-管理员',
+  `role` tinyint NOT NULL COMMENT '角色：0-普通用户、1-管理员',
   `permission` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '权限：执行器ID列表，多个逗号分割',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `i_username`(`username`) USING BTREE

@@ -1,6 +1,7 @@
 package top.lrshuai.order.service.impl;
 
 import cn.hutool.core.util.IdUtil;
+import cn.hutool.core.util.ObjUtil;
 import com.alibaba.cloud.commons.lang.StringUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import io.seata.core.context.RootContext;
@@ -99,7 +100,9 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
             R<Boolean> result = userAccountFeign.operateAccount(new UpdateAccountDto().setAmount(totalPay).setIsIncome(Boolean.FALSE).setSource(1).setUserId(dto.getUserId()));
             if (!result.isSuccess()) {
                 // 这个方法可以回滚全局事务
-                GlobalTransactionContext.reload(RootContext.getXID()).rollback();
+                if(!ObjUtil.isEmpty(RootContext.getXID())){
+                    GlobalTransactionContext.reload(RootContext.getXID()).rollback();
+                }
                 return R.fail(ApiResultEnum.FEIGN_ERROR);
             }
             // 扣除库存

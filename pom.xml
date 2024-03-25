@@ -53,13 +53,13 @@
         <mybatisplus.version>3.5.5</mybatisplus.version>
         <mysql.version>8.3.0</mysql.version>
         <druid.version>1.2.20</druid.version>
-        <mybatis-spring-boot.version>3.0.3</mybatis-spring-boot.version>
+        <mybatis-spring-boot.version>2.3.2</mybatis-spring-boot.version>
 
         <!-- springboot2.7.6 logbock版本是1.2.11有风险换一下吧 -->
         <logback.version>1.5.3</logback.version>
 
         <!-- 定时任务 -->
-        <xxl.job.version>2.3.0</xxl.job.version>
+        <xxl.job.version>2.4.0</xxl.job.version>
 
         <!-- 插件版本 -->
         <maven-jar-plugin.version>3.2.2</maven-jar-plugin.version>
@@ -74,21 +74,6 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-bootstrap</artifactId>
         </dependency>
-
-        <!-- mybatis-plus -->
-        <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-boot-starter</artifactId>
-            <scope>provided</scope>
-        </dependency>
-
-        <!-- openfeign -->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-openfeign</artifactId>
-            <scope>provided</scope>
-        </dependency>
-
     </dependencies>
 
     <!-- 依赖声明 -->
@@ -144,6 +129,11 @@
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-generator</artifactId>
+                <version>${mybatisplus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-annotation</artifactId>
                 <version>${mybatisplus.version}</version>
             </dependency>
 

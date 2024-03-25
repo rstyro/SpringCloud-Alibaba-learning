@@ -88,6 +88,12 @@
             <artifactId>swagger-annotations</artifactId>
         </dependency>
 
+        <!-- mybatis-plus 注解 -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-annotation</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-logging</artifactId>
@@ -104,6 +110,13 @@
             <artifactId>spring-boot-starter-aop</artifactId>
             <scope>provided</scope>
         </dependency>
+
+        <!-- openfeign -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+
 
         <dependency>
             <groupId>org.springframework.boot</groupId>

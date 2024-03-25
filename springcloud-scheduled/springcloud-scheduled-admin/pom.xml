@@ -59,6 +59,11 @@
 			<artifactId>xxl-job-core</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>cn.hutool</groupId>
+			<artifactId>hutool-core</artifactId>
+		</dependency>
+
 	</dependencies>
 
 	<build>
