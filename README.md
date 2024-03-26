@@ -17,15 +17,21 @@
   - springcloud-common-swagger 集成swagger3
   - springcloud-common-mybatis-plus 集成mybatis-plus
   - springcloud-common-seata 集成分布式事务seata
+  - springcloud-common-sleuth-zipkin 集成链路追踪
+  - springcloud-common-sentinel 集成sentinel流控与熔断等
 - springcloud-gencode 代码生成器
 - springcloud-nacos-discovery-provider 入门级-提供者
 - springcloud-nacos-discovery-consumer 入门级-消费者
-- springcloud-nacos-config  nacos配置中心demo
-- springcloud-nacos-sentinel 流程控制，熔断等demo
-- springcloud-sleuth  链路追踪demo
+- springcloud-nacos-config  入门级-nacos配置中心demo
+- springcloud-sleuth  入门级-链路追踪demo
+- springcloud-nacos-sentinel 入门级-流程控制，熔断等demo
 - springcloud-scheduled  分布式定时任务xxl-job
-- springcloud-module  业务服务模块，测试seata
+- springcloud-module  业务服务模块，实战demo
   - springcloud-user 用户模块
   - springcloud-order 订单模块
   - springcloud-mall 商城模块
 - springcloud-api   各个module的api调用
+  - springcloud-api-bom  api的pom包引入
+  - springcloud-api-mall  商城模块api
+  - springcloud-api-order  订单模块api
+  - springcloud-api-user  用户模块api

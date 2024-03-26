@@ -54,6 +54,18 @@
                 <version>${revision}</version>
             </dependency>
 
+            <dependency>
+                <groupId>top.lrshuai</groupId>
+                <artifactId>springcloud-common-sleuth-zipkin</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>top.lrshuai</groupId>
+                <artifactId>springcloud-common-sentinel</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 </project>

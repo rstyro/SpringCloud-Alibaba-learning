@@ -86,6 +86,19 @@
             <artifactId>springcloud-common-seata</artifactId>
         </dependency>
 
+        <!-- 链路追踪 -->
+        <dependency>
+            <groupId>top.lrshuai</groupId>
+            <artifactId>springcloud-common-sleuth-zipkin</artifactId>
+        </dependency>
+
+        <!-- sentinel -->
+        <dependency>
+            <groupId>top.lrshuai</groupId>
+            <artifactId>springcloud-common-sentinel</artifactId>
+        </dependency>
+
+
     </dependencies>
 
     <build>

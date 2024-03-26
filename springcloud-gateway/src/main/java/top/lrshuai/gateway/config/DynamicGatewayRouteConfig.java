@@ -1,4 +1,4 @@
-package top.lrshuai.nacos.config;
+package top.lrshuai.gateway.config;
 
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.nacos.api.NacosFactory;

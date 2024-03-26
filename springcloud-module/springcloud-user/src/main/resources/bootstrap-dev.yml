@@ -16,11 +16,6 @@ spring:
         username: nacos
         password: nacos
         namespace: 94455b2a-cf66-40b5-819b-bba352aaa4f1
-    sentinel:
-      enabled: true
-      transport:
-        dashboard: localhost:8080
-
 
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver

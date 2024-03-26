@@ -9,6 +9,10 @@ public class ErrorUtils {
         throw new ServiceException(apiResultEnum.getMessage(), apiResultEnum.getCode());
     }
 
+    public static void err(int code,String message) {
+        throw new ServiceException(message, code);
+    }
+
     public static void err(ApiResultEnum apiResultEnum, String... params) {
         String resultMsg = apiResultEnum.getMessage();
         if (params != null && params.length > 0) {

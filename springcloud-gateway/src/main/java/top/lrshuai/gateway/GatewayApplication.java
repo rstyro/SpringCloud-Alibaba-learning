@@ -1,4 +1,4 @@
-package top.lrshuai.nacos;
+package top.lrshuai.gateway;
 
 import cn.hutool.core.net.NetUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -7,9 +7,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.env.Environment;
+import top.lrshuai.common.core.annotation.CloudComponentScan;
 
 @Slf4j
-//@EnableDiscoveryClient
+@CloudComponentScan
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class })
 public class GatewayApplication {
     public static void main(String[] args) {

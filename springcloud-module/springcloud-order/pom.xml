@@ -91,9 +91,22 @@
             <artifactId>springcloud-common-seata</artifactId>
         </dependency>
 
+        <!-- sentinel流量控制 -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
+        </dependency>
+
+        <!-- 链路追踪 -->
+        <dependency>
+            <groupId>top.lrshuai</groupId>
+            <artifactId>springcloud-common-sleuth-zipkin</artifactId>
+        </dependency>
+
+        <!-- sentinel -->
+        <dependency>
+            <groupId>top.lrshuai</groupId>
+            <artifactId>springcloud-common-sentinel</artifactId>
         </dependency>
 
     </dependencies>

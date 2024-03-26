@@ -1,0 +1,12 @@
+# sentinel 默认配置，可在nacos配置覆盖
+spring:
+  cloud:
+    sentinel:
+      #服务启动直接建立心跳连接,访问sentinel 控制台就可以看到服务连接情况，不需要第一次访问应用的某个接口，才连接sentinel
+      eager: true
+      enabled: true
+      transport:
+        # springboot项目和 控制台交互端口，默认8719
+        port: 18808
+        #控制台地址
+        dashboard: localhost:8080

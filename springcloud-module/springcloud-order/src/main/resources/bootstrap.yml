@@ -2,7 +2,7 @@ server:
   port: 8002
 spring:
   application:
-    name: order
+    name: cloud-order
   profiles:
     active: dev
   main:

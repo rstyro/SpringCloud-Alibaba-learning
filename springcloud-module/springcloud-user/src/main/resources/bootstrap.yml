@@ -2,7 +2,7 @@ server:
   port: 8001
 spring:
   application:
-    name: user
+    name: cloud-user
   profiles:
     active: dev
   main:

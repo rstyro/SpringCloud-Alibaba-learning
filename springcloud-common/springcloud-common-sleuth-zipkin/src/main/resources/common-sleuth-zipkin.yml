@@ -1,0 +1,10 @@
+# zipkin 默认配置，可在nacos覆盖
+spring:
+  zipkin:
+    enabled: true
+    base-url: http://127.0.0.1:9411/ # 指定了Zipkin服务器的地址
+    sender:
+      type: web
+  sleuth:
+    sampler:
+      probability: 1.0

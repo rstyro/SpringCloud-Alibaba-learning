@@ -3,13 +3,14 @@ server:
 
 spring:
   application:
-    name: sleuth-demo
+    name: sleuth
   cloud:
     nacos:
       discovery:
         server-addr: 127.0.0.1:8848
         username: nacos
         password: nacos
+        namespace: 94455b2a-cf66-40b5-819b-bba352aaa4f1
 
 
 # 调用链 Sleuth + ZipKin

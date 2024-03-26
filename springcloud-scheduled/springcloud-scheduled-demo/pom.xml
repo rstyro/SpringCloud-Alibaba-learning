@@ -34,6 +34,39 @@
 			<artifactId>lombok</artifactId>
 		</dependency>
 
+		<!-- SpringCloud Alibaba Nacos -->
+		<dependency>
+			<groupId>com.alibaba.cloud</groupId>
+			<artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+		</dependency>
+
+		<!-- SpringCloud Alibaba Nacos Config -->
+		<dependency>
+			<groupId>com.alibaba.cloud</groupId>
+			<artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+		</dependency>
+		<!-- openfeign -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-openfeign</artifactId>
+		</dependency>
+		<!-- SpringCloud Loadbalancer
+        Spring Cloud 2020版本以后，默认移除了对Netflix的依赖，其中就包括Ribbon，官⽅默认推荐使用Spring Cloud Loadbalancer正式替换Ribbon，并成为了Spring Cloud负载均衡器的唯⼀实现-->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-loadbalancer</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>top.lrshuai</groupId>
+			<artifactId>springcloud-common-core</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>top.lrshuai</groupId>
+			<artifactId>springcloud-common-redis</artifactId>
+		</dependency>
+
 	</dependencies>
 
 	<build>

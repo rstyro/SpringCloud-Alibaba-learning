@@ -1,6 +1,6 @@
 [
     {
-        "id": "mall",
+        "id": "cloud-mall",
         "predicates": [
             {
                 "args": {
@@ -17,10 +17,10 @@
                 }
             }
         ],
-        "uri": "lb://mall"
+        "uri": "lb://cloud-mall"
     },
     {
-        "id": "order",
+        "id": "cloud-order",
         "predicates": [
             {
                 "args": {
@@ -37,10 +37,10 @@
                 }
             }
         ],
-        "uri": "lb://order"
+        "uri": "lb://cloud-order"
     },
     {
-        "id": "user",
+        "id": "cloud-user",
         "predicates": [
             {
                 "args": {
@@ -55,19 +55,11 @@
                 "args": {
                     "parts": "1"
                 }
-            },
-            {
-                "name": "MyRequestRateLimiter",
-                "args": {
-                    "redis-rate-limiter.replenishRate": 1000,
-                    "redis-rate-limiter.burstCapacity": 1000,
-                    "key-resolver": "#{@pathKeyResolver}"
-                }
             }
         ],
-        "uri": "lb://user"
+        "uri": "lb://cloud-user"
     },
-      {
+    {
         "id": "nacos-provider",
         "predicates": [
             {

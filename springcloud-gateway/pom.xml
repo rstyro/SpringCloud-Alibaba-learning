@@ -20,7 +20,13 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-gateway</artifactId>
         </dependency>
+        <!-- SpringCloud Loadbalancer-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-loadbalancer</artifactId>
+        </dependency>
 
+        <!-- nacos 注册中心与配置中心 -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
@@ -42,14 +48,26 @@
             <artifactId>commons-pool2</artifactId>
         </dependency>
 
+        <!-- redis -->
         <dependency>
             <groupId>top.lrshuai</groupId>
             <artifactId>springcloud-common-redis</artifactId>
         </dependency>
 
+        <!-- 通用核心包 -->
         <dependency>
             <groupId>top.lrshuai</groupId>
             <artifactId>springcloud-common-core</artifactId>
+        </dependency>
+
+        <!-- SpringCloud Alibaba Sentinel Gateway -->
+        <dependency>
+            <groupId>top.lrshuai</groupId>
+            <artifactId>springcloud-common-sentinel</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-alibaba-sentinel-gateway</artifactId>
         </dependency>
 
 

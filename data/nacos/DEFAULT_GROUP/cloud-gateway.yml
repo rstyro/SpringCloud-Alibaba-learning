@@ -1,0 +1,14 @@
+spring:
+  cloud:
+    sentinel:
+      datasource:
+        ds1:
+          nacos:
+            server-addr: 127.0.0.1:8848
+            username: nacos
+            password: nacos
+            data-id: sentinel-geteway
+            group-id: DEFAULT_GROUP
+            data-type: json
+            rule-type: gw-flow
+            namespace: 94455b2a-cf66-40b5-819b-bba352aaa4f1

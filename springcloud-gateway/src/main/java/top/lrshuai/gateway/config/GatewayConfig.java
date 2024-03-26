@@ -1,18 +1,22 @@
-package top.lrshuai.nacos.config;
+package top.lrshuai.gateway.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.reactive.CorsWebFilter;
 import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
 import org.springframework.web.util.pattern.PathPatternParser;
+import top.lrshuai.gateway.handler.SentinelFallbackHandler;
 
-/**
- * 网关跨域
- */
+
 @Configuration
-public class GatewayCorsFilter {
+public class GatewayConfig {
 
+    /**
+     * 网关跨域
+     */
     @Bean
     public CorsWebFilter corsFilter() {
         CorsConfiguration config = new CorsConfiguration();
@@ -40,6 +44,16 @@ public class GatewayCorsFilter {
         source.registerCorsConfiguration("/**", config);
 
         return new CorsWebFilter(source);
+    }
+
+    /**
+     * 网关限流
+     * @return
+     */
+    @Bean
+    @Order(Ordered.HIGHEST_PRECEDENCE)
+    public SentinelFallbackHandler sentinelGatewayExceptionHandler() {
+        return new SentinelFallbackHandler();
     }
 
 }

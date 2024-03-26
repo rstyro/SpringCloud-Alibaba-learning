@@ -19,6 +19,8 @@
         <module>springcloud-common-swagger</module>
         <module>springcloud-common-mybatis-plus</module>
         <module>springcloud-common-seata</module>
+        <module>springcloud-common-sleuth-zipkin</module>
+        <module>springcloud-common-sentinel</module>
     </modules>
 
 </project>

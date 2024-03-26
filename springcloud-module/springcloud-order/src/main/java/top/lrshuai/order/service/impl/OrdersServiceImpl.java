@@ -65,12 +65,12 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
         R result1 = userAccountFeign.operateAccount(new UpdateAccountDto().setAmount(totalPay)
                 .setIsIncome(Boolean.FALSE).setSource(1).setUserId(dto.getUserId()).setOrderNumber(orderNumber));
         if (!result1.isSuccess()) {
-            ErrorUtils.err(ApiResultEnum.ERROR);
+            ErrorUtils.err(result1.getCode(),result1.getMsg());
         }
         // 扣除库存
         R<Boolean> update = commodityFeign.update(new UpdateCommodityDto().setCode(dto.getCommodityCode()).setDecrCount(dto.getCount()));
-        if (!update.isSuccess() && !update.getData()) {
-            ErrorUtils.err(ApiResultEnum.ERROR);
+        if (!update.isSuccess()) {
+            ErrorUtils.err(update.getCode(),update.getMsg());
         }
         Orders orders = new Orders().setCommoditysCode(dto.getCommodityCode())
                 .setCount(dto.getCount()).setUserId(dto.getUserId())
@@ -91,7 +91,7 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
             if (!commodityInfo.isSuccess()) {
                 // 这个方法可以回滚全局事务
                 GlobalTransactionContext.reload(RootContext.getXID()).rollback();
-                return R.fail(ApiResultEnum.FEIGN_ERROR);
+                ErrorUtils.err(commodityInfo.getCode(),commodityInfo.getMsg());
             }
             Commodity commodity = commodityInfo.getData();
             // 总金额
@@ -107,7 +107,7 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
             }
             // 扣除库存
             R<Boolean> update = commodityFeign.update(new UpdateCommodityDto().setCode(dto.getCommodityCode()).setDecrCount(dto.getCount()));
-            if (!update.isSuccess() || !update.getData()) {
+            if (!update.isSuccess()) {
                 // 这个方法可以回滚全局事务
                 GlobalTransactionContext.reload(RootContext.getXID()).rollback();
                 return R.fail(ApiResultEnum.FEIGN_ERROR);
@@ -133,7 +133,7 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
         // 获取商品信息
         R<Commodity> commodityInfo = commodityFeign.getInfoByCode(dto.getCommodityCode());
         if (!commodityInfo.isSuccess()) {
-            ErrorUtils.err(ApiResultEnum.ERROR);
+            ErrorUtils.err(commodityInfo.getCode(),commodityInfo.getMsg());
         }
         Commodity commodity = commodityInfo.getData();
         // 总金额
@@ -141,7 +141,7 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
         // 扣除余额
         R<Boolean> result1 = userAccountFeign.operateAccount(new UpdateAccountDto().setAmount(totalPay).setIsIncome(Boolean.FALSE).setSource(1).setUserId(dto.getUserId()));
         if (!result1.isSuccess()) {
-            ErrorUtils.err(ApiResultEnum.ERROR);
+            ErrorUtils.err(result1.getCode(),result1.getMsg());
         }
         /**
          * 扣除库存这里不走全局事务，如果失败，照样进行
@@ -151,8 +151,8 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
         try{
             // 扣除库存
             R<Boolean> update = commodityFeign.update(new UpdateCommodityDto().setCode(dto.getCommodityCode()).setDecrCount(dto.getCount()));
-            if (!update.isSuccess() && !update.getData()) {
-                ErrorUtils.err(ApiResultEnum.ERROR);
+            if (!update.isSuccess()) {
+                ErrorUtils.err(update.getCode(),update.getMsg());
             }
         }catch (Exception e){
             log.error("扣除库存失败，商品编号="+dto.getCommodityCode(),e);

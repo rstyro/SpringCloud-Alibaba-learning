@@ -31,7 +31,7 @@ public class XxlJobAdminApplication {
 		String port = env.getProperty("server.port");
 		String property = env.getProperty("server.servlet.context-path");
 		String path = property == null ? "" :  property;
-		log.info("用户模块启动成功,{}:{}{}", ip,port,path);
+		log.info("定时器后台启动成功,{}:{}{}", ip,port,path);
 	}
 
 }
