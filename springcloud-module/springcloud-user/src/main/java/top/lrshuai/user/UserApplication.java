@@ -1,7 +1,6 @@
 package top.lrshuai.user;
 
 import cn.hutool.core.net.NetUtil;
-import com.alibaba.cloud.seata.feign.SeataFeignClientAutoConfiguration;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -49,6 +49,9 @@ spring:
         wall:
           config:
             multi-statement-allow: true
+  zipkin:
+    enabled: false
+
 
 redisson:
   keyPrefix: order

@@ -49,6 +49,8 @@ spring:
         wall:
           config:
             multi-statement-allow: true
+  zipkin:
+    enabled: false
 
 feign:
   sentinel:
