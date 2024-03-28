@@ -30,8 +30,13 @@ public class DefaultFieldAutoFillHandler implements MetaObjectHandler {
     @Override
     public void updateFill(MetaObject metaObject) {
         try {
-            this.strictUpdateFill(metaObject, "updateBy", Long.class, SecurityContextHolder.getUserId());
-            this.strictUpdateFill(metaObject, "updateTime", LocalDateTime.class, LocalDateTime.now());
+            // 有值则不填充
+//            this.strictUpdateFill(metaObject, "updateBy", Long.class, SecurityContextHolder.getUserId());
+//            this.strictUpdateFill(metaObject, "updateTime", LocalDateTime.class, LocalDateTime.now());
+            // 不管有没有值都填充
+            this.setFieldValByName("updateBy", SecurityContextHolder.getUserId(), metaObject);
+            this.setFieldValByName("updateTime", LocalDateTime.now(), metaObject);
+
         } catch (Exception e) {
             throw new ServiceException("updateFill-自动注入异常 => " + e.getMessage(), HttpStatus.HTTP_UNAUTHORIZED);
         }

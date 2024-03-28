@@ -1,5 +1,6 @@
 # seata 默认配置，可再nacos覆盖
 seata:
+  enabled: true
   service:
     vgroupMapping:
       default_tx_group: default

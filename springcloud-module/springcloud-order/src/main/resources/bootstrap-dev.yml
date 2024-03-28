@@ -49,9 +49,14 @@ spring:
         wall:
           config:
             multi-statement-allow: true
+
+  # 关闭 zipkin
   zipkin:
     enabled: false
 
+# 关闭seata
+seata:
+  enabled: false
 
 redisson:
   keyPrefix: order
