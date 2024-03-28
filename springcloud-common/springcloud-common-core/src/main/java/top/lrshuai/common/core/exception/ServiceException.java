@@ -1,5 +1,7 @@
 package top.lrshuai.common.core.exception;
 
+import top.lrshuai.common.core.enums.ApiResultEnum;
+
 /**
  * 业务异常
  */
@@ -38,6 +40,11 @@ public class ServiceException extends RuntimeException{
     public ServiceException setMessage(String message) {
         this.message = message;
         return this;
+    }
+
+    public ServiceException(ApiResultEnum apiResultEnum) {
+        this.message = apiResultEnum.getMessage();
+        this.code = apiResultEnum.getCode();
     }
 
     public ServiceException setDetailMessage(String detailMessage) {

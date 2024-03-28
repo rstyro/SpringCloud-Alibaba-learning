@@ -38,5 +38,10 @@
             <scope>provided</scope>
         </dependency>
 
+        <dependency>
+            <groupId>top.lrshuai</groupId>
+            <artifactId>springcloud-common-redis</artifactId>
+        </dependency>
+
     </dependencies>
 </project>

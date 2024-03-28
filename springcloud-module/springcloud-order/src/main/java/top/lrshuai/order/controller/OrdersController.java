@@ -1,7 +1,6 @@
 package top.lrshuai.order.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -9,9 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import top.lrshuai.common.core.resp.R;
 import top.lrshuai.common.core.web.BaseController;
+import top.lrshuai.common.security.annotation.RepeatSubmit;
 import top.lrshuai.order.api.dto.PayDto;
 import top.lrshuai.order.service.IOrdersService;
-
 import javax.annotation.Resource;
 import javax.validation.Valid;
 
@@ -34,6 +33,7 @@ public class OrdersController extends BaseController {
 
     @Operation(summary = "下单测试接口1")
     @PostMapping("/pay1")
+    @RepeatSubmit(interval = 9000)
     public R pay1(@RequestBody @Valid PayDto dto){
         return ordersService.payOrder(dto);
     }

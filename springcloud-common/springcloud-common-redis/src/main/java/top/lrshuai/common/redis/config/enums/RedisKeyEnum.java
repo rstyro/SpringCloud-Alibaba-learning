@@ -3,6 +3,7 @@ package top.lrshuai.common.redis.config.enums;
 public enum RedisKeyEnum {
     //登录Token
     LOGIN_TOKEN("cloud:user:login_token:", 3600 * 8, "登录Token"),
+    REPEAT_SUBMIT("cloud:security:repeat_submit:", 5000, "请求重复提交"),
 
 
     ;

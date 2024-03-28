@@ -22,6 +22,8 @@ public enum ApiResultEnum {
 	SYSTEM_USER_NOT_FOUND(10003,"用户找不到"),
 	SYSTEM_USER_EXIST(10004,"用户名已存在"),
 	SYSTEM_USER_ABOVE_MAX_RETRY_COUNT(10005,"用户登录错误次数过多已被锁定，请稍后再试"),
+	SYSTEM_REPEAT_SUBMIT_TIME_LIMIT(10006,"重复提交间隔时间不能小于'1'秒"),
+	SYSTEM_REPEAT_SUBMIT(10007,"请求重复提交，请稍后重试"),
 
 
 	ACCOUNT_INSUFFICIENT_BALANCE(20001,"余额不足"),
