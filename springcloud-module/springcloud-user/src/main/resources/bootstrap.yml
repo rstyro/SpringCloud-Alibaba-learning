@@ -7,7 +7,7 @@ spring:
     active: dev
   main:
     allow-bean-definition-overriding: true
-    allow-circular-references: true
+#    allow-circular-references: true
 
 
 swagger:

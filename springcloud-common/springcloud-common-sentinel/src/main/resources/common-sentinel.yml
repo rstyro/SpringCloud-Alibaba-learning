@@ -7,6 +7,6 @@ spring:
       enabled: true
       transport:
         # springboot项目和 控制台交互端口，默认8719
-        port: 18808
+#        port: 18808
         #控制台地址
         dashboard: localhost:8080

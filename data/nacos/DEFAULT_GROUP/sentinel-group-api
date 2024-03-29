@@ -1,0 +1,20 @@
+[
+  {
+    "apiName":"all-url-qps",
+    "predicateItems":[
+      {
+        "pattern":"/**",
+        "matchStrategy": 1 
+      }
+    ]
+  },
+  {
+    "apiName":"user-qps",
+    "predicateItems":[
+      {
+        "pattern":"/user/**",
+        "matchStrategy": 1
+      }
+    ]
+  }
+] 

@@ -53,7 +53,7 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
         log.info("全局事务xid={}", RootContext.getXID());
         // 获取商品信息
         R<Commodity> commodityInfo = commodityFeign.getInfoByCode(dto.getCommodityCode());
-        if (!commodityInfo.isSuccess()) {
+        if (!commodityInfo.isSuccess() || commodityInfo.getData()==null) {
             // 主动报错，触发回滚
             ErrorUtils.err(ApiResultEnum.ERROR);
         }

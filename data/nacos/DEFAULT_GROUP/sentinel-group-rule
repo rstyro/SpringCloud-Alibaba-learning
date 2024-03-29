@@ -1,0 +1,30 @@
+[
+{
+  "resource": "all-url-qps",
+  "resourceMode": 1,
+  "controlBehavior": 0,
+  "count": 3,
+  "intervalSec": 1,
+  "grade": 1,
+  "limitApp": "default",
+  "strategy": 0,
+  "paramItem": {
+      "parseStrategy": 2,
+      "fieldName": "uid"
+  }
+}
+,{
+  "resource": "user-qps",
+  "resourceMode": 1,
+  "controlBehavior": 0,
+  "count": 20,
+  "intervalSec": 86400,
+  "grade": 1,
+  "limitApp": "default",
+  "strategy": 0,
+  "paramItem": {
+      "parseStrategy": 2,
+      "fieldName": "uid"
+  }
+}
+]

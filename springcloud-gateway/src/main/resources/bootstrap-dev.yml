@@ -23,8 +23,29 @@ spring:
             data-id: sentinel-geteway
             group-id: DEFAULT_GROUP
             data-type: json
-            rule-type: gw-flow
             namespace: 94455b2a-cf66-40b5-819b-bba352aaa4f1
+            rule-type: gw-flow
+        # 下面是测试 gateway  sentinel api分组
+        group-api:
+          nacos:
+            server-addr: 127.0.0.1:8848
+            username: nacos
+            password: nacos
+            data-id: sentinel-group-api
+            group-id: DEFAULT_GROUP
+            data-type: json
+            namespace: 94455b2a-cf66-40b5-819b-bba352aaa4f1
+            rule-type: gw-api-group
+        group-rule:
+          nacos:
+            server-addr: 127.0.0.1:8848
+            username: nacos
+            password: nacos
+            data-id: sentinel-group-rule
+            group-id: DEFAULT_GROUP
+            data-type: json
+            namespace: 94455b2a-cf66-40b5-819b-bba352aaa4f1
+            rule-type: gw-flow
     #  # 网关配置在nacos中配置
 #    gateway:
 #      routes:

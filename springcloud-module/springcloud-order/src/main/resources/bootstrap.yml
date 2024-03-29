@@ -6,7 +6,7 @@ spring:
   profiles:
     active: dev
   main:
-    allow-circular-references: true
+#    allow-circular-references: true
     allow-bean-definition-overriding: true
 
 
