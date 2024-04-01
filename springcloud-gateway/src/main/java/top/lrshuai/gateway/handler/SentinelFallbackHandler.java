@@ -1,8 +1,7 @@
 package top.lrshuai.gateway.handler;
 
 import com.alibaba.csp.sentinel.adapter.gateway.common.rule.GatewayRuleManager;
-import com.alibaba.csp.sentinel.adapter.gateway.sc.callback.GatewayCallbackManager;
-import com.alibaba.csp.sentinel.slots.block.BlockException;
+import com.alibaba.csp.sentinel.adapter.gateway.sc.callback.BlockRequestHandler;
 import com.alibaba.csp.sentinel.slots.block.authority.AuthorityException;
 import com.alibaba.csp.sentinel.slots.block.degrade.DegradeException;
 import com.alibaba.csp.sentinel.slots.block.flow.FlowException;
@@ -12,13 +11,15 @@ import com.alibaba.csp.sentinel.slots.block.flow.param.ParameterMetric;
 import com.alibaba.csp.sentinel.slots.block.flow.param.ParameterMetricStorage;
 import com.alibaba.csp.sentinel.slots.statistic.cache.CacheMap;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import org.springframework.web.server.ServerWebExchange;
-import org.springframework.web.server.WebExceptionHandler;
 import reactor.core.publisher.Mono;
 import top.lrshuai.common.core.constant.SecurityConst;
 import top.lrshuai.common.core.enums.ApiResultEnum;
-import top.lrshuai.gateway.utils.MonoUtils;
+import top.lrshuai.common.core.resp.R;
 
 import java.util.List;
 import java.util.Objects;
@@ -28,41 +29,43 @@ import java.util.concurrent.atomic.AtomicLong;
  * 自定义限流异常处理
  */
 @Slf4j
-public class SentinelFallbackHandler implements WebExceptionHandler {
+public class SentinelFallbackHandler implements BlockRequestHandler {
 
-    private Mono<Void> writeResponse(ServerResponse response, ServerWebExchange exchange,Throwable e) {
+    @Override
+    public Mono<ServerResponse> handleRequest(ServerWebExchange exchange, Throwable e) {
         // 默认流控
-        ApiResultEnum apiResultEnum=ApiResultEnum.BLOCKED_FLOW;
+        ApiResultEnum apiResultEnum = ApiResultEnum.BLOCKED_FLOW;
         if (e instanceof FlowException) {
-            log.error("触发流控，url={}",exchange.getRequest().getPath());
-            apiResultEnum=ApiResultEnum.BLOCKED_FLOW;
-        } else if(e instanceof DegradeException) {
-            log.error("触发熔断降级，url={}",exchange.getRequest().getPath());
-            apiResultEnum=ApiResultEnum.BLOCKED_DEGRADE;
+            log.error("触发流控，url={}", exchange.getRequest().getPath());
+            apiResultEnum = ApiResultEnum.BLOCKED_FLOW;
+        } else if (e instanceof DegradeException) {
+            log.error("触发熔断降级，url={}", exchange.getRequest().getPath());
+            apiResultEnum = ApiResultEnum.BLOCKED_DEGRADE;
         } else if (e instanceof AuthorityException) {
-            log.error("请求未授权，url={}",exchange.getRequest().getPath());
-            apiResultEnum=ApiResultEnum.BLOCKED_AUTHORITY;
-        }else if (e instanceof ParamFlowException) {
+            log.error("请求未授权，url={}", exchange.getRequest().getPath());
+            apiResultEnum = ApiResultEnum.BLOCKED_AUTHORITY;
+        } else if (e instanceof ParamFlowException) {
             ParamFlowException paramFlowException = (ParamFlowException) e;
             ParamFlowRule rule = paramFlowException.getRule();
             log.error("触发热点参数流控，url={},resourceName={},时间={}ms,阀值={}"
-                    ,exchange.getRequest().getPath()
-                    ,paramFlowException.getResourceName()
-                    ,rule.getDurationInSec(),rule.getCount());
-            apiResultEnum=ApiResultEnum.BLOCKED_FLOW;
-
+                    , exchange.getRequest().getPath()
+                    , paramFlowException.getResourceName()
+                    , rule.getDurationInSec(), rule.getCount());
+            apiResultEnum = ApiResultEnum.BLOCKED_FLOW;
             // 重置
-
+//            resetFlowLimit(exchange,"user-qps");
         }
-        return MonoUtils.webFluxResponseWriter(exchange.getResponse(), apiResultEnum);
+        return ServerResponse.status(HttpStatus.OK)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(BodyInserters.fromValue(R.fail(apiResultEnum)));
     }
 
     /**
-     * 重置限流规则
-     * @param exchange exchange
+     * 重置限流规则,可能有需求，所以这里记录个入口
+     * @param exchange     exchange
      * @param resourceName 资源名称
      */
-    public void resetFlowLimit(ServerWebExchange exchange,String resourceName){
+    public void resetFlowLimit(ServerWebExchange exchange, String resourceName) {
 //        String resourceName="user-qps";
         //获取已转换的参数限流规则
         List<ParamFlowRule> rules = GatewayRuleManager.getConvertedParamRules(resourceName);
@@ -77,22 +80,8 @@ public class SentinelFallbackHandler implements WebExceptionHandler {
                 long oldValue = oldQps.get();
                 // 重置请求计数值
                 oldQps.compareAndSet(oldValue, (long) rules.get(0).getCount());
+                log.info("已重置resourceName={}的流控,count={}",resourceName,rules.get(0).getCount());
             }
         }
-    }
-
-    @Override
-    public Mono<Void> handle(ServerWebExchange exchange, Throwable ex) {
-        if (exchange.getResponse().isCommitted()) {
-            return Mono.error(ex);
-        }
-        if (!BlockException.isBlockException(ex)) {
-            return Mono.error(ex);
-        }
-        return handleBlockedRequest(exchange, ex).flatMap(response -> writeResponse(response, exchange,ex));
-    }
-
-    private Mono<ServerResponse> handleBlockedRequest(ServerWebExchange exchange, Throwable throwable) {
-        return GatewayCallbackManager.getBlockHandler().handleRequest(exchange, throwable);
     }
 }

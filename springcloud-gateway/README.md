@@ -159,7 +159,264 @@ public class GatewayApplication {
 }
 ```
 
+### 五、集成sentinel
+集成sentinel流量控制、熔断降级
 
-### 五、代码参考
-+ Github地址：[https://github.com/rstyro/SpringCloud-Alibaba-learning](https://github.com/rstyro/SpringCloud-Alibaba-learning)
-+ Gitee地址：[https://gitee.com/rstyro/SpringCloud-Alibaba-learning](https://gitee.com/rstyro/SpringCloud-Alibaba-learning)
+#### 1、添加依赖
+```xml
+<dependency>
+    <groupId>com.alibaba.cloud</groupId>
+    <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
+</dependency>
+
+<dependency>
+    <groupId>com.alibaba.cloud</groupId>
+    <artifactId>spring-cloud-alibaba-sentinel-gateway</artifactId>
+</dependency>
+
+<!-- sentinel使用nacos 持久化动态配置 --> 
+<dependency>
+    <groupId>com.alibaba.csp</groupId>
+    <artifactId>sentinel-datasource-nacos</artifactId>
+</dependency>
+
+```
+
+#### 2、添加sentinel配置
+
+```yml
+# sentinel 默认配置，可在nacos配置覆盖
+spring:
+  cloud:
+    sentinel:
+      #服务启动直接建立心跳连接,访问sentinel 控制台就可以看到服务连接情况，不需要第一次访问应用的某个接口，才连接sentinel
+      eager: true
+      enabled: true
+      transport:
+        #控制台地址
+        dashboard: localhost:8080
+```
+
+#### 3、网关流控 GatewayFlowRule 字段解析
+- `resource`：资源名称，可以是网关中的 route 名称或者用户自定义的 API 分组名称。
+- `resourceMode`：资源模式，`0`=规则是针对 API Gateway 的 route,`1`=用户在 Sentinel 中定义的 API 分组.默认是 route。
+- `grade`：限流阈值类型（QPS 或并发线程数）；0代表根据并发数量来限流，1代表根据QPS来进行流量控制
+- `count`：限流阈值
+- `intervalSec`：统计时间窗口，单位是秒，默认是 1 秒。
+- `controlBehavior`：流量整形的控制效果，同限流规则的 `controlBehavior` 字段，目前支持0=快速失败和2=匀速排队两种模式，默认是快速失败。
+- `burst`：应对突发请求时额外允许的请求数目。
+- `maxQueueingTimeoutMs`：匀速排队模式下的最长排队时间，单位是毫秒，仅在匀速排队模式下生效。
+- `paramItem` ：参数限流配置。若不提供，则代表不针对参数进行限流，该网关规则将会被转换成普通流控规则；否则会转换成热点规则。其中的字段：
+    - `parseStrategy`：从请求中提取参数的策略，查看类：`SentinelGatewayConstants`,目前支持提取来源 IP（0=`PARAM_PARSE_STRATEGY_CLIENT_IP`）、Host（1=`PARAM_PARSE_STRATEGY_HOST`）、任意 Header（2=`PARAM_PARSE_STRATEGY_HEADER`）和任意 URL 参数（3=`PARAM_PARSE_STRATEGY_URL_PARAM`）四种模式。
+    - `fieldName`：若提取策略选择 Header 模式或 URL 参数模式，则需要指定对应的 header 名称或 URL 参数名称。
+    - `pattern`：参数值的匹配模式，只有匹配该模式的请求属性值会纳入统计和流控；若为空则统计该请求属性的所有值。（1.6.2 版本开始支持）
+    - `matchStrategy`：参数值的匹配策略，查看类：`SentinelGatewayConstants` 目前支持精确匹配（0=`PARAM_MATCH_STRATEGY_EXACT`）、子串匹配（3=`PARAM_MATCH_STRATEGY_CONTAINS`）和[正则匹配](https://so.csdn.net/so/search?q=正则匹配&spm=1001.2101.3001.7020)（2=`PARAM_MATCH_STRATEGY_REGEX`）。（1.6.2 版本开始支持）
+
+
+#### 4、配置流控
+从 1.6.0 版本开始，Sentinel 提供了 Spring Cloud Gateway 的适配模块，可以提供两种资源维度的限流：
+- route 维度：即在 Spring 配置文件中配置的路由条目，资源名为对应的 routeId
+- 自定义 API 维度：用户可以利用 Sentinel 提供的 API 来自定义一些 API 分组
+
+
+##### ①、route维度
+- 因为集成了nacos直接在nacos即可，如下
+
+```yml
+# 在 bootstrap.yml 配置如下
+spring:
+  cloud:
+    sentinel:
+      datasource:
+        ds1:
+          nacos:
+            server-addr: 127.0.0.1:8848
+            username: nacos
+            password: nacos
+            data-id: sentinel-geteway
+            group-id: DEFAULT_GROUP
+            data-type: json
+            namespace: 94455b2a-cf66-40b5-819b-bba352aaa4f1
+            rule-type: gw-flow
+```
+- 规则类型rule-type,网关可以选择：gw-flow=route流控，gw-api-group=网关api分组
+- sentinel-geteway 配置文件如下：
+```json
+[
+    {
+        "resource": "cloud-user",
+        "limitApp": "default",
+        "grade": 1,
+        "count": 1,
+        "strategy": 0,
+        "controlBehavior": 0,
+        "clusterMode": false
+    }
+]
+```
+- 其中`cloud-user`就是网关的routeId,可以配置多个，上面就是简单的网关流控配置，下面来 配置API分组
+
+
+##### ②、自定义API维度
+- 首先我们需要在bootstrap.yml配置如下：
+
+```yaml
+spring:
+  cloud:
+    sentinel:
+      datasource:
+        # 下面是测试 gateway  sentinel api分组
+        group-api:
+          nacos:
+            server-addr: 127.0.0.1:8848
+            username: nacos
+            password: nacos
+            data-id: sentinel-group-api
+            group-id: DEFAULT_GROUP
+            data-type: json
+            namespace: 94455b2a-cf66-40b5-819b-bba352aaa4f1
+            rule-type: gw-api-group
+        group-rule:
+          nacos:
+            server-addr: 127.0.0.1:8848
+            username: nacos
+            password: nacos
+            data-id: sentinel-group-rule
+            group-id: DEFAULT_GROUP
+            data-type: json
+            namespace: 94455b2a-cf66-40b5-819b-bba352aaa4f1
+            rule-type: gw-flow
+```
+
+- 首先我们需要自己定义api，命名为：sentinel-group-api
+
+```json
+[
+  {
+    "apiName":"all-url-qps",
+    "predicateItems":[
+      {
+        "pattern":"/**",
+        "matchStrategy": 1 
+      }
+    ]
+  },
+  {
+    "apiName":"user-qps",
+    "predicateItems":[
+      {
+        "pattern":"/user/**",
+        "matchStrategy": 1
+      }
+    ]
+  }
+] 
+```
+- 如上`all-url-qps`api拦截`/**`所有请求
+- `user-qps`只拦截`/user`开头的请求
+- API的定义，可查看类：`ApiDefinition`
+- apiName随便定义，
+- predicateItems断言配置可参看：`ApiPathPredicateItem`,
+  - matchStrategy匹配策略：0=精确匹配，1=url前缀匹配，2=正册匹配
+- api定义好后，再按上面的route维度定义api流控:sentinel-group-rule
+
+```json
+[
+{
+  "resource": "all-url-qps",
+  "resourceMode": 1,
+  "controlBehavior": 0,
+  "count": 3,
+  "intervalSec": 1,
+  "grade": 1,
+  "limitApp": "default",
+  "strategy": 0,
+  "paramItem": {
+      "parseStrategy": 2,
+      "fieldName": "uid"
+  }
+}
+,{
+  "resource": "user-qps",
+  "resourceMode": 1,
+  "controlBehavior": 0,
+  "count": 20,
+  "intervalSec": 86400,
+  "grade": 1,
+  "limitApp": "default",
+  "strategy": 0,
+  "paramItem": {
+      "parseStrategy": 2,
+      "fieldName": "uid"
+  }
+}
+]
+```
+- 其中第一个配置，1秒内，3个QPS(方便测试)，热点参数为header的`uid`字段
+- 第二个86400秒=1天，每个uid最大只能请求count=20个
+
+#### 5、自定义流控异常
+您可以在 `GatewayCallbackManager` 注册回调进行定制：
+- `setBlockHandler`：注册函数用于实现自定义的逻辑处理被限流的请求，对应接口为 `BlockRequestHandler`。
+- 默认实现为 `DefaultBlockRequestHandler`，当被限流时会返回类似于下面的错误信息：`Blocked by Sentinel: FlowException`。
+- 我们可以实现 `BlockRequestHandler`接口
+
+```java
+@Slf4j
+public class SentinelFallbackHandler implements BlockRequestHandler {
+
+    @Override
+    public Mono<ServerResponse> handleRequest(ServerWebExchange exchange, Throwable e) {
+        // 默认流控
+        ApiResultEnum apiResultEnum = ApiResultEnum.BLOCKED_FLOW;
+        if (e instanceof FlowException) {
+            log.error("触发流控，url={}", exchange.getRequest().getPath());
+            apiResultEnum = ApiResultEnum.BLOCKED_FLOW;
+        } else if (e instanceof DegradeException) {
+            log.error("触发熔断降级，url={}", exchange.getRequest().getPath());
+            apiResultEnum = ApiResultEnum.BLOCKED_DEGRADE;
+        } else if (e instanceof AuthorityException) {
+            log.error("请求未授权，url={}", exchange.getRequest().getPath());
+            apiResultEnum = ApiResultEnum.BLOCKED_AUTHORITY;
+        } else if (e instanceof ParamFlowException) {
+            ParamFlowException paramFlowException = (ParamFlowException) e;
+            ParamFlowRule rule = paramFlowException.getRule();
+            log.error("触发热点参数流控，url={},resourceName={},时间={}ms,阀值={}"
+                    , exchange.getRequest().getPath()
+                    , paramFlowException.getResourceName()
+                    , rule.getDurationInSec(), rule.getCount());
+            apiResultEnum = ApiResultEnum.BLOCKED_FLOW;
+            // 重置
+//            resetFlowLimit(exchange,"user-qps");
+        }
+        return ServerResponse.status(HttpStatus.OK)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(BodyInserters.fromValue(R.fail(apiResultEnum)));
+    }
+
+    /**
+     * 重置限流规则,可能有需求，所以这里记录个入口
+     * @param exchange     exchange
+     * @param resourceName 资源名称
+     */
+    public void resetFlowLimit(ServerWebExchange exchange, String resourceName) {
+//        String resourceName="user-qps";
+        //获取已转换的参数限流规则
+        List<ParamFlowRule> rules = GatewayRuleManager.getConvertedParamRules(resourceName);
+        // 获取资源的参数度量指标，其中包含了该资源相关的令牌桶计数器。
+        ParameterMetric metric = ParameterMetricStorage.getParamMetricForResource(resourceName);
+        // 获取参数度量指标，则从中获取第一条规则对应的令牌桶计数器（CacheMap），键值对表示各个用户的请求计数。
+        CacheMap<Object, AtomicLong> tokenCounters = metric == null ? null : metric.getRuleTokenCounter(rules.get(0));
+        if (Objects.nonNull(tokenCounters)) {
+            // 令牌桶余量
+            AtomicLong oldQps = tokenCounters.get(exchange.getRequest().getHeaders().getFirst(SecurityConst.USER_ID));
+            if (Objects.nonNull(oldQps) && oldQps.get() == 0) {
+                long oldValue = oldQps.get();
+                // 重置请求计数值
+                oldQps.compareAndSet(oldValue, (long) rules.get(0).getCount());
+                log.info("已重置resourceName={}的流控,count={}",resourceName,rules.get(0).getCount());
+            }
+        }
+    }
+}
+```
