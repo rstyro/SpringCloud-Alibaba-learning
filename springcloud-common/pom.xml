@@ -21,6 +21,7 @@
         <module>springcloud-common-seata</module>
         <module>springcloud-common-sleuth-zipkin</module>
         <module>springcloud-common-sentinel</module>
+        <module>springcloud-common-logstash</module>
     </modules>
 
 </project>

@@ -4,7 +4,7 @@ spring:
   application:
     name: cloud-user
   profiles:
-    active: dev
+    active: @profiles.active@
   main:
     allow-bean-definition-overriding: true
 #    allow-circular-references: true

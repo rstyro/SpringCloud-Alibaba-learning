@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configuration>
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
     <!-- 日志名称前缀 -->
     <property name="LOG_NAME" value="cloud_user"/>
     <!-- 最大保存时间：30天-->
@@ -76,6 +76,9 @@
         </rollingPolicy>
     </appender>
 
+
+    <!-- 包含logstash日志配置,不使用ELK注释上即可 -->
+    <include resource="logback-logstash.xml" />
 
     <!--myibatis log configure
     <logger name="org.apache.http" level="INFO" />

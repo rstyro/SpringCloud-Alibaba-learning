@@ -1,10 +1,10 @@
 server:
-  port: 8112
+  port: 8002
 spring:
   application:
     name: cloud-order
   profiles:
-    active: dev
+    active: @profiles.active@
   main:
 #    allow-circular-references: true
     allow-bean-definition-overriding: true

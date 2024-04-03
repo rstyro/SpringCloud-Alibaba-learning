@@ -66,6 +66,12 @@
                 <version>${revision}</version>
             </dependency>
 
+            <dependency>
+                <groupId>top.lrshuai</groupId>
+                <artifactId>springcloud-common-logstash</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 </project>

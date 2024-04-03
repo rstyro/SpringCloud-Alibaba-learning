@@ -31,7 +31,7 @@ import javax.annotation.Resource;
 @Configuration
 @ConditionalOnProperty(name = "swagger.enabled", matchIfMissing = true)
 @Import({SpringdocProperties.class})
-@PropertySource(value = "classpath:swagger-config.yml", factory = YmlPropertySourceFactory.class)
+@PropertySource(value = "classpath:common-swagger.yml", factory = YmlPropertySourceFactory.class)
 public class SpringdocAutoConfiguration {
 
     @Resource

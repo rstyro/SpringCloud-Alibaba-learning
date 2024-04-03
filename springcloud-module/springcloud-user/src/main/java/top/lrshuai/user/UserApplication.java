@@ -23,6 +23,9 @@ import top.lrshuai.common.swagger.annotation.EnableCustomSwagger3;
 @SpringBootApplication
 public class UserApplication {
     public static void main(String[] args) {
+        // 启动可能会打印错误日志：‘File’ option has the same value “C:\Users\你的用户名\logs/nacos/config.log” as that given for appender [CONFIG_LOG_FILE] defined earlier.
+        // 禁用nacos日志，
+        System.setProperty("nacos.logging.default.config.enabled","false");
         ConfigurableApplicationContext application = SpringApplication.run(UserApplication.class, args);
         printfUrl(application);
     }

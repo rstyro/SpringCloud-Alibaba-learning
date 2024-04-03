@@ -12,10 +12,10 @@ spring:
 #        password: nacos
 #        namespace: 94455b2a-cf66-40b5-819b-bba352aaa4f1
       discovery:
-        server-addr: 127.0.0.1:8848
-        username: nacos
-        password: nacos
-        namespace: 94455b2a-cf66-40b5-819b-bba352aaa4f1
+        server-addr: @nacos.server@
+        username: @nacos.username@
+        password: @nacos.password@
+        namespace: @nacos.namespace@
 
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
@@ -52,6 +52,7 @@ spring:
   zipkin:
     enabled: false
 
+
 feign:
   sentinel:
     enabled: true
@@ -75,3 +76,7 @@ redisson:
     idleConnectionTimeout: 10000
     timeout: 5000
     subscriptionConnectionPoolSize: 3
+
+# 关闭seata
+seata:
+  enabled: false

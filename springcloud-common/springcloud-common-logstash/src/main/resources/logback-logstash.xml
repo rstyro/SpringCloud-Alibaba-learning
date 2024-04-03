@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<included>
+
+    <springProperty name="appName" scope="context"  source="spring.application.name"/>
+
+    <!--输出到logstash的appender-->
+    <appender name="cloud-logstash" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+        <!--可以访问的logstash日志收集地址，在pom中的profiles配置-->
+        <destination>${logstash.address}</destination>
+        <encoder charset="UTF-8" class="net.logstash.logback.encoder.LogstashEncoder">
+            <!-- app-name和logstash配置的name一致 -->
+            <customFields>{"app-name":"${appName}"}</customFields>
+        </encoder>
+    </appender>
+
+    <root level="info">
+        <appender-ref ref="cloud-logstash"/>
+    </root>
+
+</included>

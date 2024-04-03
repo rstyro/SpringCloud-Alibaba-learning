@@ -86,6 +86,9 @@
     <logger name="com.lrs.core" level="DEBUG" />
   -->
 
+    <!-- 包含logstash日志配置,不使用ELK注释上即可 -->
+<!--    <include resource="logback-logstash.xml" />-->
+
     <!-- 系统模块日志级别控制  -->
     <logger name="top.lrshuai" level="info" />
     <!-- Spring日志级别控制  -->

@@ -8,7 +8,14 @@
 - JDK1.8+
 
 #### 2、模块解释
-- springcloud-gateway  网关
+- data 资源数据，数据脚本、nacos配置以及相关组件说明
+- springcloud-nacos-discovery-provider 入门级-提供者
+- springcloud-nacos-discovery-consumer 入门级-消费者
+- springcloud-nacos-config  入门级-nacos配置中心demo
+- springcloud-sleuth  入门级-链路追踪demo
+- springcloud-nacos-sentinel 入门级-流程控制，熔断等demo
+- springcloud-gencode 代码生成器
+- springcloud-gateway  网关，动态路由、sentinel简单流控、api分组流控
 - springcloud-common  通用模块
   - springcloud-common-bom common包pom引入
   - springcloud-common-core  核心，通用工具实体类
@@ -19,14 +26,11 @@
   - springcloud-common-seata 集成分布式事务seata
   - springcloud-common-sleuth-zipkin 集成链路追踪
   - springcloud-common-sentinel 集成sentinel流控与熔断等
-- springcloud-gencode 代码生成器
-- springcloud-nacos-discovery-provider 入门级-提供者
-- springcloud-nacos-discovery-consumer 入门级-消费者
-- springcloud-nacos-config  入门级-nacos配置中心demo
-- springcloud-sleuth  入门级-链路追踪demo
-- springcloud-nacos-sentinel 入门级-流程控制，熔断等demo
+  - springcloud-common-logstash 集成ELK,elasticsearch和kibana自己安装
 - springcloud-scheduled  分布式定时任务xxl-job
-- springcloud-module  业务服务模块，实战demo
+  - springcloud-scheduled-admin 定时器后台管理
+  - springcloud-scheduled-demo  定时器执行器demo
+- springcloud-module  业务服务模块，实战demo,集成各种组件
   - springcloud-user 用户模块
   - springcloud-order 订单模块
   - springcloud-mall 商城模块

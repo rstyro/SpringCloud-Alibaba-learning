@@ -98,6 +98,11 @@
             <artifactId>springcloud-common-sentinel</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>top.lrshuai</groupId>
+            <artifactId>springcloud-common-logstash</artifactId>
+        </dependency>
+
 
     </dependencies>
 

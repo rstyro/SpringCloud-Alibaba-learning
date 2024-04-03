@@ -4,7 +4,7 @@ spring:
   application:
     name: cloud-mall
   profiles:
-    active: dev
+    active: @profiles.active@
   main:
     allow-circular-references: true
     allow-bean-definition-overriding: true

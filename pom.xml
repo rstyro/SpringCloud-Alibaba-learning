@@ -55,11 +55,13 @@
         <druid.version>1.2.20</druid.version>
         <mybatis-spring-boot.version>2.3.2</mybatis-spring-boot.version>
 
-        <!-- springboot2.7.6 logbock版本是1.2.11有风险换一下吧 -->
-        <logback.version>1.5.3</logback.version>
+        <!-- ELK logstash7.3版本及以上使用的logback-core和logback-classic与springboot2.7.6冲突，所以最高7.2-->
+        <logstash.version>7.2</logstash.version>
 
         <!-- 定时任务 -->
         <xxl.job.version>2.4.0</xxl.job.version>
+
+
 
         <!-- 插件版本 -->
         <maven-jar-plugin.version>3.2.2</maven-jar-plugin.version>
@@ -67,6 +69,40 @@
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
         <flatten-maven-plugin.version>1.1.0</flatten-maven-plugin.version>
     </properties>
+
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <!-- 环境标识，需要与配置文件的名称相对应 -->
+                <profiles.active>dev</profiles.active>
+                <nacos.server>127.0.0.1:8848</nacos.server>
+                <nacos.namespace>94455b2a-cf66-40b5-819b-bba352aaa4f1</nacos.namespace>
+                <nacos.username>nacos</nacos.username>
+                <nacos.password>nacos</nacos.password>
+                <nacos.discovery.group>DEFAULT_GROUP</nacos.discovery.group>
+                <nacos.config.group>DEFAULT_GROUP</nacos.config.group>
+                <logstash.address>127.0.0.1:4567</logstash.address>
+            </properties>
+            <activation>
+                <!-- 默认环境 -->
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+        <profile>
+            <id>prd</id>
+            <properties>
+                <profiles.active>prd</profiles.active>
+                <nacos.server>127.0.0.1:8848</nacos.server>
+                <nacos.namespace>94455b2a-cf66-40b5-819b-bba352aaa4f1</nacos.namespace>
+                <nacos.username>nacos</nacos.username>
+                <nacos.password>nacos</nacos.password>
+                <nacos.discovery.group>DEFAULT_GROUP</nacos.discovery.group>
+                <nacos.config.group>DEFAULT_GROUP</nacos.config.group>
+                <logstash.address>127.0.0.1:4567</logstash.address>
+            </properties>
+        </profile>
+    </profiles>
 
     <dependencies>
         <!-- 在SpringBoot 2.4.x的版本之后，对于bootstrap.properties/bootstrap.yaml配置文件(我们合起来成为Bootstrap配置文件)的支持，需要导入如下的依赖 -->
@@ -249,18 +285,40 @@
                 <version>${redisson.version}</version>
             </dependency>
 
+            <!-- logstash -->
+            <dependency>
+                <groupId>net.logstash.logback</groupId>
+                <artifactId>logstash-logback-encoder</artifactId>
+                <version>${logstash.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
     <build>
         <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <!-- 引入所有 匹配文件进行过滤 -->
+                <includes>
+                    <include>application*</include>
+                    <include>bootstrap*</include>
+                    <include>logback*</include>
+                </includes>
+                <!-- 启用过滤 即该资源中的变量将会被过滤器中的值替换,比如@profiles.active@  -->
+                <filtering>true</filtering>
+            </resource>
+
             <!-- 全部引入 -->
             <resource>
                 <directory>src/main/resources</directory>
+                <!-- 关闭过滤 -->
+                <filtering>false</filtering>
                 <includes>
                     <include>**/*.*</include>
                 </includes>
             </resource>
+
         </resources>
         <!--插件管理-->
         <pluginManagement>
