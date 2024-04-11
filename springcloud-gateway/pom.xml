@@ -75,6 +75,12 @@
             <artifactId>springcloud-common-logstash</artifactId>
         </dependency>
 
+        <!-- 聚合各个模块的swagger-ui -->
+        <dependency>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>knife4j-gateway-spring-boot-starter</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>

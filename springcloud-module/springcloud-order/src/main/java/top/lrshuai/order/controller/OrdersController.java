@@ -22,7 +22,7 @@ import javax.validation.Valid;
  * @author rstyro
  * @since 2024-03-19
  */
-@Tag(name = "order",description = "订单相关")
+@Tag(name = "订单相关",description = "订单相关")
 @RestController
 @RequestMapping("/order")
 public class OrdersController extends BaseController {

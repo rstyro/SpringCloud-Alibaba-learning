@@ -35,6 +35,9 @@ public class GatewayExceptionHandler implements ErrorWebExceptionHandler {
         if (exchange.getResponse().isCommitted()) {
             return Mono.error(ex);
         }
+        if ("/favicon.ico".equals(request.getPath().pathWithinApplication().value())) {
+            return exchange.getResponse().setComplete();
+        }
         String msg;
         if (ex instanceof NotFoundException) {
             msg = "服务未找到";

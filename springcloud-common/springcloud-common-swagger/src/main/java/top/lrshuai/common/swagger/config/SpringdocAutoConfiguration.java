@@ -10,6 +10,7 @@ import io.swagger.v3.oas.models.media.StringSchema;
 import io.swagger.v3.oas.models.parameters.HeaderParameter;
 import io.swagger.v3.oas.models.parameters.Parameter;
 import io.swagger.v3.oas.models.security.SecurityScheme;
+import io.swagger.v3.oas.models.servers.Server;
 import lombok.extern.slf4j.Slf4j;
 import org.springdoc.core.customizers.OpenApiCustomiser;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,6 +23,7 @@ import top.lrshuai.common.core.constant.SecurityConst;
 import top.lrshuai.common.core.factory.YmlPropertySourceFactory;
 
 import javax.annotation.Resource;
+import java.util.Collections;
 
 
 /**
@@ -52,7 +54,9 @@ public class SpringdocAutoConfiguration {
                 .addParameters(SecurityConst.PAGE_SIZE, new Parameter().in("header").schema(new StringSchema()).name(SecurityConst.PAGE_SIZE))
         ;
         log.info("已启用swagger-ui,访问地址：http://{}:{}/swagger-ui.html", NetUtil.getLocalhostStr(),port);
-        return new OpenAPI().info(apiInfo()).components(components);
+        return new OpenAPI().info(apiInfo())
+                .servers(Collections.singletonList(new Server().url("http://localhost:" + port)))
+                .components(components);
     }
 
 

@@ -28,8 +28,11 @@ public class GatewayApplication {
         String ip = NetUtil.getLocalhostStr();
         String port = env.getProperty("server.port");
         String property = env.getProperty("server.servlet.context-path");
+        Boolean knife4jEnable = env.getProperty("knife4j.gateway.enabled", Boolean.class);
         String path = property == null ? "" :  property;
         log.info("网关模块 启动成功,{}:{}{}", ip,port,path);
+        if(knife4jEnable)
+        log.info("已启用文档接口聚合,访问地址：http://{}:{}/doc.html", NetUtil.getLocalhostStr(),port);
     }
 
 

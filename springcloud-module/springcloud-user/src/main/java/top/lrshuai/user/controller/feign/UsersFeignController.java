@@ -1,6 +1,7 @@
 package top.lrshuai.user.controller.feign;
 
 
+import io.swagger.v3.oas.annotations.Hidden;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +22,7 @@ import javax.annotation.Resource;
  * @author rstyro
  * @since 2021-06-03
  */
+@Hidden // 不在swagger中展示
 @RestController
 @RequestMapping("/feign/user")
 public class UsersFeignController extends BaseController implements IUserFeign {

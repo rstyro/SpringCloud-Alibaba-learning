@@ -85,3 +85,43 @@ route:
 logging:
   level:
     org.springframework.cloud.gateway: info
+
+# 文档聚合
+knife4j:
+  gateway:
+    enabled: true
+    strategy: manual
+    routes:
+      - name: 用户模块
+        service-name: cloud-user
+        url: /cloud-user/v3/api-docs
+        context-path: /cloud-user
+      - name: 订单模块
+        service-name: cloud-order
+        url: /cloud-order/v3/api-docs
+        context-path: /cloud-order
+      - name: 商城模块
+        service-name: cloud-mall
+        url: /cloud-mall/v3/api-docs
+        context-path: /cloud-mall
+#    strategy: discover
+#    discover:
+#      version: OpenAPI3
+#      enabled: true
+#      excluded-services:
+#        - cloud-gateway
+#      service-config:
+#        cloud-order:
+#          - group-name: 订单服务
+#            order: 1
+#            contextPath: /cloud-order
+#        cloud-user:
+#          - group-name: 用户服务
+#            order: 2
+#            contextPath: /cloud-user
+#        cloud-mall:
+#          - group-name: 商城服务
+#            order: 0
+#            contextPath: /cloud-mall
+#    tags-sorter: order
+#    operations-sorter: order
