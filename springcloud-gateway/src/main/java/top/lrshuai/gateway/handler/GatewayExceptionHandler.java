@@ -35,7 +35,7 @@ public class GatewayExceptionHandler implements ErrorWebExceptionHandler {
         if (exchange.getResponse().isCommitted()) {
             return Mono.error(ex);
         }
-        if ("/favicon.ico".equals(request.getPath().pathWithinApplication().value())) {
+        if ("/favicon.ico".equals(exchange.getRequest().getPath().pathWithinApplication().value())) {
             return exchange.getResponse().setComplete();
         }
         String msg;
