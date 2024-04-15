@@ -9,9 +9,7 @@ import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.Mapper;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 @Slf4j
 public class GenCode {
@@ -27,12 +25,6 @@ public class GenCode {
     /**
      * 数据库链接相关信息
      */
-//    public static final String DB_URL = "jdbc:mysql://10.168.2.160:3306/medyjadmin?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&serverTimezone=GMT%2B8";
-//    public static final String DB_USERNAME = "medyj";
-//    public static final String DB_PASSWORD = "84ff66dcecb0a35a";
-//    public static final String DB_DRIVER = "com.mysql.cj.jdbc.Driver";
-
-
     public static final String DB_URL = "jdbc:mysql://127.0.0.1:3306/cloud_mall?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&serverTimezone=GMT%2B8";
     public static final String DB_USERNAME = "root";
     public static final String DB_PASSWORD = "root";
@@ -44,6 +36,9 @@ public class GenCode {
     private static final DataSourceConfig.Builder DATA_SOURCE_CONFIG = new DataSourceConfig.Builder(DB_URL, DB_USERNAME, DB_PASSWORD);
 
     public static void main(String[] args) {
+
+        Map<String,Object> param = new HashMap<>();
+        param.put("custName","测试注入参数");
 
         // 代码生成位置
         String outPath = System.getProperty("user.dir")+"/springcloud-gencode/";
@@ -84,6 +79,9 @@ public class GenCode {
 
                 })
                 .templateEngine(new FreemarkerTemplateEngine())
+                // 自定义生成代码的模板
+                .templateConfig(config->config.entity("/templates/entity1.java"))
+                .injectionConfig(config->config.customMap(param))
                 .execute();
     }
 
