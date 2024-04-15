@@ -81,6 +81,7 @@ public class GenCode {
                 .templateEngine(new FreemarkerTemplateEngine())
                 // 自定义生成代码的模板
                 .templateConfig(config->config.entity("/templates/entity1.java"))
+                // 自定义代码参数 
                 .injectionConfig(config->config.customMap(param))
                 .execute();
     }
