@@ -27,4 +27,8 @@ public class SecurityConst {
      * 每次请求生成的id
      */
     public static final String TRACKER_ID="trackerId";
+    /**
+     * 开发者,用于多个开发使用同一个nacos,路由过滤到指定开发者
+     */
+    public static final String DEVELOPER="developer";
 }

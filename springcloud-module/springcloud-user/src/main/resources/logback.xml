@@ -78,7 +78,7 @@
 
 
     <!-- 包含logstash日志配置,不使用ELK注释上即可 -->
-    <include resource="logback-logstash.xml" />
+    <!-- <include resource="logback-logstash.xml" /> -->
 
     <!--myibatis log configure
     <logger name="org.apache.http" level="INFO" />

@@ -79,6 +79,10 @@ public class SecurityContextHolder {
         }
     }
 
+    public static String getTrackerId() {
+        return get(SecurityConst.TRACKER_ID);
+    }
+
     public static String getToken() {
         return get(SecurityConst.TOKEN);
     }

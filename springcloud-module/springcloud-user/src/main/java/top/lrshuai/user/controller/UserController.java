@@ -1,10 +1,13 @@
 package top.lrshuai.user.controller;
 
+import cn.hutool.core.net.NetUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +25,7 @@ import javax.annotation.Resource;
 /**
  * 用户相关
  */
+@Slf4j
 @Tag(name = "user",description = "用户相关")
 @RestController
 @RequestMapping("/user")
@@ -30,12 +34,16 @@ public class UserController extends BaseController {
     @Resource
     private IUserService userService;
 
+    @Value("${server.port}")
+    private int port;
+
     @Operation(summary = "测试")
     @GetMapping("/test")
     public R test(){
         if(SecurityContextHolder.getToken().equals("1")){
             throw new ServiceException().setMessage("测试报错了");
         }
+        log.info("测试请求,{}:{}", NetUtil.getLocalhostStr(),port);
         return R.ok(SecurityContextHolder.getUserId(),SecurityContextHolder.getToken());
     }
 

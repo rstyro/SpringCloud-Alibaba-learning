@@ -16,6 +16,8 @@ spring:
         username: @nacos.username@
         password: @nacos.password@
         namespace: @nacos.namespace@
+        metadata:
+          developer: rstyro
 
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver

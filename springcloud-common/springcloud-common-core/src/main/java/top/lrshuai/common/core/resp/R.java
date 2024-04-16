@@ -1,6 +1,7 @@
 package top.lrshuai.common.core.resp;
 
 import top.lrshuai.common.core.constant.Consts;
+import top.lrshuai.common.core.context.SecurityContextHolder;
 import top.lrshuai.common.core.enums.ApiResultEnum;
 
 import java.io.Serializable;
@@ -24,6 +25,8 @@ public class R<T> implements Serializable {
 
     private String msg;
 
+    private String trackerId;
+
     private T data;
 
     /**
@@ -32,12 +35,14 @@ public class R<T> implements Serializable {
     public R() {
         this.code = SUCCESS;
         this.msg = Consts.SUCCESS_MSG;
+        this.trackerId = SecurityContextHolder.getTrackerId();
     }
 
     public R(T data, int code, String msg) {
         this.code = code;
         this.msg = msg;
         this.data = data;
+        this.trackerId = SecurityContextHolder.getTrackerId();
     }
 
     public static <T> R<T> ok() {
@@ -92,6 +97,9 @@ public class R<T> implements Serializable {
         return data;
     }
 
+    public String getTrackerId() {
+        return trackerId;
+    }
 
     public static <T> Boolean isError(R<T> ret) {
         return !isSuccess(ret);
