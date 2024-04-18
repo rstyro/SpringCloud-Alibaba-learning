@@ -22,6 +22,7 @@
         <module>springcloud-common-sleuth-zipkin</module>
         <module>springcloud-common-sentinel</module>
         <module>springcloud-common-logstash</module>
+        <module>springcloud-common-prometheus</module>
     </modules>
 
 </project>

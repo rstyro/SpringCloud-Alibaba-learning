@@ -103,6 +103,10 @@
             <artifactId>springcloud-common-logstash</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>top.lrshuai</groupId>
+            <artifactId>springcloud-common-prometheus</artifactId>
+        </dependency>
 
     </dependencies>
 

@@ -15,3 +15,17 @@ spring:
         locator:
           enabled: true #表明gateway开启服务注册和发现的功能，并且spring cloud gateway自动根据服务发现为每一个服务创建了一个router，这个router将以服务名开头的请求路径转发到对应的服务。
           lower-case-service-id: true #是将请求路径上的服务名配置为小写
+
+
+management:
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+  endpoints:
+    web:
+      # 默认 /actuator，修改地址，不容易让人猜到
+      base-path: /meterIndex
+      exposure:
+        # 如果暴露所有就 '*' 需要用单引号包起来
+        include: prometheus,health
