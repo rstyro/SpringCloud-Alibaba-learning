@@ -55,8 +55,8 @@ spring:
     enabled: false
 
 # 关闭seata
-#seata:
-#  enabled: false
+seata:
+  enabled: false
 
 redisson:
   keyPrefix: mall

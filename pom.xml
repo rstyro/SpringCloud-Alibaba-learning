@@ -58,6 +58,8 @@
 
         <!-- ELK logstash7.3版本及以上使用的logback-core和logback-classic与springboot2.7.6冲突，所以最高7.2-->
         <logstash.version>7.2</logstash.version>
+        <!-- skywalking 日志收集-->
+        <skywalking-toolkit.version>9.2.0</skywalking-toolkit.version>
 
         <!-- 定时任务 -->
         <xxl.job.version>2.4.0</xxl.job.version>
@@ -293,10 +295,23 @@
                 <version>${logstash.version}</version>
             </dependency>
 
+            <!-- knife4j文档聚合 -->
             <dependency>
                 <groupId>com.github.xiaoymin</groupId>
                 <artifactId>knife4j-gateway-spring-boot-starter</artifactId>
                 <version>${knife4j.version}</version>
+            </dependency>
+
+            <!-- skywalking 整合 logback -->
+            <dependency>
+                <groupId>org.apache.skywalking</groupId>
+                <artifactId>apm-toolkit-logback-1.x</artifactId>
+                <version>${skywalking-toolkit.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.skywalking</groupId>
+                <artifactId>apm-toolkit-trace</artifactId>
+                <version>${skywalking-toolkit.version}</version>
             </dependency>
 
         </dependencies>

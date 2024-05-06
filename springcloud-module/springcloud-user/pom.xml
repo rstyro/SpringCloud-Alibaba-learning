@@ -108,6 +108,16 @@
             <artifactId>springcloud-common-prometheus</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>top.lrshuai</groupId>
+            <artifactId>springcloud-common-skylog</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>top.lrshuai</groupId>
+            <artifactId>springcloud-api-mall</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>

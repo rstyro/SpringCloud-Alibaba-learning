@@ -80,6 +80,9 @@
     <!-- 包含logstash日志配置 -->
 <!--    <include resource="logback-logstash.xml" />-->
 
+    <!-- skywalking日志收集 -->
+    <include resource="logback-skylog.xml" />
+
     <!-- 包日志级别控制  -->
     <logger name="top.lrshuai" level="info" />
     <logger name="org.springframework" level="warn" />

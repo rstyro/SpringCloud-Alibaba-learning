@@ -80,6 +80,9 @@
     <!-- 包含logstash日志配置,不使用ELK注释上即可 -->
     <!-- <include resource="logback-logstash.xml" /> -->
 
+    <!-- skywalking日志收集 -->
+    <include resource="logback-skylog.xml" />
+
     <!--myibatis log configure
     <logger name="org.apache.http" level="INFO" />
     <logger name="com.apache.ibatis" level="TRACE" />

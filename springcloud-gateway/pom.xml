@@ -86,6 +86,11 @@
             <artifactId>springcloud-common-prometheus</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>top.lrshuai</groupId>
+            <artifactId>springcloud-common-skylog</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>

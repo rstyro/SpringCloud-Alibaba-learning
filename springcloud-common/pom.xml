@@ -23,6 +23,7 @@
         <module>springcloud-common-sentinel</module>
         <module>springcloud-common-logstash</module>
         <module>springcloud-common-prometheus</module>
+        <module>springcloud-common-skylog</module>
     </modules>
 
 </project>
