@@ -76,3 +76,54 @@ output{
 </dependency>
 ```
 - 然后在日志文件`logback.xml`加入logstash配置：`<include resource="logback-logstash.xml" />`即可
+
+#### 4、ES清理过期索引
+- 请求过期的索引，正则匹配以cloud-开始，后跟年月日的索引
+- 可保留7天或一个月内的索引
+
+```bash
+#!/bin/bash
+
+# 定义保留天数,优先使用 $1参数，没有参数默认是 7
+DAYS_TO_KEEP=${1:-7}
+
+echo "keep=$DAYS_TO_KEEP"
+# 清理多少天内的索引
+DAYS_TO_MAX=180
+
+# ES 信息,ip和用户名密码
+ip=10.168.2.123
+ES_USER=elastic
+ES_PASS=elastic
+
+# 初始化正则表达式
+INDEX_PATTERNS=""
+
+# 生成匹配过去7天的日期正则表达式
+for ((i=$DAYS_TO_KEEP; i<=$DAYS_TO_MAX; i++)); do
+    # 计算日期
+    DATE=$(date -d "$i days ago" +%Y.%m.%d)
+    # 添加到正则表达式，匹配以cloud-开始，后跟年月日的索引
+    INDEX_PATTERNS+="^cloud-.*-$DATE|"
+done
+
+# 移除最后一个'|'符号
+INDEX_PATTERN="${INDEX_PATTERNS%|}"
+
+# 使用curl将索引信息写入临时文件
+curl  -u $ES_USER:$ES_PASS -s -X GET "http://$ip:9200/_cat/indices/?h=index" > indices.tmp
+
+# 使用grep和awk匹配并提取索引
+MATCHED_INDICES=$(grep -E "$INDEX_PATTERN" indices.tmp | awk '{print $1}')
+
+# 删除临时文件
+rm indices.tmp
+
+# 遍历索引并删除
+for INDEX in $MATCHED_INDICES; do
+    echo -e "Deleting index: $INDEX \n"
+    curl -u $ES_USER:$ES_PASS -s -X DELETE "http://$ip:9200/$INDEX"
+done
+
+echo -e "\n清理完成"
+```
