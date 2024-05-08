@@ -31,7 +31,7 @@ import java.util.Collections;
  */
 @Slf4j
 @Configuration
-@ConditionalOnProperty(name = "swagger.enabled", matchIfMissing = true)
+@ConditionalOnProperty(name = "springdoc.api-docs.enabled", matchIfMissing = true)
 @Import({SpringdocProperties.class})
 @PropertySource(value = "classpath:common-swagger.yml", factory = YmlPropertySourceFactory.class)
 public class SpringdocAutoConfiguration {

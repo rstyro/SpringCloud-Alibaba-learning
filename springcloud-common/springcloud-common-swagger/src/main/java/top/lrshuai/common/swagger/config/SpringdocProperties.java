@@ -4,7 +4,7 @@ import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @Data
-@ConfigurationProperties("swagger")
+@ConfigurationProperties("springdoc")
 public class SpringdocProperties {
     /**
      * 标题

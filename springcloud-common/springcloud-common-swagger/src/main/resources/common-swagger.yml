@@ -1,6 +1,7 @@
 # 自定义swagger配置，可覆盖,参数含义可查看 SpringdocProperties.class
-swagger:
-  enable: true
+springdoc:
+  api-docs:
+    enable: true
   title: 接口文档
   description: 微服务接口文档
   version: 1.0.0
