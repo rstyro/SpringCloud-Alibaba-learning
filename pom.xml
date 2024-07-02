@@ -48,7 +48,7 @@
         <freemarker.version>2.3.32</freemarker.version>
         <transmittable-thread-local.version>2.14.5</transmittable-thread-local.version>
         <guava.version>33.0.0-jre</guava.version>
-        <redisson.version>3.27.1</redisson.version>
+        <redisson.version>3.27.2</redisson.version>
 
         <!-- 数据库相关 -->
         <mybatisplus.version>3.5.5</mybatisplus.version>
@@ -286,6 +286,12 @@
                 <groupId>org.redisson</groupId>
                 <artifactId>redisson-spring-boot-starter</artifactId>
                 <version>${redisson.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.redisson</groupId>
+                        <artifactId>redisson-spring-data-32</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
 
             <!-- logstash -->
