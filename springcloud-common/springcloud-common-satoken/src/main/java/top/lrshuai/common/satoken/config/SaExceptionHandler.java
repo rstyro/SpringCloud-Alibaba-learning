@@ -11,12 +11,12 @@ import top.lrshuai.common.core.resp.R;
 public class SaExceptionHandler {
     // 全局异常拦截（拦截项目中的NotLoginException异常）
     @ExceptionHandler(NotLoginException.class)
-    public R handlerNotLoginException(NotLoginException nle) throws Exception {
+    public R handlerNotLoginException(NotLoginException nle) {
         // 打印堆栈，以供调试
         log.error(nle.getMessage(), nle);
 
         // 判断场景值，定制化异常信息
-        String message = "";
+        String message;
         if (nle.getType().equals(NotLoginException.NOT_TOKEN)) {
             message = "未能读取到有效 token";
         } else if (nle.getType().equals(NotLoginException.INVALID_TOKEN)) {
