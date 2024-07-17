@@ -49,6 +49,7 @@
         <transmittable-thread-local.version>2.14.5</transmittable-thread-local.version>
         <guava.version>33.0.0-jre</guava.version>
         <redisson.version>3.27.2</redisson.version>
+        <sa-token.version>1.38.0</sa-token.version>
 
         <!-- 数据库相关 -->
         <mybatisplus.version>3.5.5</mybatisplus.version>
@@ -292,6 +293,34 @@
                         <artifactId>redisson-spring-data-32</artifactId>
                     </exclusion>
                 </exclusions>
+            </dependency>
+
+
+            <!-- sa-token -->
+            <dependency>
+                <groupId>cn.dev33</groupId>
+                <artifactId>sa-token-spring-boot-starter</artifactId>
+                <version>${sa-token.version}</version>
+            </dependency>
+
+            <!-- Sa-Token 权限认证（Reactor响应式集成）, 在线文档：https://sa-token.cc -->
+            <dependency>
+                <groupId>cn.dev33</groupId>
+                <artifactId>sa-token-reactor-spring-boot-starter</artifactId>
+                <version>${sa-token.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>cn.dev33</groupId>
+                <artifactId>sa-token-core</artifactId>
+                <version>${sa-token.version}</version>
+            </dependency>
+
+            <!-- 在 thymeleaf 标签中使用 Sa-Token -->
+            <dependency>
+                <groupId>cn.dev33</groupId>
+                <artifactId>sa-token-dialect-thymeleaf</artifactId>
+                <version>${sa-token.version}</version>
             </dependency>
 
             <!-- logstash -->

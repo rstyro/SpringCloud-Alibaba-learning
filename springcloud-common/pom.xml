@@ -24,6 +24,7 @@
         <module>springcloud-common-logstash</module>
         <module>springcloud-common-prometheus</module>
         <module>springcloud-common-skylog</module>
+        <module>springcloud-common-satoken</module>
     </modules>
 
 </project>

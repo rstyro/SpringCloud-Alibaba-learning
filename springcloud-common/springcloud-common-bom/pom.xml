@@ -84,6 +84,12 @@
                 <version>${revision}</version>
             </dependency>
 
+            <dependency>
+                <groupId>top.lrshuai</groupId>
+                <artifactId>springcloud-common-satoken</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 </project>
