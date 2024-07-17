@@ -25,6 +25,7 @@
         <module>springcloud-common-prometheus</module>
         <module>springcloud-common-skylog</module>
         <module>springcloud-common-satoken</module>
+        <module>springcloud-common-api-encrypt</module>
     </modules>
 
 </project>

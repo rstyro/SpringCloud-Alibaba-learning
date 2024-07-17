@@ -5,6 +5,8 @@ import top.lrshuai.common.core.context.SecurityContextHolder;
 import top.lrshuai.common.core.enums.ApiResultEnum;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 响应信息主体
@@ -28,6 +30,7 @@ public class R<T> implements Serializable {
     private String trackerId;
 
     private T data;
+    private Map<String,Object> extendMap;
 
     /**
      * 空构造，避免反序列化问题
@@ -101,6 +104,10 @@ public class R<T> implements Serializable {
         return trackerId;
     }
 
+    public Map<String, Object> getExtendMap() {
+        return extendMap;
+    }
+
     public static <T> Boolean isError(R<T> ret) {
         return !isSuccess(ret);
     }
@@ -113,6 +120,19 @@ public class R<T> implements Serializable {
         return R.SUCCESS == code;
     }
 
+    /**
+     * 添加扩展参数
+     * @param key key
+     * @param data value
+     * @return this
+     */
+    public R<T> addExtend(String key,Object data){
+        if(extendMap==null){
+            extendMap=new HashMap<>();
+        }
+        extendMap.put(key,data);
+        return this;
+    }
     /**
      * 链式调用
      */

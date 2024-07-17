@@ -14,6 +14,8 @@ public enum ApiResultEnum {
 	ERROR_RUN(503,"运行时异常"),
 	ERROR_IO(504,"上传文件异常"),
 	ERROR_REQUEST_ERR(505,"请求方法错误"),
+	ERROR_REQUEST_DECODE_FAIL(506,"参数解密失败"),
+	ERROR_ENCRYPT_KEY_IS_NULL(507,"约定的密钥KEY为空"),
 
 	/**系统框架，报错code:10000-20000 */
 	SYSTEM_CODE_ERROR(10000,"验证码错误"),

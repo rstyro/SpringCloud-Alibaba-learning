@@ -118,6 +118,11 @@
             <artifactId>springcloud-api-mall</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>top.lrshuai</groupId>
+            <artifactId>springcloud-common-api-encrypt</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>
