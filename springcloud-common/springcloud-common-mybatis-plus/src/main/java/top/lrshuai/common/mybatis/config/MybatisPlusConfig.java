@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.OptimisticLockerInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
@@ -14,6 +15,8 @@ import top.lrshuai.common.mybatis.handler.DefaultFieldAutoFillHandler;
 @EnableTransactionManagement
 @Configuration
 @PropertySource(value = "classpath:common-mybatis.yml", factory = YmlPropertySourceFactory.class)
+// ${mybatis-plus.mapperPackage} 需要每个模块配置一下需要扫描的包名
+@MapperScan("${mybatis-plus.mapperPackage}")
 public class MybatisPlusConfig {
 
 

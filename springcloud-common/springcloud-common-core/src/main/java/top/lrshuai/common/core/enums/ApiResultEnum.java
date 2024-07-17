@@ -47,7 +47,7 @@ public enum ApiResultEnum {
 		return code;
 	}
 
-	private ApiResultEnum(int code, String message) {
+	ApiResultEnum(int code, String message) {
 		this.message = message;
 		this.code = code;
 	}

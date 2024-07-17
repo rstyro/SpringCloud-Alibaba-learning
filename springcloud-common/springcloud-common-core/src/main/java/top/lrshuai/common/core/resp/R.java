@@ -1,5 +1,6 @@
 package top.lrshuai.common.core.resp;
 
+import lombok.Data;
 import top.lrshuai.common.core.constant.Consts;
 import top.lrshuai.common.core.context.SecurityContextHolder;
 import top.lrshuai.common.core.enums.ApiResultEnum;
@@ -11,6 +12,7 @@ import java.util.Map;
 /**
  * 响应信息主体
  */
+@Data
 public class R<T> implements Serializable {
 
     /**
@@ -86,26 +88,6 @@ public class R<T> implements Serializable {
 
     private static <T> R<T> restResult(T data, int code, String msg) {
         return new R<T>(data,code,msg);
-    }
-
-    public int getCode() {
-        return code;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public T getData() {
-        return data;
-    }
-
-    public String getTrackerId() {
-        return trackerId;
-    }
-
-    public Map<String, Object> getExtendMap() {
-        return extendMap;
     }
 
     public static <T> Boolean isError(R<T> ret) {

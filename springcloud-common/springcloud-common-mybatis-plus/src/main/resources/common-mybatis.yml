@@ -16,7 +16,10 @@ mybatis-plus:
     # 更详细的日志输出 会有性能损耗 org.apache.ibatis.logging.stdout.StdOutImpl
     # 默认日志输出 org.apache.ibatis.logging.slf4j.Slf4jImpl
     logImpl: org.apache.ibatis.logging.nologging.NoLoggingImpl
-  type-aliases-package: top.lrshuai.*.api.entity
+  type-aliases-package: top.lrshuai.*.api.*
+  mapper-locations:
+    - classpath:mapper/*/*.xml
+    - classpath*:mapper/*/*/*.xml
   global-config:
     # 是否打印 Logo banner
     banner: true
