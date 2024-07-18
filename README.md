@@ -29,6 +29,8 @@
   - springcloud-common-logstash 集成ELK,elasticsearch和kibana自己安装
   - springcloud-common-prometheus 集成prometheus(普罗米西斯)
   - springcloud-common-skylog 收集skywalking日志
+  - springcloud-common-satoken sa-token权限校验
+  - springcloud-common-api-encrypt api接口RSA+AES加解密
 - springcloud-scheduled  分布式定时任务xxl-job
   - springcloud-scheduled-admin 定时器后台管理
   - springcloud-scheduled-demo  定时器执行器demo
