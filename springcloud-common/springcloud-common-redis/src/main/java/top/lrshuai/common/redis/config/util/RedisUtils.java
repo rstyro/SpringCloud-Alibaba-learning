@@ -3,6 +3,7 @@ package top.lrshuai.common.redis.config.util;
 import cn.hutool.extra.spring.SpringUtil;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.*;
 import top.lrshuai.common.redis.config.enums.RedisKeyEnum;
 
@@ -21,11 +22,58 @@ import java.util.stream.Stream;
  * @author Lion Li
  * @version 3.1.0 新增
  */
+@Slf4j
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @SuppressWarnings(value = {"unchecked", "rawtypes"})
 public class RedisUtils {
 
     private static final RedissonClient CLIENT = SpringUtil.getBean(RedissonClient.class);
+
+    /**
+     * 获取锁
+     *
+     * @param name 锁名称
+     * @return RLock
+     */
+    public static RLock getLock(String name) {
+        return CLIENT.getLock(name);
+    }
+
+    /**
+     * 尝试获取锁并执行指定的代码块
+     * @param lockName 锁名称
+     * @param action   要执行的代码块
+     * @param fail   获取锁失败时要执行的代码块
+     */
+    public static void withLock(String lockName, Runnable action, Runnable fail) {
+        if (lockName == null || action == null) {
+            throw new IllegalArgumentException("锁名称或action不能为空");
+        }
+        RLock lock = getLock(lockName);
+        boolean locked = false;
+        try {
+            locked = lock.tryLock();
+            if (locked) {
+                action.run();
+            } else if (fail != null) {
+                fail.run();
+            }
+        } catch (Exception e) {
+            log.error("action或fail任务执行失败，lockName={}: {}", lockName, e.getMessage(), e);
+        } finally {
+            if (locked) {
+                unlock(lock, lockName);
+            }
+        }
+    }
+
+    private static void unlock(RLock lock, String lockName) {
+        try {
+            lock.unlock();
+        } catch (Exception e) {
+            log.error("Error unlocking lock {}: {}", lockName, e.getMessage(), e);
+        }
+    }
 
     /**
      * 限流
@@ -133,14 +181,14 @@ public class RedisUtils {
     /**
      * 缓存基本的对象，Integer、String、实体类等
      *
-     * @param redisKeyEnum      缓存的键值
-     * @param value    缓存的值
+     * @param redisKeyEnum 缓存的键值
+     * @param value        缓存的值
      */
     public static <T> void setCacheObject(RedisKeyEnum redisKeyEnum, final T value) {
-        if(redisKeyEnum.getExpireTime()>0){
-            setCacheObject(redisKeyEnum.getKey(),value,Duration.ofMillis(redisKeyEnum.getExpireTime()));
-        }else {
-            setCacheObject(redisKeyEnum.getKey(),value,Boolean.FALSE);
+        if (redisKeyEnum.getExpireTime() > 0) {
+            setCacheObject(redisKeyEnum.getKey(), value, Duration.ofMillis(redisKeyEnum.getExpireTime()));
+        } else {
+            setCacheObject(redisKeyEnum.getKey(), value, Boolean.FALSE);
         }
     }
 
@@ -159,14 +207,14 @@ public class RedisUtils {
     /**
      * 如果不存在则设置 并返回 true 如果存在则返回 false
      *
-     * @param redisKeyEnum   缓存的键值
-     * @param value 缓存的值
+     * @param redisKeyEnum 缓存的键值
+     * @param value        缓存的值
      * @return set成功或失败
      */
     public static <T> boolean setObjectIfAbsent(RedisKeyEnum redisKeyEnum, final T value) {
         RBucket<T> bucket = CLIENT.getBucket(redisKeyEnum.getKey());
         long expireTime = redisKeyEnum.getExpireTime();
-        return expireTime>0?bucket.setIfAbsent(value, Duration.ofMillis(expireTime)):bucket.setIfAbsent(value);
+        return expireTime > 0 ? bucket.setIfAbsent(value, Duration.ofMillis(expireTime)) : bucket.setIfAbsent(value);
     }
 
     /**
