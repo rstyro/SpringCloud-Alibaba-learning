@@ -12,6 +12,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.Callable;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -40,38 +42,59 @@ public class RedisUtils {
     }
 
     /**
+     * 无超时的锁处理
      * 尝试获取锁并执行指定的代码块
      * @param lockName 锁名称
      * @param action   要执行的代码块
-     * @param fail   获取锁失败时要执行的代码块
+     * @param fail     获取锁失败时执行的代码块
      */
-    public static void withLock(String lockName, Runnable action, Runnable fail) {
-        if (lockName == null || action == null) {
-            throw new IllegalArgumentException("锁名称或action不能为空");
-        }
+    public static <T> T withLock(String lockName, Callable<T> action, Callable<T> fail) {
+        // -1表示不使用超时
+        return withLockHandle(lockName, action, fail, -1L, null);
+    }
+
+    /**
+     * 带超时的锁处理
+     */
+    public static <T> T withLock(String lockName, Callable<T> action, Callable<T> fail, long timeout, TimeUnit unit) {
+        return withLockHandle(lockName, action, fail, timeout, unit);
+    }
+
+    /**
+     * 私有辅助方法，封装锁逻辑
+     * @param lockName 锁名称
+     * @param action 要执行的代码块
+     * @param fail 获取锁失败时执行的代码块
+     * @param timeout 超时时间
+     * @param unit 时间单位
+     * @return T
+     * @param <T> 泛型
+     */
+    private static <T> T withLockHandle(String lockName, Callable<T> action, Callable<T> fail, Long timeout, TimeUnit unit) {
         RLock lock = getLock(lockName);
         boolean locked = false;
         try {
-            locked = lock.tryLock();
-            if (locked) {
-                action.run();
-            } else if (fail != null) {
-                fail.run();
+            // 尝试获取锁
+            if (timeout != null && timeout > 0) {
+                // 如果在指定时间内未能获取到锁，则返回false
+                locked = lock.tryLock(timeout, unit);
+            } else {
+                //非阻塞尝试获取锁，如果锁已被其他线程占用，则立即返回false
+                locked = lock.tryLock();
             }
+            if (locked) {
+                return action.call();  // 成功获取锁，直接返回结果
+            }
+            // 如果获取锁失败且提供了失败处理
+            return (fail != null) ? fail.call() : null;
         } catch (Exception e) {
-            log.error("action或fail任务执行失败，lockName={}: {}", lockName, e.getMessage(), e);
+            log.error("Error executing action or fail block for lock {}: {}", lockName, e.getMessage(), e);
+            throw new RuntimeException(e);
         } finally {
+            // 确保在成功获取锁的情况下释放锁
             if (locked) {
-                unlock(lock, lockName);
+                lock.unlock();
             }
-        }
-    }
-
-    private static void unlock(RLock lock, String lockName) {
-        try {
-            lock.unlock();
-        } catch (Exception e) {
-            log.error("Error unlocking lock {}: {}", lockName, e.getMessage(), e);
         }
     }
 
