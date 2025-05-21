@@ -77,7 +77,7 @@ route:
   dynamic:
     enabled: true
     namespace: 94455b2a-cf66-40b5-819b-bba352aaa4f1
-    dataId: gateway_route
+    dataId: gateway-route
     group: DEFAULT_GROUP
 
 

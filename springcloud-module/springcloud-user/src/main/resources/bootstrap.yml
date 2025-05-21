@@ -25,3 +25,7 @@ management:
       exposure:
         # 如果暴露所有就 '*' 需要用单引号包起来
         include: '*'
+
+
+mybatis-plus:
+  mapperPackage: top.lrshuai.user.mapper.**

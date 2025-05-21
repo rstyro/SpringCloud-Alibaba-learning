@@ -29,3 +29,10 @@ management:
       exposure:
         # 如果暴露所有就 '*' 需要用单引号包起来
         include: prometheus,health
+
+gateway:
+  common:
+    whites:
+      - /doc.html
+      - /webjars/**
+      - /v3/api-docs/**
